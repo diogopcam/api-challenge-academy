@@ -6,13 +6,8 @@
 	objectVersion = 77;
 	objects = {
 
-/* Begin PBXBuildFile section */
-		AD95A8452E4D1BD100B7AA14 /* gitignore.txt in Resources */ = {isa = PBXBuildFile; fileRef = AD95A8442E4D1BD100B7AA14 /* gitignore.txt */; };
-/* End PBXBuildFile section */
-
 /* Begin PBXFileReference section */
 		AD3E30372E4D1727009DFDC0 /* api-challenge.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "api-challenge.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		AD95A8442E4D1BD100B7AA14 /* gitignore.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = gitignore.txt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -37,7 +32,6 @@
 		AD3E302E2E4D1726009DFDC0 = {
 			isa = PBXGroup;
 			children = (
-				AD95A8442E4D1BD100B7AA14 /* gitignore.txt */,
 				AD3E30392E4D1727009DFDC0 /* api-challenge */,
 				AD3E30382E4D1727009DFDC0 /* Products */,
 			);
@@ -115,7 +109,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AD95A8452E4D1BD100B7AA14 /* gitignore.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -258,7 +251,6 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"api-challenge/Preview Content\"";
 				DEVELOPMENT_TEAM = 7BUDD8LAH7;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -287,7 +279,6 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"api-challenge/Preview Content\"";
 				DEVELOPMENT_TEAM = 7BUDD8LAH7;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
