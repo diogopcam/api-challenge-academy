@@ -96,4 +96,35 @@ enum CategoryFormatter {
             return formatted
         }
     }
+    
+    
+    var iconName: String {
+        switch self {
+        case .beauty: return "sparkles"
+        case .fragrances: return "sparkle"
+        case .furniture: return "chair"
+        case .groceries: return "basket"
+        case .homeDecoration: return "house"
+        case .kitchenAccessories: return "fork.knife"
+        case .laptops: return "laptopcomputer"
+        case .mensShirts: return "tshirt"
+        case .mensShoes: return "shoe"
+        case .mensWatches: return "clock"
+        case .mobileAccessories: return "iphone"
+        case .motorcycle: return "bicycle"
+        case .skinCare: return "bandage"
+        case .smartphones: return "iphone.gen3"
+        case .sportsAccessories: return "sportscourt"
+        case .sunglasses: return "glasses"
+        case .tablets: return "ipad"
+        case .tops: return "tshirt"
+        case .vehicle: return "car"
+        case .womensBags: return "bag"
+        case .womensDresses: return "figure.stand.dress"
+        case .womensJewellery: return "diamond"
+        case .womensShoes: return "shoe"
+        case .womensWatches: return "clock"
+        case .custom: return "tag"
+        }
+    }
 }
