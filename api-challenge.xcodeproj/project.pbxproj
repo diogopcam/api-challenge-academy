@@ -8,11 +8,15 @@
 
 /* Begin PBXBuildFile section */
 		ADBE38F42E4E605C00BB0504 /* ProductListStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADBE38F32E4E605C00BB0504 /* ProductListStyle.swift */; };
+		ADBE38F62E4E6DA500BB0504 /* ProductsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADBE38F52E4E6DA500BB0504 /* ProductsService.swift */; };
+		ADBE38F82E4E6DCA00BB0504 /* ProductsServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADBE38F72E4E6DCA00BB0504 /* ProductsServiceProtocol.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		AD3E30372E4D1727009DFDC0 /* api-challenge.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "api-challenge.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		ADBE38F32E4E605C00BB0504 /* ProductListStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductListStyle.swift; sourceTree = "<group>"; };
+		ADBE38F52E4E6DA500BB0504 /* ProductsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductsService.swift; sourceTree = "<group>"; };
+		ADBE38F72E4E6DCA00BB0504 /* ProductsServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductsServiceProtocol.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -40,6 +44,8 @@
 				AD3E30392E4D1727009DFDC0 /* api-challenge */,
 				AD3E30382E4D1727009DFDC0 /* Products */,
 				ADBE38F32E4E605C00BB0504 /* ProductListStyle.swift */,
+				ADBE38F52E4E6DA500BB0504 /* ProductsService.swift */,
+				ADBE38F72E4E6DCA00BB0504 /* ProductsServiceProtocol.swift */,
 			);
 			sourceTree = "<group>";
 		};
@@ -125,7 +131,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ADBE38F62E4E6DA500BB0504 /* ProductsService.swift in Sources */,
 				ADBE38F42E4E605C00BB0504 /* ProductListStyle.swift in Sources */,
+				ADBE38F82E4E6DCA00BB0504 /* ProductsServiceProtocol.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
