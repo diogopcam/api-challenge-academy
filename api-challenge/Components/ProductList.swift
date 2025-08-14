@@ -28,24 +28,20 @@ struct ProductList: View {
                 .frame(width: imageSize, height: imageSize)
                 .clipShape(RoundedRectangle(cornerRadius: 8))
             
-            // Product Info
             VStack(alignment: .leading, spacing: 4) {
                 Text(productName)
-                    .font(.system(size: 16, weight: .medium))
-                    .lineLimit(2)
+                    .font(.system(size: 13, weight: .regular))
+                    .lineLimit(nil)
                     .multilineTextAlignment(.leading)
-                    .foregroundColor(.primary)
+                    .foregroundColor(.labelsPrimary)
                 
                 Text(formattedPrice)
-                    .font(.system(size: 16, weight: .bold))
-                    .foregroundColor(.primary)
+                    .font(.system(size: 17, weight: .semibold))
+                    .foregroundColor(.labelsPrimary)
             }
             .frame(maxWidth: .infinity, alignment: .leading)
             
-            // Quantity Stepper
-            // Custom Stepper with visible quantit
-            HStack(spacing: 16) {
-                // Botão de diminuir (-)
+            HStack(spacing: 8) {
                 Button {
                     if quantity > 0 { quantity -= 1 }
                 } label: {
@@ -77,9 +73,9 @@ struct ProductList: View {
         }
         .padding(12)
         .frame(width: cardWidth, height: cardHeight)
-        .background(Color(.systemBackground))
+        .background(.backgroundsSecondary)
         .clipShape(RoundedRectangle(cornerRadius: cornerRadius))
-        .shadow(color: Color.black.opacity(0.1), radius: 5, x: 0, y: 2)
+//        .shadow(color: Color.black.opacity(0.1), radius: 5, x: 0, y: 2)x
     }
     
     private var formattedPrice: String {
