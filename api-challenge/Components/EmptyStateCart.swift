@@ -1,0 +1,33 @@
+//
+//  EmptyStateCart.swift
+//  api-challenge
+//
+//  Created by Eduardo Ferrari on 14/08/25.
+//
+
+import SwiftUI
+
+struct EmptyStateCart: View {
+    var body: some View {
+        VStack(spacing: 8) {
+            Image(.emptyStateCart)
+                .resizable()
+                .frame(width: 69, height: 65)
+            VStack(spacing: 16) {
+                Text("Your cart is empty!")
+                    .font(.system(.body, weight: .semibold))
+                    .foregroundStyle(.labelsPrimary)
+            }
+            
+            Text("Add an item to your cart.")
+                .foregroundStyle(.labelsSecondary)
+        }
+        
+        
+        
+    }
+}
+
+#Preview {
+    EmptyStateCart()
+}
