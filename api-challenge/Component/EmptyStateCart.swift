@@ -22,9 +22,6 @@ struct EmptyStateCart: View {
             Text("Add an item to your cart.")
                 .foregroundStyle(.labelsSecondary)
         }
-        
-        
-        
     }
 }
 
