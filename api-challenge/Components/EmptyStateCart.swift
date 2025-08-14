@@ -12,7 +12,7 @@ struct EmptyStateCart: View {
         VStack(spacing: 8) {
             Image(.emptyStateCart)
                 .resizable()
-                .frame(width: 69, height: 65)
+                .frame(width: 71, height: 69)
             VStack(spacing: 16) {
                 Text("Your cart is empty!")
                     .font(.system(.body, weight: .semibold))
