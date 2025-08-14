@@ -8,12 +8,15 @@
 import SwiftUI
 
 struct CategoryList: View {
-    let name: String
+    let apiCategoryName: String
+    var formattedName: String {
+        CategoryFormatter(apiValue: apiCategoryName).formattedName
+    }
     
     var body: some View {
         VStack(spacing: 0) {
             HStack {
-                Text(name)
+                Text(formattedName)
                     .font(.system(size: 17, weight: .regular))
                     .foregroundColor(.labelsPrimary)
                 
@@ -30,13 +33,5 @@ struct CategoryList: View {
                 .overlay(.separatorsNonopaque)
         }
         .padding(.horizontal)
-    }
-}
-
-#Preview {
-    VStack {
-        CategoryList(name: "Eletrônicos")
-        CategoryList(name: "Moda")
-        CategoryList(name: "Casa e Decoração")
     }
 }

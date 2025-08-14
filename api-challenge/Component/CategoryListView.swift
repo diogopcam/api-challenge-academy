@@ -8,23 +8,19 @@
 import SwiftUI
 
 struct CategoryListView: View {
-    let categories: [String]
+    let apiCategories: [String]
     
     var body: some View {
         ScrollView {
             LazyVStack(spacing: 0) {
-                ForEach(categories, id: \.self) { category in
-                    CategoryList(name: category)
+                ForEach(apiCategories, id: \.self) { apiCategory in
+                    CategoryList(apiCategoryName: apiCategory)
                     
-                    if category != categories.last {
+                    if apiCategory != apiCategories.last {
                         Divider()
                     }
                 }
             }
         }
     }
-}
-
-#Preview {
-    CategoryListView(categories: ["Categoria 2", "Categoria 1", "Categoria 3"])
 }

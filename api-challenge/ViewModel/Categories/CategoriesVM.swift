@@ -9,7 +9,7 @@ import Foundation
 
 @Observable
 class CategoriesVM: CategoriesVMProtocol {
-    var categories: [String] = []
+    var apiCategories: [String] = []
     var isLoading: Bool = false
     var errorMessage: String?
     
@@ -24,7 +24,7 @@ class CategoriesVM: CategoriesVMProtocol {
         errorMessage = nil
         
         do {
-            categories = try await service.fetchCategories()
+            apiCategories = try await service.fetchCategories()
         } catch {
             errorMessage = "Error to fetch Categories: \(error.localizedDescription)"
         }

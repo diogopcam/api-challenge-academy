@@ -5,7 +5,6 @@
 //  Created by Diogo Camargo on 14/08/25.
 //
 
-
 enum CategoryFormatter {
     case beauty
     case fragrances

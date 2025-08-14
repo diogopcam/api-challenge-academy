@@ -19,7 +19,7 @@ struct CategoriesView: View {
                         Task { await viewModel.loadCategories() }
                     }
                 } else {
-                    CategoryListView(categories: viewModel.categories)
+                    CategoryListView(apiCategories: viewModel.apiCategories)
                 }
             }
             .navigationTitle("Categories")
