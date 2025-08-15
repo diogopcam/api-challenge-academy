@@ -47,7 +47,7 @@ struct ProductCardV: View {
                     .frame(height: 40, alignment: .topLeading)
                     .lineLimit(2)
                     .font(.system(size: 15, weight: .regular))
-                Text("US$ \(product.price)")
+                Text(String(format: "US$ %.2f", product.price))
                     .font(.system(size: 17, weight: .semibold))
             }
             .frame(width: 160, alignment: .leading) // garante alinhamento
