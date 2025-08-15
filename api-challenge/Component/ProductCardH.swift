@@ -8,15 +8,29 @@
 import SwiftUI
 
 struct ProductCardH: View {
+    let product: ProductDTO
     
     var body: some View {
         HStack {
             HStack (spacing: 8){
                 HStack {
-                    Image(.placeholder)
-                        .resizable()
-                        .frame(width: 160, height: 160)
-                        .cornerRadius(16)
+//                    AsyncImage(url: URL(string: product.thumbnail)) { image in
+//                        image
+//                            .resizable()
+//                            .aspectRatio(contentMode: .fill)
+//                    } placeholder: {
+//                        Color.gray.opacity(0.2)
+//                    }
+                    AsyncImage(url: URL(string: product.thumbnail)) { image in
+                        image
+                            .resizable()
+                            .aspectRatio(contentMode: .fill)
+                    }  placeholder: {
+                        Image(.placeholder)
+                            .resizable()
+                            .frame(width: 160, height: 160)
+                            .cornerRadius(16)
+                    }
                 }
                 .padding(.vertical, 8)
                 .padding(.leading, 8)
@@ -24,7 +38,7 @@ struct ProductCardH: View {
                 VStack() {
                     VStack (alignment: .leading, spacing: 32) {
                         HStack() {
-                            Text("CATEGORY")
+                            Text(product.category)
                                 .foregroundStyle(.labelsSecondary)
                             Spacer()
                             
@@ -44,10 +58,10 @@ struct ProductCardH: View {
                             .padding(.trailing, 8)
                         }
                         VStack (alignment: .leading,spacing: 4) {
-                            Text("Product name with two\nor more lines goes here.")
+                            Text(product.title)
                                 .foregroundStyle(.labelsPrimary)
                                 
-                            Text("US$ 00.00")
+                            Text("US$ \(product.price)")
                                 .font(.system(.body, weight: .semibold))
                                 .foregroundStyle(.labelsPrimary)
                         }
@@ -66,6 +80,6 @@ struct ProductCardH: View {
 }
     
 
-#Preview {
-    ProductCardH()
-}
+//#Preview {
+//    ProductCardH()
+//}

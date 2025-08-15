@@ -21,3 +21,4 @@ protocol CategoriesVMProtocol {
     var errorMessage: String? { get }
     func loadCategories() async
 }
+

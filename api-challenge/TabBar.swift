@@ -11,6 +11,7 @@ struct TabBar: View {
    
     // Instâncias das ViewModels
     private let categoriesVM = CategoriesVM()
+    private let homeVM = HomeVM()
     // Adicione aqui as outras ViewModels conforme necessário
     // private let cartVM = CartViewModel()
     // private let favoritesVM = FavoritesViewModel()
@@ -20,7 +21,7 @@ struct TabBar: View {
         TabView {
             // Home Tab
             NavigationStack {
-                HomeView()
+                HomeView(viewModel: homeVM)
             }
             .tabItem {
                 Label("Home", systemImage: "house.fill")
