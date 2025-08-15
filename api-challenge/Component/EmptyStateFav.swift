@@ -9,7 +9,22 @@ import SwiftUI
 
 struct EmptyStateFav: View {
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        
+        VStack(spacing: 32){
+            VStack(spacing: 8) {
+                Image(.emptyStateFav)
+                    .resizable()
+                    .frame(width: 65, height: 69)
+                VStack(spacing: 16) {
+                    Text("No favorites yet!")
+                        .font(.system(.body, weight: .semibold))
+                        .foregroundStyle(.labelsPrimary)
+                    
+                    Text("Favorite an item and it show up here.")
+                        .foregroundStyle(.labelsSecondary)
+                }
+            }
+        }
     }
 }
 

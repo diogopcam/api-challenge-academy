@@ -7,30 +7,27 @@
 
 import SwiftUI
 
-struct EmptyStateOrders: View {
+struct EmptyStateCart: View {
     var body: some View {
         
         VStack(spacing: 32) {
             VStack(spacing: 8) {
-                Image(.emptyStateOrders)
+                Image(.emptyStateCart)
                     .resizable()
-                    .frame(width: 65, height: 69)
+                    .frame(width: 75, height: 69)
                 VStack(spacing: 16) {
-                    Text("No orders yet!")
+                    Text("Your cart is empty!")
                         .font(.system(.body, weight: .semibold))
                         .foregroundStyle(.labelsPrimary)
                     
-                    Text("Buy an item and it will show up here.")
+                    Text("Add an item to your cart.")
                         .foregroundStyle(.labelsSecondary)
                 }
             }
         }
-        
-        
-        
     }
 }
 
 #Preview {
-    EmptyStateOrders()
+    EmptyStateCart()
 }
