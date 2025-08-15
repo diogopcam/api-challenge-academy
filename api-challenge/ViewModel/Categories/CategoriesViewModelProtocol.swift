@@ -16,7 +16,7 @@
 import Foundation
 
 protocol CategoriesVMProtocol {
-    var categories: [String] { get }
+    var apiCategories: [String] { get }
     var isLoading: Bool { get }
     var errorMessage: String? { get }
     func loadCategories() async
