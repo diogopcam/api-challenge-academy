@@ -5,10 +5,18 @@
 //  Created by Diogo Camargo on 13/08/25.
 //
 import SwiftUI
+import SwiftData
 
 struct CategoriesView: View {
-    @Bindable var viewModel: CategoriesVM
     @State private var searchText = ""
+    @State private var viewModel: CategoriesVM
+    @Environment(\.modelContext) private var modelContext
+    
+    init() {
+        // Contexto temporário para inicialização (será substituído)
+//        _ = try! ModelContext(ModelContainer(for: Product.self))
+        viewModel = CategoriesVM()
+    }
     
     var body: some View {
         NavigationStack {

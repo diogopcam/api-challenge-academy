@@ -8,20 +8,14 @@
 import SwiftUI
 
 struct TabBar: View {
-   
-    // Instâncias das ViewModels
-    private let categoriesVM = CategoriesVM()
-    private let homeVM = HomeVM()
-    // Adicione aqui as outras ViewModels conforme necessário
-    // private let cartVM = CartViewModel()
-    // private let favoritesVM = FavoritesViewModel()
-    // private let ordersVM = OrdersViewModel()
+    // Removemos as instâncias diretas das ViewModels
+    // Elas serão criadas dentro de cada View com o contexto apropriado
     
     var body: some View {
         TabView {
             // Home Tab
             NavigationStack {
-                HomeView(viewModel: homeVM)
+                HomeView() // Agora inicializa seu próprio ViewModel com o contexto
             }
             .tabItem {
                 Label("Home", systemImage: "house.fill")
@@ -29,7 +23,7 @@ struct TabBar: View {
             
             // Categories Tab
             NavigationStack {
-                CategoriesView(viewModel: categoriesVM)
+                CategoriesView() // Mesmo padrão para Categories
             }
             .tabItem {
                 Label("Categories", systemImage: "square.grid.2x2.fill")
@@ -65,5 +59,5 @@ struct TabBar: View {
 
 #Preview {
     TabBar()
-        .modelContainer(for: Product.self, inMemory: true) // Preview com banco temporário
+        .modelContainer(for: Product.self, inMemory: true)
 }

@@ -7,9 +7,15 @@
 
 
 import SwiftUI
+import SwiftData
 
 struct HomeView: View {
-    @Bindable var viewModel: HomeVM
+    @Environment(\.modelContext) public var modelContext
+    @State private var viewModel = HomeVM()
+
+//    init() {
+//        _viewModel = State(initialValue: HomeVM(modelContext: modelContext))
+//    }
     
     var body: some View {
         NavigationStack {
@@ -48,6 +54,8 @@ struct HomeView: View {
             }
         }
         .task {
+            // Atualiza o modelContext da ViewModel quando o contexto real estiver disponível
+            viewModel.modelContext = modelContext
             await viewModel.loadProducts()
         }
     }
