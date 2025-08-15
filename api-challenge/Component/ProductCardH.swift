@@ -14,13 +14,6 @@ struct ProductCardH: View {
         HStack {
             HStack (spacing: 8){
                 HStack {
-//                    AsyncImage(url: URL(string: product.thumbnail)) { image in
-//                        image
-//                            .resizable()
-//                            .aspectRatio(contentMode: .fill)
-//                    } placeholder: {
-//                        Color.gray.opacity(0.2)
-//                    }
                     AsyncImage(url: URL(string: product.thumbnail)) { image in
                         image
                             .resizable()
