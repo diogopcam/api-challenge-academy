@@ -27,9 +27,9 @@ struct ProductCardH: View {
                             Text("CATEGORY")
                                 .foregroundStyle(.labelsSecondary)
                             Spacer()
-                            // Botão favorito no topo direito
+                            
                             Button {
-                            // ação do botão
+                            
                             } label: {
                                 Image(systemName: "heart")
                                     .resizable()
@@ -47,7 +47,8 @@ struct ProductCardH: View {
                             Text("Product name with two\nor more lines goes here.")
                                 .foregroundStyle(.labelsPrimary)
                                 
-                            Text("US$ 00,00")
+                            Text("US$ 00.00")
+                                .font(.system(.body, weight: .semibold))
                                 .foregroundStyle(.labelsPrimary)
                         }
                         .padding(.trailing, 8)
