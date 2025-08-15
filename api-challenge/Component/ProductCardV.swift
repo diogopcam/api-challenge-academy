@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ProductCardV: View {
     var body: some View {
-            VStack(alignment: .leading, spacing: 8) {
+            VStack(alignment: .leading) {
                 ZStack(alignment: .topTrailing) {
                     Image(.placeholder)
                         .resizable()
@@ -38,16 +38,20 @@ struct ProductCardV: View {
                 .padding(.top, 8)
 
                 VStack(alignment: .leading, spacing: 4) {
-                    Text("Product name with two\nor more lines goes here")
-                        .font(.body)
+                    Text("Product name with two or more lines goes here.")
+                        .font(.system(size: 14,weight: .regular))
+                        .lineLimit(3)
                         .foregroundStyle(.labelsPrimary)
-                    
+                        .multilineTextAlignment(.leading)
+                        .frame(maxWidth: .infinity)
+                           
                     Text("US$ 00.00")
                         .font(.system(.body, weight: .semibold))
                         .foregroundStyle(.labelsPrimary)
                 }
                 .padding(.horizontal, 8)
-                .padding(.bottom, 12)
+                .padding(.bottom, 8)
+                .frame(width: 177, height: 76)
             }
             .background(
                 RoundedRectangle(cornerRadius: 16)

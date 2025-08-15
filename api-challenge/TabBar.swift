@@ -64,4 +64,5 @@ struct TabBar: View {
 
 #Preview {
     TabBar()
+        .modelContainer(for: Product.self, inMemory: true) // Preview com banco temporário
 }
