@@ -9,36 +9,47 @@ import SwiftUI
 
 struct Category1View: View {
     let categoryName: String
-    @State private var searchText: String = ""
-    @State private var showSheet = false
+    @State private var searchText = ""
+    @State private var selectedProduct: ProductDTO? = nil
+    @State private var viewModel = CategoryProductsVM()
 
     var body: some View {
         List {
-            Section {
-                LazyVGrid(columns: [
-                    GridItem(.flexible(), spacing: 8),
-                    GridItem(.flexible(), spacing: 8)
-                ], spacing: 8) {
-                    ForEach(0..<20, id: \.self) { _ in
-                        ProductCardV()
-                            .onTapGesture {
-                                showSheet = true
-                            }
-                            .listRowInsets(EdgeInsets())
+            if viewModel.isLoading {
+                ProgressView()
+            } else if let error = viewModel.errorMessage {
+                Text(error).foregroundColor(.red)
+            } else {
+                Section {
+                    LazyVGrid(columns: [
+                        GridItem(.flexible(), spacing: 8),
+                        GridItem(.flexible(), spacing: 8)
+                    ], spacing: 8) {
+                        ForEach(viewModel.products) { product in
+                            ProductCardV(product: product)
+                                .onTapGesture {
+                                    selectedProduct = product
+                                }
+                                .listRowInsets(EdgeInsets())
+                        }
                     }
+                    .padding(.vertical, 8)
                 }
-                .padding(.vertical, 8)
             }
         }
         .listStyle(.plain)
         .navigationTitle(categoryName)
         .navigationBarTitleDisplayMode(.inline)
         .searchable(text: $searchText, prompt: "Search...")
-        .sheet(isPresented: $showSheet) {
-            ProductDetailsSheet()
+        .sheet(item: $selectedProduct) { product in
+            ProductDetailsSheet(product: product)
+        }
+        .task {
+            await viewModel.loadProducts(for: categoryName)
         }
     }
 }
+
 
 //#Preview {
 //    Category1View()

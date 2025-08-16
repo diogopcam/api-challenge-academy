@@ -6,35 +6,34 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct ProductDetailsSheet: View {
+    let product: ProductDTO
     @Environment(\.dismiss) var dismiss
-    @State private var text: String = "hgfjhwegdejhwgdjhewgdjehwgjhewgdjhewgdjhewgdhjewghdjgewjdgewhjdgewjhdghjewgdjhewdgjehwdewgdhjewgdjhgewjhdghjewdgewjhdghwedjwehjdg"
-    
+
     var body: some View {
         VStack(spacing: 0) {
-            
-            // Título
             Text("Details")
                 .font(.system(size: 17, weight: .semibold))
                 .padding(.top, 20)
-            
+
             ScrollView {
                 VStack(spacing: 16) {
-                    ProductCardVBig()
-                        //.frame(width: 361, height: 459)
+                    ProductCardVBig(product: product)
                         .padding(.top, 16)
-                       // .padding(.horizontal)
                         .frame(maxWidth: .infinity)
-                    TextEditor(text: $text)
-                        .frame(width: 361, height: 459)
-                        
+
+                    Text(product.description)
+                        .padding()
+                        .frame(width: 361, alignment: .leading)
+                        .foregroundStyle(.labelsSecondary)
+                        .cornerRadius(8)
                 }
-                .padding(.bottom, 20) // para não colar no botão
-                
+                .padding(.bottom, 20)
             }
+
             Button(action: {
-                // ação do botão
                 dismiss()
             }) {
                 Text("Add to cart")
@@ -50,12 +49,11 @@ struct ProductDetailsSheet: View {
         }
         .presentationDetents([.large])
         .presentationDragIndicator(.visible)
-//        .navigationBarTitle("Details")
-//        .navigationBarTitleDisplayMode(.inline)
     }
 }
 
 
-#Preview {
-    ProductDetailsSheet()
-}
+
+//#Preview {
+//    ProductDetailsSheet()
+//}
