@@ -13,7 +13,7 @@ struct api_challengeApp: App {
     
     // Container compartilhado
     let sharedModelContainer: ModelContainer = {
-        let schema = Schema([Product.self])
+        let schema = Schema([Product.self, CartItem.self])
         
         let configuration = ModelConfiguration() // pode customizar nome do arquivo ou modo inMemory
         

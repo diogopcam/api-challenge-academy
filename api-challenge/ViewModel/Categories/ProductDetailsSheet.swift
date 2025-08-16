@@ -9,8 +9,12 @@ import SwiftUI
 import SwiftData
 
 struct ProductDetailsSheet: View {
+    @Environment(\.modelContext) private var modelContext
+    @Binding var cartVM: CartViewModel
+    
     let product: ProductDTO
     @Environment(\.dismiss) var dismiss
+    
 
     var body: some View {
         VStack(spacing: 0) {
@@ -34,6 +38,12 @@ struct ProductDetailsSheet: View {
             }
 
             Button(action: {
+//                if cartVM == nil {
+//                    cartVM = CartViewModel(context: modelContext)
+//                }
+//
+//                cartVM?.add(product: product)
+                cartVM.add(product: product)
                 dismiss()
             }) {
                 Text("Add to cart")

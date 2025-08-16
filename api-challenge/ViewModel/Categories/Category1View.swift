@@ -6,12 +6,17 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct Category1View: View {
     let categoryName: String
     @State private var searchText = ""
     @State private var selectedProduct: ProductDTO? = nil
     @State private var viewModel = CategoryProductsVM()
+    
+    @Environment(\.modelContext) private var modelContext
+    @State private var cartViewModel: CartViewModel? = nil
+
 
     var body: some View {
         List {
@@ -42,11 +47,18 @@ struct Category1View: View {
         .navigationBarTitleDisplayMode(.inline)
         .searchable(text: $searchText, prompt: "Search...")
         .sheet(item: $selectedProduct) { product in
-            ProductDetailsSheet(product: product)
-        }
+                    if let cartVM = cartViewModel {
+                        ProductDetailsSheet(cartVM: Binding(get: { cartVM }, set: { cartViewModel = $0 }), product: product)
+                    }
+                }
         .task {
             await viewModel.loadProducts(for: categoryName)
         }
+        .onAppear {
+                    if cartViewModel == nil {
+                        cartViewModel = CartViewModel(context: modelContext)
+                    }
+                }
     }
 }
 
