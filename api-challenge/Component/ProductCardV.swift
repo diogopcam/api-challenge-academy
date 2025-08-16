@@ -30,6 +30,7 @@ struct ProductCardV: View {
                                 RoundedRectangle(cornerRadius: 8)
                                     .foregroundColor(Color(.systemGray5))
                             )
+                            .foregroundStyle(.labelsPrimary)
                     }
                     .frame(width: 38, height: 38)
                     
@@ -40,7 +41,7 @@ struct ProductCardV: View {
                 VStack(alignment: .leading, spacing: 4) {
                     Text("Product name with two or more lines goes here.")
                         .font(.system(size: 14,weight: .regular))
-                        .lineLimit(3)
+                        .lineLimit(2)
                         .foregroundStyle(.labelsPrimary)
                         .multilineTextAlignment(.leading)
                         .frame(maxWidth: .infinity)
@@ -57,7 +58,7 @@ struct ProductCardV: View {
                 RoundedRectangle(cornerRadius: 16)
                     .foregroundStyle(.backgroundsSecondary)
             )
-            .frame(width: 177, height: 250)
+            //.frame(width: 177, height: 250)
         }
 }
 

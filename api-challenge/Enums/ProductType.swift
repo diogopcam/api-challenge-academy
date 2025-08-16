@@ -9,4 +9,5 @@ enum ProductType: Int, Codable {
     case favorite
     case purchased
     case cart
+    case none
 }
