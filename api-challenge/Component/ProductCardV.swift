@@ -8,59 +8,60 @@
 import SwiftUI
 
 struct ProductCardV: View {
+    let product: ProductDTO
+    
     var body: some View {
-            VStack(alignment: .leading) {
-                ZStack(alignment: .topTrailing) {
-                    Image(.placeholder)
+        VStack(alignment: .leading) {
+            ZStack(alignment: .topTrailing) {
+                AsyncImage(url: URL(string: product.thumbnail)) { image in
+                    image
                         .resizable()
-                        //.scaledToFill()
-                        .frame(width:161, height: 160)
-                        //.frame(maxWidth: .infinity)
-                        //.clipped()
+                        .aspectRatio(contentMode: .fill)
+                        .frame(width: 161, height: 160)
                         .cornerRadius(8)
-
-                    Button {
-                        // ação do botão
-                    } label: {
-                        Image(systemName: "heart")
-                            .resizable()
-                            .frame(width: 20, height: 20)
-                            .padding(8)
-                            .background(
-                                RoundedRectangle(cornerRadius: 8)
-                                    .foregroundColor(Color(.systemGray5))
-                            )
-                    }
-                    .frame(width: 38, height: 38)
-                    
+                } placeholder: {
+                    Color.gray
+                        .frame(width: 160, height: 160)
+                        .cornerRadius(8)
                 }
-                .padding(.horizontal, 8)
-                .padding(.top, 8)
 
-                VStack(alignment: .leading, spacing: 4) {
-                    Text("Product name with two or more lines goes here.")
-                        .font(.system(size: 14,weight: .regular))
-                        .lineLimit(3)
-                        .foregroundStyle(.labelsPrimary)
-                        .multilineTextAlignment(.leading)
-                        .frame(maxWidth: .infinity)
-                           
-                    Text("US$ 00.00")
-                        .font(.system(.body, weight: .semibold))
-                        .foregroundStyle(.labelsPrimary)
+                Button {
+                    print("Coração clicado!")
+                } label: {
+                    Image(systemName: "heart")
+                        .foregroundColor(.labelsPrimary)
+                        .frame(width: 18, height: 18)
+                        .padding(8)
+                        .background(
+                            RoundedRectangle(cornerRadius: 8)
+                                .foregroundColor(.fillsTertiary)
+                        )
                 }
-                .padding(.horizontal, 8)
-                .padding(.bottom, 8)
-                .frame(width: 177, height: 76)
             }
-            .background(
-                RoundedRectangle(cornerRadius: 16)
-                    .foregroundStyle(.backgroundsSecondary)
-            )
-            .frame(width: 177, height: 250)
+            .frame(width: 160, height: 160)
+            .padding(.horizontal, 8)
+            .padding(.top, 8)
+
+            VStack(alignment: .leading, spacing: 4) {
+                Text(product.title)
+                    .frame(height: 40, alignment: .topLeading)
+                    .lineLimit(2)
+                    .font(.system(size: 15, weight: .regular))
+                Text(String(format: "US$ %.2f", product.price))
+                    .font(.system(size: 17, weight: .semibold))
+            }
+            .frame(width: 160, alignment: .leading) // garante alinhamento
+            .padding(.bottom, 8)
+            .padding(.horizontal, 8)
         }
+        .background(
+            RoundedRectangle(cornerRadius: 16)
+                .foregroundStyle(.backgroundsSecondary)
+        )
+        .clipShape(RoundedRectangle(cornerRadius: 16)) // garante que nada vaze
+    }
 }
 
-#Preview {
-    ProductCardV()
-}
+//#Preview {
+//    ImageCardWithHeart(imageURL: "https://picsum.photos/200")
+//}

@@ -12,22 +12,18 @@ import SwiftData
 struct HomeView: View {
     @Environment(\.modelContext) public var modelContext
     @State private var viewModel = HomeVM()
-
-//    init() {
-//        _viewModel = State(initialValue: HomeVM(modelContext: modelContext))
-//    }
     
     var body: some View {
         NavigationStack {
             ScrollView {
-                VStack(spacing: 24) {
-                    // Título ou destaque da home
-                    Text("Produtos em destaque")
+                VStack(alignment: .leading, spacing: 24) {
+                    // Título principal
+                    Text("Deals of the Day")
                         .font(.title2)
                         .bold()
                         .padding(.horizontal)
+                        .padding(.top, 16)
                     
-                    // Lista de produtos
                     if viewModel.isLoading {
                         ProgressView()
                             .padding()
@@ -37,15 +33,36 @@ struct HomeView: View {
                         }
                         .padding()
                     } else {
-                        VStack(spacing: 16) {
-                            ForEach(viewModel.products, id: \.id) { product in
-                                ProductCardH(product: product)
-                                    .padding(.horizontal)
+                        // Primeiro produto em destaque
+                        if let firstProduct = viewModel.products.first {
+                            ProductCardH(product: firstProduct)
+                                .padding(.horizontal)
+                        }
+                        
+                        // Produtos restantes
+                        let remainingProducts = Array(viewModel.products.dropFirst())
+                        if !remainingProducts.isEmpty {
+                            Text("Top Picks")
+                                .font(.title2)
+                                .bold()
+                                .padding(.horizontal)
+                                .padding(.top, 16)
+                            
+                            let columns = [
+                                GridItem(.flexible(), spacing: 0),
+                                GridItem(.flexible(), spacing: 0)
+                            ]
+                            
+                            LazyVGrid(columns: columns, spacing: 8) {
+                                ForEach(remainingProducts, id: \.id) { product in
+                                    ProductCardV(product: product)
+                                }
                             }
+                            .padding(.horizontal, 12)
+                            .padding(.top, -12)
                         }
                     }
                 }
-                .padding(.vertical)
             }
             .navigationTitle("Home")
             .background(.backgroundsPrimary)
@@ -54,9 +71,12 @@ struct HomeView: View {
             }
         }
         .task {
-            // Atualiza o modelContext da ViewModel quando o contexto real estiver disponível
             viewModel.modelContext = modelContext
             await viewModel.loadProducts()
         }
     }
+}
+
+#Preview {
+    TabBar()
 }
