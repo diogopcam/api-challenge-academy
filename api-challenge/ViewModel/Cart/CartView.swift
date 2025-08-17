@@ -9,7 +9,7 @@ import SwiftUI
 import SwiftData
 
 struct CartView: View {
-    @Query private var items: [CartItem] // <- Agora é reativo
+    @Query private var items: [CartItem]
     @Environment(\.modelContext) private var context
 
     var body: some View {
@@ -44,33 +44,34 @@ struct CartView: View {
                                 Text("Total")
                                     .font(.headline)
                                 Spacer()
-                                Text("R$ \(items.reduce(0) { $0 + ($1.price * Double($1.quantity)) }, specifier: "%.2f")")
+                                Text("US$ \(items.reduce(0) { $0 + ($1.price * Double($1.quantity)) }, specifier: "%.2f")")
                                     .bold()
                             }
                             .padding(.top, 16)
                         }
                         .padding(.horizontal)
-                        .padding(.bottom, 80)
+                        .padding(.bottom)
                     }
 
                     VStack {
-                        Spacer()
+                        //Spacer()
                         Button("Checkout") {
                             print("Ir para pagamento")
                         }
+                        .foregroundStyle(.labelsPrimary)
                         .frame(maxWidth: .infinity)
                         .frame(height: 54)
-                        .background(.blue)
+                        .background(.fillsTertiary)
                         .foregroundColor(.white)
                         .cornerRadius(12)
                         .padding(.horizontal, 16)
-                        .padding(.vertical, 8)
-                        .background(.ultraThinMaterial)
+                        .padding(.vertical, 16)
+                        //.background(.ultraThinMaterial)
                     }
-                    .frame(maxHeight: .infinity, alignment: .bottom)
+                    //.frame(maxHeight: .infinity, alignment: .bottom)
                 }
             }
-            .navigationTitle("Carrinho")
+            .navigationTitle("Cart")
         }
     }
 }
@@ -108,30 +109,31 @@ struct CartContentView: View {
                         Text("Total")
                             .font(.headline)
                         Spacer()
-                        Text("R$ \(viewModel.total, specifier: "%.2f")")
+                        Text("US$ \(viewModel.total, specifier: "%.2f")")
                             .bold()
                     }
                     .padding(.top, 16)
                 }
                 .padding(.horizontal)
-                .padding(.bottom, 80)
+                .padding(.bottom)
             }
 
             VStack {
-                Spacer()
+                //Spacer()
                 Button("Checkout") {
                     print("Ir para pagamento")
                 }
+                .foregroundStyle(.labelsPrimary)
                 .frame(maxWidth: .infinity)
                 .frame(height: 54)
-                .background(.blue)
+                .background(.fillsTertiary)
                 .foregroundColor(.white)
                 .cornerRadius(12)
                 .padding(.horizontal, 16)
-                .padding(.vertical, 8)
-                .background(.ultraThinMaterial)
+                .padding(.vertical, 16)
+                //.background(.ultraThinMaterial)
             }
-            .frame(maxHeight: .infinity, alignment: .bottom)
+            //.frame(maxHeight: 54, alignment: .bottom)
         }
     }
 }
