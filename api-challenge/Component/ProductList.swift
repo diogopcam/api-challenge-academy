@@ -156,7 +156,7 @@ struct ProductList: View {
 // MARK: - Previews
 struct ProductList_Previews: PreviewProvider {
     struct InteractivePreview: View {
-        @State private var quantity = 2
+        @State private var quantity = 1
         
         var body: some View {
             VStack(spacing: 20) {

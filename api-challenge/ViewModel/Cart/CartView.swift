@@ -1,44 +1,91 @@
+//
+//  CartViewModel.swift
+//  api-challenge
+//
+//  Created by Eduardo Ferrari on 16/08/25.
+//
+
 import SwiftUI
 import SwiftData
 
 struct CartView: View {
-    @Environment(\.modelContext) private var modelContext
-    @Query private var products: [Product]  // pega todos os produtos sem ordem específica
+    @Environment(\.modelContext) private var context
+    @State private var viewModel: CartViewModel?
 
     var body: some View {
         NavigationStack {
-            VStack(spacing: 16) {
-                Text("Produtos no Carrinho")
-                    .font(.title2)
-                    .bold()
-                    .padding(.top)
-
-                if products.isEmpty {
-                    Text("Nenhum produto no banco")
-                        .foregroundColor(.gray)
+            if let viewModel = viewModel {
+                if viewModel.isLoading {
+                    ProgressView()
+                        .navigationTitle("Cart")
+                } else if viewModel.cartProducts.isEmpty {
+                    EmptyStateCart()
+                        .navigationTitle("Cart")
                 } else {
-                    List(products) { product in
-                        VStack(alignment: .leading) {
-                            Text(product.name)
-                                .font(.headline)
-                            Text(product.category)
-                                .foregroundColor(.secondary)
-                            Text("R$ \(product.price, specifier: "%.2f")")
-                                .bold()
+                    ScrollView {
+                        VStack(spacing: 16) {
+                            ForEach(viewModel.cartProducts) { item in
+                                ProductListAsyncImage(
+                                    thumbnailURL: item.thumbnail,
+                                    productName: item.product.name,
+                                    price: item.product.price,
+                                    quantity: Binding(
+                                        get: { item.product.quantity },
+                                        set: { newValue in
+                                            if newValue > item.product.quantity {
+                                                viewModel.increaseQuantity(item.product)
+                                            } else {
+                                                viewModel.decreaseQuantity(item.product)
+                                            }
+                                        }
+                                    ),
+                                    variant: .stepper
+                                )
+                            }
                         }
-                        .padding(.vertical, 4)
+                        .padding()
+                        VStack {
+                            Divider()
+                            HStack {
+                                Text("Total")
+                                    .font(.headline)
+                                Spacer()
+                                Text("US$ \(viewModel.totalPrice(), specifier: "%.2f")")
+                                    .bold()
+                            }
+                            .padding(.top, 16)
+                        }
+                        .padding(.horizontal)
+                        .padding(.bottom)
                     }
+
+                    VStack {
+                        Button("Checkout") {
+                            //action botar aqui
+                            //print("Ir para pagamento")
+                        }
+                        .foregroundStyle(.labelsPrimary)
+                        .frame(maxWidth: .infinity)
+                        .frame(height: 54)
+                        .background(.fillsTertiary)
+                        .foregroundColor(.white)
+                        .cornerRadius(12)
+                        .padding(.horizontal, 16)
+                        .padding(.vertical, 16)
+                    }
+                    .navigationTitle("Cart")
                 }
+                
+            } else {
+                ProgressView()
+                .navigationTitle("Cart")
             }
-            .padding()
-            .navigationTitle("Carrinho")
+            
         }
         .task {
-            // Apenas para debug: printa todos os produtos no console
-            print("Produtos no banco:")
-            for product in products {
-                print("- \(product.name) | \(product.category) | R$ \(product.price)")
-            }
+            let vm = CartViewModel(context: context)
+            await vm.loadCart()
+            viewModel = vm
         }
     }
 }

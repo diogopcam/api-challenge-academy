@@ -10,7 +10,7 @@ import SwiftUI
 struct CategoryCard: View {
     let apiCategoryName: String
     
-    private var category: CategoryFormatter {
+    public var category: CategoryFormatter {
         CategoryFormatter(apiValue: apiCategoryName)
     }
     

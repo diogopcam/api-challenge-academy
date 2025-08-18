@@ -38,27 +38,72 @@ final class HomeVM {
     }
     
     // Função de persistência
-    func persistProducts(_ products: [ProductDTO]) {
-        guard let context = modelContext else { return }
+//    func persistProducts(_ products: [ProductDTO]) {
+//        guard let context = modelContext else { return }
+//
+//        for dto in products {
+//            // Verifica se o produto já existe
+//            let descriptor = FetchDescriptor<Product>(predicate: #Predicate { $0.id == dto.id })
+//            let existing = try? context.fetch(descriptor)
+//
+//            if existing?.isEmpty == false {
+//                continue // já existe, não insere de novo
+//            }
+//
+//            // Cria e insere novo produto
+//            let newProduct = Product(
+//                id: dto.id,
+//                name: dto.title,
+//                info: dto.description,
+//                category: dto.category,
+//                price: dto.price,
+//                type: .none // <- Evita popular o carrinho acidentalmente
+//            )
+//            context.insert(newProduct)
+//            print("Produto \(dto.title) adicionado no contexto")
+//        }
+//
+//        do {
+//            try context.save()
+//            print("Todos os produtos foram salvos com sucesso!")
+//        } catch {
+//            print("Erro ao salvar produtos: \(error)")
+//        }
+//    }
 
+    
+    func persistProducts(_ products: [ProductDTO]) {
+           guard let context = modelContext else { return }
+   
         for dto in products {
+            let dtoID = dto.id // <- capture fora
+
+            let descriptor = FetchDescriptor<Product>(
+                predicate: #Predicate { $0.id == dtoID } // use a constante capturada
+            )
+
+            let existing = try? context.fetch(descriptor)
+
+            if existing?.isEmpty == false {
+                continue // já existe, não insere de novo
+            }
+
             let newProduct = Product(
+                id: dto.id,
                 name: dto.title,
                 info: dto.description,
                 category: dto.category,
                 price: dto.price,
-                type: ProductType.cart
+                type: .none
             )
             context.insert(newProduct)
-            print("Produto \(dto.title) adicionado no contexto")
         }
-
-        do {
-            try context.save()
-            print("Todos os produtos foram salvos com sucesso!")
-        } catch {
-            print("Erro ao salvar produtos: \(error)")
-        }
-    }
-
+   
+           do {
+               try context.save()
+               print("Todos os produtos foram salvos com sucesso!")
+           } catch {
+               print("Erro ao salvar produtos: \(error)")
+           }
+       }
 }
