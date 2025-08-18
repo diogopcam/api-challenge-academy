@@ -8,52 +8,62 @@
 import SwiftData
 import SwiftUI
 
-//@Observable
-//class FavoritesViewModel {
-//    private var context: ModelContext
-//    @Published var favorites: [FavoriteItem] = []
-//
-//    init(context: ModelContext) {
-//        self.context = context
-//        loadFavorites()
-//    }
-//
-//    func loadFavorites() {
-//        let descriptor = FetchDescriptor<FavoriteItem>()
-//        favorites = (try? context.fetch(descriptor)) ?? []
-//    }
-//
-//    func isFavorited(product: ProductDTO) -> Bool {
-//        favorites.contains(where: { $0.id == product.id })
-//    }
-//
-//    func toggleFavorite(for product: ProductDTO) {
-//        if let existing = favorites.first(where: { $0.id == product.id }) {
-//            context.delete(existing)
-//        } else {
-//            let item = FavoriteItem(id: product.id, title: product.title, thumbnail: product.thumbnail, price: product.price)
-//            context.insert(item)
-//        }
-//        try? context.save()
-//        loadFavorites()
-//    }
-//}
 
 @Observable
-class FavoritesViewModel {
-    let context: ModelContext
+final class FavoritesViewModel {
+    var favoriteProducts: [FavoriteProductDisplay] = []
+    var isLoading = false
+    var errorMessage: String?
+    private var productMap: [Int: ProductDTO] = [:]
+    
+    private let context: ModelContext
+    private let service: ProductsServiceProtocol
 
-    init(context: ModelContext) {
+    init(context: ModelContext, service: ProductsServiceProtocol = ProductsService()) {
         self.context = context
+        self.service = service
     }
 
+    @MainActor
+    func loadFavorites() async {
+        isLoading = true
+        errorMessage = nil
+
+        do {
+            let dtoList = try await service.fetchProducts()
+            productMap = Dictionary(uniqueKeysWithValues: dtoList.map { ($0.id, $0) })
+
+            let favorites = try context.fetch(
+                FetchDescriptor<Product>(predicate: #Predicate { $0.isFavorite == true })
+            )
+
+            favoriteProducts = favorites.map { product in
+                let dto = productMap[product.id]
+                return FavoriteProductDisplay(product: product, dto: dto)
+            }
+
+        } catch {
+            errorMessage = error.localizedDescription
+        }
+
+        isLoading = false
+    }
+    
     func toggleFavorite(_ dto: ProductDTO) {
         if let existing = fetchProduct(by: dto.id) {
             existing.type = existing.type == .favorites ? .none : .favorites
         } else {
-            let product = Product(id: dto.id, name: dto.title, info: dto.description, category: dto.category, price: dto.price, type: .favorites)
+            let product = Product(
+                id: dto.id,
+                name: dto.title,
+                info: dto.description,
+                category: dto.category,
+                price: dto.price,
+                type: .favorites
+            )
             context.insert(product)
         }
+
         try? context.save()
     }
 
@@ -62,7 +72,18 @@ class FavoritesViewModel {
     }
 
     private func fetchProduct(by id: Int) -> Product? {
-        let descriptor = FetchDescriptor<Product>(predicate: #Predicate { $0.id == id })
+        let descriptor = FetchDescriptor<Product>(
+            predicate: #Predicate { $0.id == id }
+        )
         return try? context.fetch(descriptor).first
     }
+}
+
+
+struct FavoriteProductDisplay: Identifiable {
+    let product: Product
+    let dto: ProductDTO?
+
+    var id: Int { product.id }
+    var thumbnail: String? { dto?.thumbnail }
 }
