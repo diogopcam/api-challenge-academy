@@ -316,9 +316,3 @@ struct ProductCardV: View {
             try? modelContext.save()
     }
 }
-
-
-
-//#Preview {
-//    ProductCardV()
-//}
