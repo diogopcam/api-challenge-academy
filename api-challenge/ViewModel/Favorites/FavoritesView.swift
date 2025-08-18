@@ -25,7 +25,7 @@ struct FavoritesView: View {
                         VStack(spacing: 16) {
                             ForEach(viewModel.favoriteProducts) { item in
                                 ProductListAsyncImage(
-                                    thumbnailURL: item.thumbnail,
+                                    image: item.thumbnail,
                                     productName: item.product.name,
                                     price: item.product.price,
                                     quantity: .constant(1),

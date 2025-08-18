@@ -7,7 +7,7 @@
 
 import Foundation
 
-class ProductsService: ProductsServiceProtocol {
+class ProductsServiceAPI: ProductsServiceProtocolAPI {
     private let baseURL = "https://dummyjson.com/products"
     
     func fetchProducts() async throws -> [ProductDTO] {

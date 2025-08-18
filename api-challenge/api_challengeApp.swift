@@ -67,16 +67,13 @@ import SwiftData
 ////    }
 //}
 
-
 @main
 struct api_challengeApp: App {
     
-    // Container compartilhado
+    // 1️⃣ Criação do ModelContainer
     let sharedModelContainer: ModelContainer = {
         let schema = Schema([Product.self])
-        
-        let configuration = ModelConfiguration() // pode customizar nome do arquivo ou modo inMemory
-        
+        let configuration = ModelConfiguration() // pode personalizar
         do {
             return try ModelContainer(for: schema, configurations: [configuration])
         } catch {
@@ -84,10 +81,21 @@ struct api_challengeApp: App {
         }
     }()
     
+    // 2️⃣ Serviço injetado no App
+    @StateObject private var userProductsService: UserProductsService
+    
+    init() {
+        // Cria o serviço passando o context do container
+        let context = sharedModelContainer.mainContext
+        let service = UserProductsService(context: context)
+        _userProductsService = StateObject(wrappedValue: service)
+    }
+    
     var body: some Scene {
         WindowGroup {
             TabBar()
-                .modelContainer(sharedModelContainer) // injeta no ambiente
+                .environmentObject(userProductsService) // disponibiliza para todas as views
+                .modelContainer(sharedModelContainer)   // injeta o ModelContainer
         }
     }
 }

@@ -13,11 +13,11 @@ final class HomeVM {
     var products: [ProductDTO] = []
     var isLoading = false
     var errorMessage: String?
-    private let service: ProductsServiceProtocol
+    private let service: ProductsServiceProtocolAPI
     public var modelContext: ModelContext?
 
     
-    init(service: ProductsServiceProtocol = ProductsService()) {
+    init(service: ProductsServiceProtocolAPI = ProductsServiceAPI()) {
         self.service = service
     }
     
@@ -94,7 +94,8 @@ final class HomeVM {
                 info: dto.description,
                 category: dto.category,
                 price: dto.price,
-                type: .none
+                type: .none,
+                thumbnail: dto.thumbnail
             )
             context.insert(newProduct)
         }

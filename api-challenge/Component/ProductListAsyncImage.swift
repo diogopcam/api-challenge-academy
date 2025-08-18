@@ -19,6 +19,23 @@ struct ProductListAsyncImage: View {
     private let cardHeight: CGFloat = 94
     private let cornerRadius: CGFloat = 16
     private let imageFrameSize: CGSize = CGSize(width: 78, height: 78)
+    
+    // Inicializador só para order/delivery
+    init(image: String?, productName: String, price: Double, variant: ProductListStyle) {
+        self.thumbnailURL = image
+        self.productName = productName
+        self.price = price
+        self._quantity = .constant(0) // valor dummy, nunca será usado
+        self.variant = variant
+    }
+    
+    init(image: String?, productName: String, price: Double, quantity: Binding<Int>, variant: ProductListStyle) {
+        self.thumbnailURL = image
+        self.productName = productName
+        self.price = price
+        self._quantity = quantity
+        self.variant = variant
+    }
 
     var body: some View {
         HStack(spacing: 16) {

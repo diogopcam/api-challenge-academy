@@ -23,7 +23,8 @@ extension Product {
             category: dto.category,
             price: dto.price,
             type: type,
-            quantity: 1
+            quantity: 1,
+            thumbnail: dto.thumbnail
         )
         self.typeString = type.rawValue
     }

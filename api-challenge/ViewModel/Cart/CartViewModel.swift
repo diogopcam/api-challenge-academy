@@ -17,9 +17,9 @@ final class CartViewModel {
     private var productMap: [Int: ProductDTO] = [:]
 
     private let context: ModelContext
-    private let service: ProductsServiceProtocol
+    private let service: ProductsServiceProtocolAPI
 
-    init(context: ModelContext, service: ProductsServiceProtocol = ProductsService()) {
+    init(context: ModelContext, service: ProductsServiceProtocolAPI = ProductsServiceAPI()) {
         self.context = context
         self.service = service
     }
@@ -60,7 +60,8 @@ final class CartViewModel {
                 info: dto.description,
                 category: dto.category,
                 price: dto.price,
-                type: .cart
+                type: .cart,
+                thumbnail: dto.thumbnail
             )
             product.isCart = true
             product.quantity = 1

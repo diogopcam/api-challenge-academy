@@ -10,6 +10,7 @@ import SwiftUI
 struct TabBar: View {
     // Removemos as instâncias diretas das ViewModels
     // Elas serão criadas dentro de cada View com o contexto apropriado
+    @EnvironmentObject var userProductsService: UserProductsService
     
     var body: some View {
         TabView {
@@ -47,8 +48,7 @@ struct TabBar: View {
             
             // Orders Tab
             NavigationStack {
-                OrdersView()
-            }
+                OrdersView(service: userProductsService)            }
             .tabItem {
                 Label("Orders", systemImage: "bag.fill")
             }
