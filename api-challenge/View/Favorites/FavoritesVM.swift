@@ -69,7 +69,6 @@ final class FavoritesVM: ObservableObject {
     func toggleFavorite(_ dto: ProductDTO) {
         do {
             try userProductsService.toggleFavorite(dto)
-            // Recarrega após alteração
             Task {
                 await loadFavorites()
             }

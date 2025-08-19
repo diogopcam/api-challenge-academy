@@ -77,7 +77,6 @@ struct HomeView: View {
             }
         }
         .task {
-//            vm.modelContext = modelContext
             await vm.loadProducts()
         }
     }

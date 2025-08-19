@@ -19,9 +19,9 @@ final class CartVM: ObservableObject {
     private let apiService: ProductsServiceProtocolAPI
     private var productMap: [Int: ProductDTO] = [:]
     
-    init(productsService: any UserProductsServiceProtocol, apiService: any ProductsServiceProtocolAPI) {
-        self.productsService = productsService
+    init(apiService: any ProductsServiceProtocolAPI, productsService: any UserProductsServiceProtocol) {
         self.apiService = apiService
+        self.productsService = productsService
     }
     
     func loadCart() async {
