@@ -16,18 +16,18 @@ struct OrdersView: View {
         _vm = StateObject(wrappedValue: vm)
     }
 
-    var filteredProducts: [Product] {
+    var filteredProducts: [ProductDTO] {
         if searchText.isEmpty {
             return vm.orderedProducts
         } else {
-            return vm.orderedProducts.filter { $0.name.localizedCaseInsensitiveContains(searchText) }
+            return vm.orderedProducts.filter { $0.title.localizedCaseInsensitiveContains(searchText) }
         }
     }
     
     var productsListView: some View {
         VStack(spacing: 12) {
             ForEach(filteredProducts) { product in
-                ProductListAsyncImage(image: product.thumbnail, productName: product.name, price: product.price, variant: .delivery(month: "DECEMBER", day: "15"))
+                ProductListAsyncImage(image: product.thumbnail, productName: product.title, price: product.price, variant: .delivery(month: "DECEMBER", day: "15"))
             }
         }
         .padding(.horizontal)
@@ -41,7 +41,9 @@ struct OrdersView: View {
                         ProgressView()
                     } else if let errorMessage = vm.errorMessage {
                         ErrorView(message: errorMessage) {
-                            vm.fetchOrderedProducts()
+                            Task {
+                                await vm.fetchOrderedProducts()
+                            }
                         }
                     } else {
                         productsListView
@@ -52,11 +54,11 @@ struct OrdersView: View {
             .navigationTitle("Orders")
             .searchable(text: $searchText, prompt: "Search")
             .refreshable {
-                vm.fetchOrderedProducts()
+                await vm.fetchOrderedProducts()
             }
         }
         .task {
-            vm.fetchOrderedProducts()
+            await vm.fetchOrderedProducts()
         }
     }
 }

@@ -50,8 +50,8 @@ struct TabBar: View {
             NavigationStack {
                 FavoritesView(
                     vm: FavoritesVM(
-                        apiService: container.productsServiceApi,
-                        userProductsService: container.userProductsService
+                            apiService: container.productsServiceApi,
+                            userProductsService: container.userProductsService
                     )
                 )
             }
@@ -62,7 +62,10 @@ struct TabBar: View {
             // Orders Tab
             NavigationStack {
                 OrdersView(
-                    vm: OrdersVM(service: container.userProductsService)
+                    vm: OrdersVM(
+                        apiService: container.productsServiceApi,
+                        service: container.userProductsService
+                    )
                 )
             }
             .tabItem {

@@ -55,12 +55,7 @@ final class HomeVM: ObservableObject {
 
             let newProduct = Product(
                 id: dto.id,
-                name: dto.title,
-                info: dto.description,
-                category: dto.category,
-                price: dto.price,
-                type: .none,
-                thumbnail: dto.thumbnail
+                category: dto.category
             )
             context.insert(newProduct)
         }

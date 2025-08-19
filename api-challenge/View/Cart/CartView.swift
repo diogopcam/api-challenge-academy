@@ -7,6 +7,7 @@
 
 import SwiftUI
 import SwiftData
+
 struct CartView: View {
     @StateObject private var vm: CartVM
     @State private var showingCheckoutAlert = false
@@ -18,70 +19,7 @@ struct CartView: View {
 
     var body: some View {
         NavigationStack {
-            if vm.isLoading {
-                ProgressView()
-                    .navigationTitle("Cart")
-            } else if vm.cartProducts.isEmpty {
-                EmptyStateCart()
-                    .navigationTitle("Cart")
-            } else {
-                VStack {
-                    // Lista de produtos
-                    ScrollView {
-                        VStack(spacing: 16) {
-                            ForEach(vm.cartProducts) { item in
-                                ProductListAsyncImage(
-                                    image: item.dto?.thumbnail, // Use o DTO para a imagem
-                                    productName: item.product.name,
-                                    price: item.product.price,
-                                    quantity: Binding(
-                                        get: { item.product.quantity },
-                                        set: { newValue in
-                                            // Esta lógica precisa ser ajustada
-                                            // Melhor usar botões separados
-                                        }
-                                    ),
-                                    variant: .stepper(
-                                        onIncrement: {
-                                            vm.increaseQuantity(item.product)
-                                        },
-                                        onDecrement: {
-                                            vm.decreaseQuantity(item.product)
-                                        }
-                                    )
-                                )
-                            }
-                        }
-                        .padding()
-                    }
-                    
-                    // Total e checkout
-                    VStack {
-                        Divider()
-                        HStack {
-                            Text("Total")
-                                .font(.headline)
-                            Spacer()
-                            Text("US$ \(vm.totalPrice(), specifier: "%.2f")")
-                                .bold()
-                        }
-                        .padding(.top, 16)
-                        .padding(.horizontal)
-                        
-                        Button("Checkout") {
-                            showingCheckoutAlert = true
-                        }
-                        .foregroundStyle(.labelsPrimary)
-                        .frame(maxWidth: .infinity)
-                        .frame(height: 54)
-                        .background(.fillsTertiary)
-                        .cornerRadius(12)
-                        .padding(.horizontal, 16)
-                        .padding(.vertical, 16)
-                    }
-                }
-                .navigationTitle("Cart")
-            }
+            contentView
         }
         .alert("Confirmar Checkout", isPresented: $showingCheckoutAlert) {
             Button("Cancelar", role: .cancel) { }
@@ -91,20 +29,97 @@ struct CartView: View {
                 }
             }
         } message: {
-            Text("Finalizar compra de \(vm.cartProducts.count) itens por US$ \(vm.totalPrice(), specifier: "%.2f")?")
+            Text("Finalizar compra de \(vm.cartProducts.count) itens por \(totalPriceText)?")
         }
         .alert("Compra Finalizada", isPresented: $vm.checkoutSuccess) {
-            Button("OK") {
-                dismiss()
-            }
+            Button("OK") { dismiss() }
         } message: {
             Text("Seu pedido foi realizado com sucesso!")
         }
-        .task {
-            await vm.loadCart()
+        .task { await vm.loadCart() }
+        .refreshable { await vm.loadCart() }
+    }
+    
+    // MARK: - Componentes da View
+    
+    private var contentView: some View {
+        Group {
+            if vm.isLoading {
+                ProgressView()
+                    .navigationTitle("Cart")
+            } else if vm.cartProducts.isEmpty {
+                EmptyStateCart()
+                    .navigationTitle("Cart")
+            } else {
+                VStack {
+                    productsList
+                    checkoutSection
+                }
+                .navigationTitle("Cart")
+            }
         }
-        .refreshable {
-            await vm.loadCart()
+    }
+    
+    private var productsList: some View {
+        ScrollView {
+            VStack(spacing: 16) {
+                ForEach(vm.cartProducts) { item in
+                    cartProductRow(for: item)
+                }
+            }
+            .padding()
         }
+    }
+    
+    private func cartProductRow(for product: ProductDTO) -> some View {
+        let quantity = vm.quantity(for: product.id) // ← Busca do ViewModel
+        
+        return ProductListAsyncImage(
+            thumbnailURL: product.thumbnail,
+            productName: product.title,
+            price: product.price,
+            quantity: Binding(
+                get: { quantity },
+                set: { _ in } // Não usado
+            ),
+            variant: .stepper(
+                onIncrement: { vm.increaseQuantity(product) },
+                onDecrement: { vm.decreaseQuantity(product) }
+            )
+        )
+    }
+    
+    private var checkoutSection: some View {
+        VStack {
+            Divider()
+            HStack {
+                Text("Total")
+                    .font(.headline)
+                Spacer()
+                Text(totalPriceText)
+                    .bold()
+            }
+            .padding(.top, 16)
+            .padding(.horizontal)
+            
+            checkoutButton
+        }
+    }
+    
+    private var checkoutButton: some View {
+        Button("Checkout") {
+            showingCheckoutAlert = true
+        }
+        .foregroundStyle(.labelsPrimary)
+        .frame(maxWidth: .infinity)
+        .frame(height: 54)
+        .background(.fillsTertiary)
+        .cornerRadius(12)
+        .padding(.horizontal, 16)
+        .padding(.vertical, 16)
+    }
+    
+    private var totalPriceText: String {
+        "US$ \(vm.totalPrice(), specifier: "%.2f")"
     }
 }

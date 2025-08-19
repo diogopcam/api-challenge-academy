@@ -9,10 +9,10 @@ import SwiftUI
 import SwiftData
 
 struct ProductListAsyncImage: View {
+    @Binding var quantity: Int
     let thumbnailURL: String?
     let productName: String
     let price: Double
-    @Binding var quantity: Int
     let variant: ProductListStyle
 
     private let cardWidth: CGFloat = 361
