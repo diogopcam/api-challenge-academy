@@ -26,7 +26,7 @@ struct ProductCardVBig: View {
                 .cornerRadius(16)
 
                 Button {
-                    toggleFavorite()
+//                    toggleFavorite()
                 } label: {
                     Image(systemName: isFavorited() ? "heart.fill" : "heart")
                         .resizable()
@@ -56,14 +56,14 @@ struct ProductCardVBig: View {
             favorites.contains { $0.id == product.id }
         }
 
-    private func toggleFavorite() {
-            if let existing = favorites.first(where: { $0.id == product.id }) {
-                existing.isFavorite = false
-            } else {
-                let newProduct = Product(from: product, type: .favorites)
-                newProduct.isFavorite = true
-                modelContext.insert(newProduct)
-            }
-            try? modelContext.save()
-    }
+//    private func toggleFavorite() {
+//            if let existing = favorites.first(where: { $0.id == product.id }) {
+//                existing.isFavorite = false
+//            } else {
+//                let newProduct = Product(from: product, type: .favorites)
+//                newProduct.isFavorite = true
+//                modelContext.insert(newProduct)
+//            }
+//            try? modelContext.save()
+//    }
 }
