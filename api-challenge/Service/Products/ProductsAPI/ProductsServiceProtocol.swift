@@ -8,5 +8,5 @@
 protocol ProductsServiceProtocolAPI {
     func fetchProducts() async throws -> [ProductDTO]
     
-//    func fetchOrderedProducts() 
+    func fetchProduct(id: Int) async throws -> ProductDTO
 }

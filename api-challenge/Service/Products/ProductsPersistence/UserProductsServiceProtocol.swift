@@ -8,6 +8,7 @@
 import SwiftUI
 
 protocol UserProductsServiceProtocol: ObservableObject {
+    
     func getFavoriteProducts() -> [Product]
     
     func getOrderedProducts() -> [Product]

@@ -65,7 +65,6 @@ final class UserProductsService: UserProductsServiceProtocol {
                 // Se não está no carrinho, adiciona com quantidade 1
                 existing.isCart = true
                 existing.quantity = 1
-                existing.type = .cart
             }
         } else {
             // Produto novo no carrinho
@@ -75,7 +74,6 @@ final class UserProductsService: UserProductsServiceProtocol {
                 info: dto.description,
                 category: dto.category,
                 price: dto.price,
-                type: .cart,
                 thumbnail: dto.thumbnail
             )
             product.isCart = true
@@ -96,7 +94,6 @@ final class UserProductsService: UserProductsServiceProtocol {
             product.quantity -= 1
         } else {
             product.isCart = false
-            product.type = .none
             product.quantity = 1
         }
         try context.save()
@@ -131,8 +128,6 @@ final class UserProductsService: UserProductsServiceProtocol {
             for product in cartProducts {
                 product.isCart = false
                 product.isOrder = true
-//                product.type = .purchased
-                // Mantém a quantidade para histórico de pedidos
             }
             
             try context.save()

@@ -19,7 +19,7 @@ final class Product {
     var typeString: String
     var quantity: Int
     var isFavorite: Bool = false
-    var isCart: BooPl = false
+    var isCart: Bool = false
     var isOrder: Bool = false
     var thumbnail: String?
     
