@@ -119,6 +119,7 @@ struct ProductListAsyncImage: View {
                     .frame(width: 23, height: 23)
                     .background(.fillsQuaternary)
                     .clipShape(RoundedRectangle(cornerRadius: 8))
+                    .foregroundColor(.labelsPrimary)
             }
 
             Text("\(quantity)")
@@ -133,6 +134,7 @@ struct ProductListAsyncImage: View {
                     .frame(width: 23, height: 23)
                     .background(.fillsQuaternary)
                     .clipShape(RoundedRectangle(cornerRadius: 8))
+                    .foregroundColor(.labelsPrimary)
             }
         }
     }

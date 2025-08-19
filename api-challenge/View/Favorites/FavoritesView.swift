@@ -19,7 +19,7 @@ struct FavoritesView: View {
     
     var body: some View {
         NavigationStack {
-            VStack {
+            VStack (spacing: 32) {
                 if vm.isLoading {
                     ProgressView()
                 } else if let error = vm.errorMessage {
@@ -29,18 +29,21 @@ struct FavoritesView: View {
                 } else if vm.filteredProducts.isEmpty {
                     EmptyStateFav()
                 } else {
-                    List(vm.filteredProducts) { product in
-                        ProductListAsyncImage(
-                            image: product.thumbnail,
-                            productName: product.title,
-                            price: product.price,
-                            variant: .cart(
-                                action: {
-                                    selectedProduct = product
-                                    showProductDetails = true
-                                }
-                            )
-                        )
+                    ScrollView {
+                        VStack(spacing: 16) {
+                            ForEach(vm.filteredProducts) { product in
+                                ProductListAsyncImage(
+                                    image: product.thumbnail,
+                                    productName: product.title,
+                                    price: product.price,
+                                    variant: .cart(action: {
+                                        selectedProduct = product
+                                        showProductDetails = true
+                                    })
+                                )
+                            }
+                        }
+                        .padding() // ← Espaçamento externo
                     }
                 }
             }

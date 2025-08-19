@@ -70,7 +70,13 @@ struct CartView: View {
     }
     
     private var totalPriceText: String {
-        "US$ \(vm.totalPrice())"
+        let total = vm.totalPrice()
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .currency
+        formatter.locale = Locale.current
+        formatter.maximumFractionDigits = 2
+        formatter.minimumFractionDigits = 2
+        return formatter.string(from: NSNumber(value: total)) ?? "US$ \(total)"
     }
     
     // Conteúdo principal da view
@@ -126,5 +132,18 @@ struct CartView: View {
         .refreshable {
             await vm.loadCart()
         }
+    }
+}
+
+extension Double {
+    var formattedPriceDouble: String {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .currency
+        formatter.locale = Locale.current
+        return formatter.string(from: NSNumber(value: self)) ?? String(format: "%.2f", self)
+    }
+    
+    var formattedDecimal: String {
+        String(format: "%.2f", self) // → "99.99"
     }
 }
