@@ -14,9 +14,9 @@ class CategoryProductsVM {
     var isLoading = false
     var errorMessage: String?
 
-    private let service: ProductsServiceProtocol
+    private let service: ProductsServiceProtocolAPI
 
-    init(service: ProductsServiceProtocol = ProductsService()) {
+    init(service: ProductsServiceProtocolAPI = ProductsServiceAPI()) {
         self.service = service
     }
 

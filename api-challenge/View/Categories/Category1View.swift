@@ -12,17 +12,17 @@ import SwiftData
 //    let categoryName: String
 //    @State private var searchText = ""
 //    @State private var selectedProduct: ProductDTO? = nil
-//    @State private var viewModel = CategoryProductsVM()
+//    @State private var VM = CategoryProductsVM()
 //    
 //    @Environment(\.modelContext) private var modelContext
-//    @State private var cartViewModel: CartViewModel? = nil
+//    @State private var cartVM: CartVM? = nil
 //
 //
 //    var body: some View {
 //        List {
-//            if viewModel.isLoading {
+//            if VM.isLoading {
 //                ProgressView()
-//            } else if let error = viewModel.errorMessage {
+//            } else if let error = VM.errorMessage {
 //                Text(error).foregroundColor(.red)
 //            } else {
 //                Section {
@@ -30,7 +30,7 @@ import SwiftData
 //                        GridItem(.flexible(), spacing: 8),
 //                        GridItem(.flexible(), spacing: 8)
 //                    ], spacing: 8) {
-//                        ForEach(viewModel.products) { product in
+//                        ForEach(VM.products) { product in
 //                            ProductCardV(product: product)
 //                                .onTapGesture {
 //                                    selectedProduct = product
@@ -47,16 +47,16 @@ import SwiftData
 //        .navigationBarTitleDisplayMode(.inline)
 //        .searchable(text: $searchText, prompt: "Search...")
 //        .sheet(item: $selectedProduct) { product in
-//                    if let cartVM = cartViewModel {
-//                        ProductDetailsSheet(cartVM: Binding(get: { cartVM }, set: { cartViewModel = $0 }), product: product)
+//                    if let cartVM = cartVM {
+//                        ProductDetailsSheet(cartVM: Binding(get: { cartVM }, set: { cartVM = $0 }), product: product)
 //                    }
 //                }
 //        .task {
-//            await viewModel.loadProducts(for: categoryName)
+//            await VM.loadProducts(for: categoryName)
 //        }
 //        .onAppear {
-//                    if cartViewModel == nil {
-//                        cartViewModel = CartViewModel(context: modelContext)
+//                    if cartVM == nil {
+//                        cartVM = CartVM(context: modelContext)
 //                    }
 //                }
 //    }
@@ -66,17 +66,17 @@ import SwiftData
 //    let categoryName: String
 //    @State private var searchText = ""
 //    @State private var selectedProduct: ProductDTO? = nil
-//    @State private var viewModel = CategoryProductsVM()
+//    @State private var VM = CategoryProductsVM()
 //    
 //    @Environment(\.modelContext) private var modelContext
-//    @State private var cartViewModel: CartViewModel? = nil
-//    @State private var favoritesVM: FavoritesViewModel = .init(context: .init())
+//    @State private var cartVM: CartVM? = nil
+//    @State private var favoritesVM: FavoritesVM = .init(context: .init())
 //
 //    var body: some View {
 //        List {
-//            if viewModel.isLoading {
+//            if VM.isLoading {
 //                ProgressView()
-//            } else if let error = viewModel.errorMessage {
+//            } else if let error = VM.errorMessage {
 //                Text(error).foregroundColor(.red)
 //            } else {
 //                Section {
@@ -84,7 +84,7 @@ import SwiftData
 //                        GridItem(.flexible(), spacing: 8),
 //                        GridItem(.flexible(), spacing: 8)
 //                    ], spacing: 8) {
-//                        ForEach(viewModel.products) { product in
+//                        ForEach(VM.products) { product in
 //                            ProductCardV(product: product, favoritesVM: favoritesVM)
 //                                .onTapGesture {
 //                                    selectedProduct = product
@@ -101,18 +101,18 @@ import SwiftData
 //        .navigationBarTitleDisplayMode(.inline)
 //        .searchable(text: $searchText, prompt: "Search...")
 //        .sheet(item: $selectedProduct) { product in
-//            if let cartVM = cartViewModel {
-//                ProductDetailsSheet(cartVM: Binding(get: { cartVM }, set: { cartViewModel = $0 }),
+//            if let cartVM = cartVM {
+//                ProductDetailsSheet(cartVM: Binding(get: { cartVM }, set: { cartVM = $0 }),
 //                                    favoritesVM: favoritesVM,
 //                                    product: product)
 //            }
 //        }
 //        .task {
-//            await viewModel.loadProducts(for: categoryName)
+//            await VM.loadProducts(for: categoryName)
 //        }
 //        .onAppear {
-//            if cartViewModel == nil {
-//                cartViewModel = CartViewModel(context: modelContext)
+//            if cartVM == nil {
+//                cartVM = CartVM(context: modelContext)
 //            }
 //        }
 //    }
@@ -123,16 +123,16 @@ struct Category1View: View {
     let categoryName: String
     @State private var searchText = ""
     @State private var selectedProduct: ProductDTO? = nil
-    @State private var viewModel = CategoryProductsVM()
+    @State private var VM = CategoryProductsVM()
     
     @Environment(\.modelContext) private var modelContext
-    @State private var cartViewModel: CartViewModel? = nil
+    @State private var cartVM: CartVM? = nil
 
     var body: some View {
         List {
-            if viewModel.isLoading {
+            if VM.isLoading {
                 ProgressView()
-            } else if let error = viewModel.errorMessage {
+            } else if let error = VM.errorMessage {
                 Text(error).foregroundColor(.red)
             } else {
                 Section {
@@ -140,7 +140,7 @@ struct Category1View: View {
                         GridItem(.flexible(), spacing: 8),
                         GridItem(.flexible(), spacing: 8)
                     ], spacing: 8) {
-                        ForEach(viewModel.products) { product in
+                        ForEach(VM.products) { product in
                             ProductCardV(product: product)
                                 .onTapGesture {
                                     selectedProduct = product
@@ -157,18 +157,18 @@ struct Category1View: View {
         .navigationBarTitleDisplayMode(.inline)
         .searchable(text: $searchText, prompt: "Search...")
         .sheet(item: $selectedProduct) { product in
-            if let cartVM = cartViewModel {
+            if let cartVM = cartVM {
                 ProductDetailsSheet(product: product)
             }
         }
         .task {
-            await viewModel.loadProducts(for: categoryName)
+            await VM.loadProducts(for: categoryName)
         }
-        .onAppear {
-            if cartViewModel == nil {
-                cartViewModel = CartViewModel(context: modelContext)
-            }
-        }
+//        .onAppear {
+//            if cartVM == nil {
+//                cartVM = CartVM(context: modelContext)
+//            }
+//        }
     }
 }
 

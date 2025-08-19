@@ -19,6 +19,23 @@ struct ProductListAsyncImage: View {
     private let cardHeight: CGFloat = 94
     private let cornerRadius: CGFloat = 16
     private let imageFrameSize: CGSize = CGSize(width: 78, height: 78)
+    
+    // Inicializador só para order/delivery
+    init(image: String?, productName: String, price: Double, variant: ProductListStyle) {
+        self.thumbnailURL = image
+        self.productName = productName
+        self.price = price
+        self._quantity = .constant(0) // valor dummy, nunca será usado
+        self.variant = variant
+    }
+    
+    init(image: String?, productName: String, price: Double, quantity: Binding<Int>, variant: ProductListStyle) {
+        self.thumbnailURL = image
+        self.productName = productName
+        self.price = price
+        self._quantity = quantity
+        self.variant = variant
+    }
 
     var body: some View {
         HStack(spacing: 16) {
@@ -43,8 +60,8 @@ struct ProductListAsyncImage: View {
             Spacer()
 
             switch variant {
-            case .stepper:
-                stepperSection
+            case .stepper(let onIncrement, let onDecrement):
+                stepperSection(onIncrement: onIncrement, onDecrement: onDecrement)
             case .cart(let action):
                 cartButtonSection(action: action)
             case .delivery:
@@ -92,10 +109,10 @@ struct ProductListAsyncImage: View {
         }
     }
 
-    private var stepperSection: some View {
+    private func stepperSection(onIncrement: @escaping () -> Void, onDecrement: @escaping () -> Void) -> some View {
         HStack(spacing: 8) {
             Button {
-                if quantity > 0 { quantity -= 1 }
+                onDecrement()
             } label: {
                 Image(systemName: "minus")
                     .font(.system(size: 12))
@@ -109,7 +126,7 @@ struct ProductListAsyncImage: View {
                 .frame(width: 21)
 
             Button {
-                quantity += 1
+                onIncrement()
             } label: {
                 Image(systemName: "plus")
                     .font(.system(size: 12))
@@ -130,6 +147,21 @@ struct ProductListAsyncImage: View {
                 .clipShape(RoundedRectangle(cornerRadius: 8))
         }
     }
+    
+//    private func cartButtonSection(action: @escaping () -> Void) -> some View {
+//        Button(action: {
+//            print("Botão cart interno pressionado")
+//            action()
+//        }) {
+//            Image(systemName: "cart.fill")
+//                .font(.system(size: 16))
+//                .foregroundColor(.labelsPrimary)
+//                .frame(width: 38, height: 38)
+//                .background(.fillsTertiary)
+//                .clipShape(RoundedRectangle(cornerRadius: 8))
+//        }
+//        .buttonStyle(PlainButtonStyle()) // ← IMPORTANTE: Adicione isso
+//    }
 
     private var formattedPrice: String {
         let formatter = NumberFormatter()

@@ -7,7 +7,7 @@
 
 
 enum ProductListStyle {
-    case stepper
+    case stepper(onIncrement: () -> Void, onDecrement: () -> Void)
     case cart(action: () -> Void)
     case delivery(month: String, day: String)
 }

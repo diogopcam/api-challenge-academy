@@ -5,6 +5,8 @@
 //  Created by Diogo Camargo on 14/08/25.
 //
 
-protocol ProductsServiceProtocol {
+protocol ProductsServiceProtocolAPI {
     func fetchProducts() async throws -> [ProductDTO]
+    
+//    func fetchOrderedProducts() 
 }
