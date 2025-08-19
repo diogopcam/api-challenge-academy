@@ -19,46 +19,50 @@ struct ProductDetailsSheet: View {
     }
     
     var body: some View {
-        VStack(spacing: 0) {
-            Text("Details")
-                .font(.system(size: 17, weight: .semibold))
-                .padding(.top, 20)
-            
-            ScrollView {
-                VStack(spacing: 16) {
-                    // ProductCardVBig precisa ser adaptado para usar o novo sistema
-                    ProductCardVBig(product: product)
-                        .padding(.top, 16)
-                        .frame(maxWidth: .infinity)
-                    
-                    Text(product.description)
-                        .padding()
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .foregroundStyle(.labelsSecondary)
-                        .cornerRadius(8)
+        NavigationStack {
+            VStack {
+                VStack (spacing: 8){
+                    Capsule()
+                        .frame(width: 40, height: 5)
+                        .foregroundColor(.gray.opacity(0.5))
+                        .padding(.top, 8)
+                    Text("Details")
+                        Divider()
+                        .font(.system(size: 17, weight: .semibold))
                 }
-                .padding(.bottom, 20)
-            }
-            
-            Button(action: {
-                addToCart()
-                dismiss()
-            }) {
-                Text("Add to cart")
-                    .frame(maxWidth: .infinity)
-                    .frame(height: 54)
-                    .background(.fillsTertiary)
-                    .foregroundColor(.labelsPrimary)
-                    .cornerRadius(12)
-                    .padding(.horizontal, 16)
-                    .padding(.vertical, 8)
+                .frame(width: 393, height: 54)
+                .background(.fillsTertiary)
+                ScrollView{
+                    VStack {
+                        ProductCardVBig(product: product)
+                    }
+                    Text(product.description)
+                        .foregroundColor(.secondary)
+                    }
+                .padding(.horizontal)
+
+                Button("Add to cart") {
+                    addToCart()
+                    dismiss()
+                }
+                .foregroundStyle(.labelsPrimary)
+                .frame(height: 54)
+                .frame(maxWidth: .infinity)
+                .background(.fillsTertiary)
+                .cornerRadius(12)
+                .padding(.horizontal)
+                .padding(.bottom, 8)
             }
             .background(.backgroundsPrimary)
         }
-        .presentationDetents([.large])
-        .presentationDragIndicator(.visible)
-    }
-    
+        .toolbarBackground(.backgroundsTertiary, for: .navigationBar)
+              .toolbarBackground(.visible, for: .navigationBar)
+              .onAppear {
+//                  cartVM = CartViewModel(context: context)
+//                  favoritesVM = FavoritesViewModel(context: context)
+              }
+          }
+
     private func addToCart() {
         do {
             try userProductsService.addToCart(product)
