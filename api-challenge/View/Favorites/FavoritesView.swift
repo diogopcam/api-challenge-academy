@@ -40,15 +40,7 @@ struct FavoritesView: View {
                                     showProductDetails = true
                                 }
                             )
-//                            product: product,
-//                            onAddToCart: { vm.addToCart(product) },
-//                            onToggleFavorite: { vm.toggleFavorite(product) }
                         )
-//                        ProductListAsyncImage(image: product.thumbnail, productName: product.title, price: product.price, variant: .delivery(month: "DECEMBER", day: "15"))
-//                        .onTapGesture {
-//                            selectedProduct = product
-//                            showProductDetails = true
-//                        }
                     }
                 }
             }

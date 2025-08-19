@@ -45,7 +45,7 @@ final class CartVM: ObservableObject {
             // Print para debug
             print("=== PRODUTOS NO CARRINHO ===")
             for product in cartItems {
-                print("ID: \(product.id), Nome: \(product.name), Quantidade: \(product.quantity), Preço: \(product.price)")
+                print("ID: \(product.id), Quantidade: \(product.quantity)")
             }
             print("Total de itens: \(cartItems.count)")
             
@@ -75,10 +75,19 @@ final class CartVM: ObservableObject {
         }
     }
     
+    
     func totalPrice() -> Double {
-        cartProducts.reduce(0) {
-            $0 + ($1.product.price * Double($1.product.quantity))
+        var total: Double = 0.0
+        
+        for item in cartProducts {
+            // Força o uso do DTO (dado atualizado)
+            guard let dtoPrice = item.dto?.price else {
+                continue // Pula itens sem DTO (ou trata como 0)
+            }
+            total += dtoPrice * Double(item.product.quantity)
         }
+        
+        return total
     }
     
     func checkout() async {
