@@ -16,5 +16,7 @@ protocol UserProductsServiceProtocol: ObservableObject {
     
     func printAllProducts() -> Void
     
+//    func updateProductAttributes(id: Int, isFavorite: Bool, isOrder: Bool) -> Void
+    
 //    func getCardProducts() -> [Product]
 }

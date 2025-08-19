@@ -1,5 +1,5 @@
 //
-//  CategoriesService.swift
+//  CategoriesServiceAPI.swift
 //  api-challenge
 //
 //  Created by Diogo Camargo on 13/08/25.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-class CategoriesService: CategoriesServiceProtocol {
+class CategoriesServiceAPI: CategoriesServiceAPIProtocol {
     private let baseURL = "https://dummyjson.com/products"
     
     func fetchCategories() async throws -> [String] {

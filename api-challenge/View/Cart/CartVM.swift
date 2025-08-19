@@ -1,5 +1,5 @@
 //
-//  CartViewModel.swift
+//  CartVM.swift
 //  api-challenge
 //
 //  Created by Eduardo Ferrari on 16/08/25.
@@ -10,7 +10,7 @@ import SwiftData
 
 
 @Observable
-final class CartViewModel {
+final class CartVM {
     var cartProducts: [CartProductDisplay] = []
     var isLoading = false
     var errorMessage: String?

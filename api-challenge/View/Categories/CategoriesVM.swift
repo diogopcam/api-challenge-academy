@@ -1,5 +1,5 @@
 //
-//  HomeViewModel.swift
+//  HomeVM.swift
 //  api-challenge
 //
 //  Created by Diogo Camargo on 13/08/25.
@@ -13,9 +13,9 @@ class CategoriesVM: CategoriesVMProtocol {
     var isLoading: Bool = false
     var errorMessage: String?
     
-    private let service: CategoriesServiceProtocol
+    private let service: CategoriesServiceAPIProtocol
     
-    init(service: CategoriesServiceProtocol = CategoriesService()) {
+    init(service: CategoriesServiceAPIProtocol = CategoriesServiceAPI()) {
         self.service = service
     }
     

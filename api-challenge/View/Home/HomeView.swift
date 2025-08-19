@@ -10,8 +10,14 @@ import SwiftUI
 import SwiftData
 
 struct HomeView: View {
-    @Environment(\.modelContext) public var modelContext
-    @State private var viewModel = HomeVM()
+
+    @StateObject private var vm: HomeVM
+    @State private var searchText = ""
+
+    
+    init(vm: HomeVM) {  // Recebe a VM já configurada
+        _vm = StateObject(wrappedValue: vm)
+    }
     
     var body: some View {
         NavigationStack {
@@ -24,23 +30,23 @@ struct HomeView: View {
                         .padding(.horizontal)
                         .padding(.top, 16)
                     
-                    if viewModel.isLoading {
+                    if vm.isLoading {
                         ProgressView()
                             .padding()
-                    } else if let errorMessage = viewModel.errorMessage {
+                    } else if let errorMessage = vm.errorMessage {
                         ErrorView(message: errorMessage) {
-                            Task { await viewModel.loadProducts() }
+                            Task { await vm.loadProducts() }
                         }
                         .padding()
                     } else {
                         // Primeiro produto em destaque
-                        if let firstProduct = viewModel.products.first {
+                        if let firstProduct = vm.products.first {
                             ProductCardH(product: firstProduct)
                                 .padding(.horizontal)
                         }
                         
                         // Produtos restantes
-                        let remainingProducts = Array(viewModel.products.dropFirst())
+                        let remainingProducts = Array(vm.products.dropFirst())
                         if !remainingProducts.isEmpty {
                             Text("Top Picks")
                                 .font(.title2)
@@ -67,12 +73,12 @@ struct HomeView: View {
             .navigationTitle("Home")
             .background(.backgroundsPrimary)
             .refreshable {
-                await viewModel.loadProducts()
+                await vm.loadProducts()
             }
         }
         .task {
-            viewModel.modelContext = modelContext
-            await viewModel.loadProducts()
+//            vm.modelContext = modelContext
+            await vm.loadProducts()
         }
     }
 }

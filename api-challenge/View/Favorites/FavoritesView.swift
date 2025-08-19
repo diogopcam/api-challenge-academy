@@ -11,26 +11,26 @@ import SwiftUI
 
 struct FavoritesView: View {
     @Environment(\.modelContext) private var context
-    @State private var viewModel: FavoritesViewModel?
+    @State private var VM: FavoritesVM?
 
     var body: some View {
         NavigationStack {
-            if let viewModel = viewModel {
-                if viewModel.isLoading {
+            if let VM = VM {
+                if VM.isLoading {
                     ProgressView().navigationTitle("Favorites")
-                } else if viewModel.favoriteProducts.isEmpty {
+                } else if VM.favoriteProducts.isEmpty {
                     EmptyStateFav().navigationTitle("Favorites")
                 } else {
                     ScrollView {
                         VStack(spacing: 16) {
-                            ForEach(viewModel.favoriteProducts) { item in
+                            ForEach(VM.favoriteProducts) { item in
                                 ProductListAsyncImage(
                                     image: item.thumbnail,
                                     productName: item.product.name,
                                     price: item.product.price,
                                     quantity: .constant(1),
                                     variant: .cart {
-                                        let cartVM = CartViewModel(context: context)
+                                        let cartVM = CartVM(context: context)
                                         cartVM.addToCart(
                                             ProductDTO(
                                                 id: item.product.id,
@@ -54,9 +54,9 @@ struct FavoritesView: View {
             }
         }
         .task {
-            let vm = FavoritesViewModel(context: context)
+            let vm = FavoritesVM(context: context)
             await vm.loadFavorites()
-            viewModel = vm
+            VM = vm
         }
     }
 }

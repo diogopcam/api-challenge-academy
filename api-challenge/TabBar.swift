@@ -7,24 +7,29 @@
 
 import SwiftUI
 
+import SwiftUI
+
 struct TabBar: View {
-    // Removemos as instâncias diretas das ViewModels
-    // Elas serão criadas dentro de cada View com o contexto apropriado
-    @EnvironmentObject var userProductsService: UserProductsService
+    @Environment(\.diContainer) private var container
     
     var body: some View {
         TabView {
             // Home Tab
             NavigationStack {
-                HomeView() // Agora inicializa seu próprio ViewModel com o contexto
+                HomeView(vm: HomeVM(apiService: container.productsServiceApi))
             }
+//            NavigationStack {
+//                OrdersView(
+//                    vm: OrdersVM(service: container.userProductsService)
+//                )
+//            }
             .tabItem {
                 Label("Home", systemImage: "house.fill")
             }
             
             // Categories Tab
             NavigationStack {
-                CategoriesView() // Mesmo padrão para Categories
+                CategoriesView()
             }
             .tabItem {
                 Label("Categories", systemImage: "square.grid.2x2.fill")
@@ -48,7 +53,10 @@ struct TabBar: View {
             
             // Orders Tab
             NavigationStack {
-                OrdersView(service: userProductsService)            }
+                OrdersView(
+                    vm: OrdersVM(service: container.userProductsService)
+                )
+            }
             .tabItem {
                 Label("Orders", systemImage: "bag.fill")
             }
@@ -57,7 +65,8 @@ struct TabBar: View {
     }
 }
 
-#Preview {
-    TabBar()
-        .modelContainer(for: Product.self, inMemory: true)
-}
+//#Preview {
+//    TabBar()
+//        .environment(\.diContainer, DIContainer.createForTesting())
+//        .modelContainer(for: Product.self, inMemory: true)
+//}

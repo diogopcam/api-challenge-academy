@@ -1,5 +1,5 @@
 //
-//  CategoriesViewModelProtocol.swift
+//  CategoriesVMProtocol.swift
 //  api-challenge
 //
 //  Created by Diogo Camargo on 13/08/25.
@@ -7,7 +7,7 @@
 
 
 //
-//  CategoriesViewModelProtocol.swift
+//  CategoriesVMProtocol.swift
 //  api-challenge
 //
 //  Created by Diogo Camargo on 13/08/25.

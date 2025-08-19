@@ -1,5 +1,5 @@
 //
-//  HomeViewModel.swift
+//  HomeVM.swift
 //  api-challenge
 //
 //  Created by Diogo Camargo on 15/08/25.
@@ -8,17 +8,17 @@
 import SwiftUI
 import SwiftData
 
-@Observable
-final class HomeVM {
-    var products: [ProductDTO] = []
-    var isLoading = false
-    var errorMessage: String?
-    private let service: ProductsServiceProtocolAPI
+@MainActor
+final class HomeVM: ObservableObject {
+    @Published var products: [ProductDTO] = []    // Adicione @Published
+    @Published var isLoading = false             // Adicione @Published
+    @Published var errorMessage: String?
+   
+    private let apiService: any ProductsServiceProtocolAPI
     public var modelContext: ModelContext?
-
     
-    init(service: ProductsServiceProtocolAPI = ProductsServiceAPI()) {
-        self.service = service
+    init(apiService: any ProductsServiceProtocolAPI) {
+        self.apiService = apiService
     }
     
     @MainActor
@@ -27,7 +27,7 @@ final class HomeVM {
         errorMessage = nil
         
         do {
-            products = try await service.fetchProducts()
+            products = try await apiService.fetchProducts()
             try persistProducts(products) // persistindo no banco
         } catch {
             errorMessage = error.localizedDescription
@@ -36,41 +36,6 @@ final class HomeVM {
         
         isLoading = false
     }
-    
-    // Função de persistência
-//    func persistProducts(_ products: [ProductDTO]) {
-//        guard let context = modelContext else { return }
-//
-//        for dto in products {
-//            // Verifica se o produto já existe
-//            let descriptor = FetchDescriptor<Product>(predicate: #Predicate { $0.id == dto.id })
-//            let existing = try? context.fetch(descriptor)
-//
-//            if existing?.isEmpty == false {
-//                continue // já existe, não insere de novo
-//            }
-//
-//            // Cria e insere novo produto
-//            let newProduct = Product(
-//                id: dto.id,
-//                name: dto.title,
-//                info: dto.description,
-//                category: dto.category,
-//                price: dto.price,
-//                type: .none // <- Evita popular o carrinho acidentalmente
-//            )
-//            context.insert(newProduct)
-//            print("Produto \(dto.title) adicionado no contexto")
-//        }
-//
-//        do {
-//            try context.save()
-//            print("Todos os produtos foram salvos com sucesso!")
-//        } catch {
-//            print("Erro ao salvar produtos: \(error)")
-//        }
-//    }
-
     
     func persistProducts(_ products: [ProductDTO]) {
            guard let context = modelContext else { return }

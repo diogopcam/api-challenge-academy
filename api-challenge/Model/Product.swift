@@ -5,7 +5,6 @@
 //  Created by Diogo Camargo on 15/08/25.
 //
 
-
 import SwiftData
 import SwiftUI
 
@@ -22,8 +21,8 @@ final class Product {
     var isFavorite: Bool = false
     var isCart: Bool = false
     var isOrder: Bool = false
-    var thumbnail: String
-
+    var thumbnail: String?
+    
     init(id: Int, name: String, info: String, category: String, price: Double, type: ProductType = .none, quantity: Int = 1, thumbnail: String) {
         self.id = id
         self.name = name

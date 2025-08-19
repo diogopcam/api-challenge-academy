@@ -9,13 +9,13 @@ import SwiftData
 
 struct CategoriesView: View {
     @State private var searchText = ""
-    @State private var viewModel: CategoriesVM
+    @State private var VM: CategoriesVM
     @Environment(\.modelContext) private var modelContext
     
     init() {
         // Contexto temporário para inicialização (será substituído)
 //        _ = try! ModelContext(ModelContainer(for: Product.self))
-        viewModel = CategoriesVM()
+        VM = CategoriesVM()
     }
     
     var body: some View {
@@ -33,14 +33,14 @@ struct CategoriesView: View {
                         .padding(.horizontal)
                     
                     // Lista completa de categorias
-                    if viewModel.isLoading {
+                    if VM.isLoading {
                         ProgressView()
-                    } else if let errorMessage = viewModel.errorMessage {
+                    } else if let errorMessage = VM.errorMessage {
                         ErrorView(message: errorMessage) {
-                            Task { await viewModel.loadCategories() }
+                            Task { await VM.loadCategories() }
                         }
                     } else {
-                        CategoryListView(apiCategories: viewModel.apiCategories)
+                        CategoryListView(apiCategories: VM.apiCategories)
                     }
                 }
                 .padding(.vertical)
@@ -49,11 +49,11 @@ struct CategoriesView: View {
             .searchable(text: $searchText, prompt: "Buscar...")
             .background(.backgroundsPrimary)
             .refreshable {
-                await viewModel.loadCategories()
+                await VM.loadCategories()
             }
         }
         .task {
-            await viewModel.loadCategories()
+            await VM.loadCategories()
         }
     }
 }

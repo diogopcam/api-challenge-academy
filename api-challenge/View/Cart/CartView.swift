@@ -1,5 +1,5 @@
 //
-//  CartViewModel.swift
+//  CartVM.swift
 //  api-challenge
 //
 //  Created by Eduardo Ferrari on 16/08/25.
@@ -10,21 +10,21 @@ import SwiftData
 
 struct CartView: View {
     @Environment(\.modelContext) private var context
-    @State private var viewModel: CartViewModel?
+    @State private var VM: CartVM?
 
     var body: some View {
         NavigationStack {
-            if let viewModel = viewModel {
-                if viewModel.isLoading {
+            if let VM = VM {
+                if VM.isLoading {
                     ProgressView()
                         .navigationTitle("Cart")
-                } else if viewModel.cartProducts.isEmpty {
+                } else if VM.cartProducts.isEmpty {
                     EmptyStateCart()
                         .navigationTitle("Cart")
                 } else {
                     ScrollView {
                         VStack(spacing: 16) {
-                            ForEach(viewModel.cartProducts) { item in
+                            ForEach(VM.cartProducts) { item in
                                 ProductListAsyncImage(
                                     image: item.thumbnail,
                                     productName: item.product.name,
@@ -33,9 +33,9 @@ struct CartView: View {
                                         get: { item.product.quantity },
                                         set: { newValue in
                                             if newValue > item.product.quantity {
-                                                viewModel.increaseQuantity(item.product)
+                                                VM.increaseQuantity(item.product)
                                             } else {
-                                                viewModel.decreaseQuantity(item.product)
+                                                VM.decreaseQuantity(item.product)
                                             }
                                         }
                                     ),
@@ -50,7 +50,7 @@ struct CartView: View {
                                 Text("Total")
                                     .font(.headline)
                                 Spacer()
-                                Text("US$ \(viewModel.totalPrice(), specifier: "%.2f")")
+                                Text("US$ \(VM.totalPrice(), specifier: "%.2f")")
                                     .bold()
                             }
                             .padding(.top, 16)
@@ -83,9 +83,9 @@ struct CartView: View {
             
         }
         .task {
-            let vm = CartViewModel(context: context)
+            let vm = CartVM(context: context)
             await vm.loadCart()
-            viewModel = vm
+            VM = vm
         }
     }
 }

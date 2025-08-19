@@ -10,7 +10,7 @@ import SwiftData
 
 
     //@Environment(\.modelContext) private var modelContext
-   // @State private var favoritesVM: FavoritesViewModel
+   // @State private var favoritesVM: FavoritesVM
 
 //    var body: some View {
 //        VStack(alignment: .leading) {
@@ -132,7 +132,7 @@ import SwiftData
 //        }
 //struct ProductCardV: View {
 //        let product: ProductDTO
-//        @ObservedObject var favoritesVM: FavoritesViewModel
+//        @ObservedObject var favoritesVM: FavoritesVM
 //
 //        var body: some View {
 //            VStack(alignment: .leading, spacing: 8) {

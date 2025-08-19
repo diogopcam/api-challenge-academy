@@ -10,7 +10,7 @@ import SwiftData
 
 //struct ProductDetailsSheet: View {
 //    @Environment(\.modelContext) private var modelContext
-//    @Binding var cartVM: CartViewModel
+//    @Binding var cartVM: CartVM
 //    
 //    let product: ProductDTO
 //    @Environment(\.dismiss) var dismiss
@@ -39,7 +39,7 @@ import SwiftData
 //
 //            Button(action: {
 ////                if cartVM == nil {
-////                    cartVM = CartViewModel(context: modelContext)
+////                    cartVM = CartVM(context: modelContext)
 ////                }
 ////
 ////                cartVM?.add(product: product)
@@ -64,8 +64,8 @@ import SwiftData
 
 //struct ProductDetailsSheet: View {
 //    @Environment(\.modelContext) private var modelContext
-//    @Binding var cartVM: CartViewModel
-//    var favoritesVM: FavoritesViewModel
+//    @Binding var cartVM: CartVM
+//    var favoritesVM: FavoritesVM
 //
 //    let product: ProductDTO
 //    @Environment(\.dismiss) var dismiss
@@ -113,7 +113,7 @@ import SwiftData
 
 //struct ProductDetailsSheet: View {
 //    @Environment(\.modelContext) private var modelContext
-//    @Binding var cartVM: CartViewModel
+//    @Binding var cartVM: CartVM
 //    @Query private var favorites: [CartItem]
 //    
 //    let product: ProductDTO
@@ -164,8 +164,8 @@ struct ProductDetailsSheet: View {
     let product: ProductDTO
     @Environment(\.dismiss) private var dismiss
     @Environment(\.modelContext) private var context
-    @State private var favoritesVM: FavoritesViewModel?
-    @State private var cartVM: CartViewModel?
+    @State private var favoritesVM: FavoritesVM?
+    @State private var cartVM: CartVM?
 
     var body: some View {
         VStack {
@@ -187,8 +187,8 @@ struct ProductDetailsSheet: View {
             .padding(.horizontal)
         }
         .onAppear {
-            cartVM = CartViewModel(context: context)
-            favoritesVM = FavoritesViewModel(context: context)
+            cartVM = CartVM(context: context)
+            favoritesVM = FavoritesVM(context: context)
         }
     }
     

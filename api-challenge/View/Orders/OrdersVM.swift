@@ -8,7 +8,6 @@
 import SwiftUI
 import SwiftData
 
-
 @MainActor
 final class OrdersVM: ObservableObject {
     @Published var orderedProducts: [Product] = []

@@ -12,8 +12,8 @@ struct OrdersView: View {
     @StateObject private var vm: OrdersVM
     @State private var searchText = ""
 
-    init(service: any UserProductsServiceProtocol) {
-        _vm = StateObject(wrappedValue: OrdersVM(service: service))
+    init(vm: OrdersVM) {  // Recebe a VM já configurada
+        _vm = StateObject(wrappedValue: vm)
     }
 
     var filteredProducts: [Product] {

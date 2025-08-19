@@ -1,5 +1,5 @@
 //
-//  FavoritesViewModel.swift
+//  FavoritesVM.swift
 //  api-challenge
 //
 //  Created by Eduardo Ferrari on 17/08/25.
@@ -9,7 +9,7 @@ import SwiftData
 import SwiftUI
 
 @Observable
-final class FavoritesViewModel {
+final class FavoritesVM {
     var favoriteProducts: [FavoriteProductDisplay] = []
     var isLoading = false
     var errorMessage: String?
