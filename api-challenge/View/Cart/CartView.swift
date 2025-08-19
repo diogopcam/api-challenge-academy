@@ -8,8 +8,9 @@
 import SwiftUI
 import SwiftData
 struct CartView: View {
-    @Environment(\.modelContext) private var context
     @StateObject private var vm: CartVM
+    @State private var showingCheckoutAlert = false
+    @Environment(\.dismiss) private var dismiss
 
     init(vm: CartVM) {
         _vm = StateObject(wrappedValue: vm)
@@ -68,7 +69,7 @@ struct CartView: View {
                         .padding(.horizontal)
                         
                         Button("Checkout") {
-                            // ação de checkout
+                            showingCheckoutAlert = true
                         }
                         .foregroundStyle(.labelsPrimary)
                         .frame(maxWidth: .infinity)
@@ -81,6 +82,23 @@ struct CartView: View {
                 }
                 .navigationTitle("Cart")
             }
+        }
+        .alert("Confirmar Checkout", isPresented: $showingCheckoutAlert) {
+            Button("Cancelar", role: .cancel) { }
+            Button("Confirmar") {
+                Task {
+                    await vm.checkout()
+                }
+            }
+        } message: {
+            Text("Finalizar compra de \(vm.cartProducts.count) itens por US$ \(vm.totalPrice(), specifier: "%.2f")?")
+        }
+        .alert("Compra Finalizada", isPresented: $vm.checkoutSuccess) {
+            Button("OK") {
+                dismiss()
+            }
+        } message: {
+            Text("Seu pedido foi realizado com sucesso!")
         }
         .task {
             await vm.loadCart()
