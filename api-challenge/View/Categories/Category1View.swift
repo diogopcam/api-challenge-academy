@@ -164,11 +164,11 @@ struct Category1View: View {
         .task {
             await VM.loadProducts(for: categoryName)
         }
-        .onAppear {
-            if cartVM == nil {
-                cartVM = CartVM(context: modelContext)
-            }
-        }
+//        .onAppear {
+//            if cartVM == nil {
+//                cartVM = CartVM(context: modelContext)
+//            }
+//        }
     }
 }
 

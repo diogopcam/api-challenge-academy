@@ -8,99 +8,97 @@
 import SwiftUI
 import SwiftData
 
-
-@Observable
-final class CartVM {
-    var cartProducts: [CartProductDisplay] = []
-    var isLoading = false
-    var errorMessage: String?
+@MainActor
+final class CartVM: ObservableObject {
+    @Published var cartProducts: [CartProductDisplay] = []
+    @Published var isLoading = false
+    @Published var errorMessage: String?
+    @Published var checkoutSuccess = false
+    
+    private let productsService: any UserProductsServiceProtocol
+    private let apiService: ProductsServiceProtocolAPI
     private var productMap: [Int: ProductDTO] = [:]
-
-    private let context: ModelContext
-    private let service: ProductsServiceProtocolAPI
-
-    init(context: ModelContext, service: ProductsServiceProtocolAPI = ProductsServiceAPI()) {
-        self.context = context
-        self.service = service
+    
+    init(productsService: any UserProductsServiceProtocol, apiService: any ProductsServiceProtocolAPI) {
+        self.productsService = productsService
+        self.apiService = apiService
     }
-
-    @MainActor
+    
     func loadCart() async {
         isLoading = true
         errorMessage = nil
-
+        
         do {
-            let dtoList = try await service.fetchProducts()
+            // Pega dados da API
+            let dtoList = try await apiService.fetchProducts()
             productMap = Dictionary(uniqueKeysWithValues: dtoList.map { ($0.id, $0) })
-
-            let cartItems = try context.fetch(
-                FetchDescriptor<Product>(predicate: #Predicate { $0.isCart == true })
-            )
-
+            
+            // Pega dados do carrinho do SwiftData
+            let cartItems = try productsService.getCartProducts()
+            
+            // Mapeia para display
             cartProducts = cartItems.map { product in
                 let dto = productMap[product.id]
                 return CartProductDisplay(product: product, dto: dto)
             }
-
+            
+            // Print para debug
+            print("=== PRODUTOS NO CARRINHO ===")
+            for product in cartItems {
+                print("ID: \(product.id), Nome: \(product.name), Quantidade: \(product.quantity), Preço: \(product.price)")
+            }
+            print("Total de itens: \(cartItems.count)")
+            
         } catch {
             errorMessage = error.localizedDescription
+            print("Erro ao carregar carrinho: \(error)")
         }
-
+        
         isLoading = false
     }
-
-    func addToCart(_ dto: ProductDTO) {
-        if let existing = fetchProduct(by: dto.id) {
-            existing.isCart = true
-            existing.quantity += 1
-        } else {
-            let product = Product(
-                id: dto.id,
-                name: dto.title,
-                info: dto.description,
-                category: dto.category,
-                price: dto.price,
-                type: .cart,
-                thumbnail: dto.thumbnail
-            )
-            product.isCart = true
-            product.quantity = 1
-            context.insert(product)
-        }
-
-        try? context.save()
-    }
-
+    
     func increaseQuantity(_ product: Product) {
-        product.quantity += 1
-        try? context.save()
-    }
-
-    func decreaseQuantity(_ product: Product) {
-        if product.quantity > 1 {
-            product.quantity -= 1
-        } else {
-            product.isCart = false
-            product.type = .none
-            product.quantity = 1
+        do {
+            try productsService.increaseQuantity(product)
+        } catch {
+            errorMessage = "Erro ao aumentar quantidade"
+            print("Erro: \(error)")
         }
-        try? context.save()
     }
-
+    
+    func decreaseQuantity(_ product: Product) {
+        do {
+            try productsService.decreaseQuantity(product)
+        } catch {
+            errorMessage = "Erro ao diminuir quantidade"
+            print("Erro: \(error)")
+        }
+    }
+    
     func totalPrice() -> Double {
-        cartProducts.reduce(0) { $0 + ($1.product.price * Double($1.product.quantity)) }
+        cartProducts.reduce(0) {
+            $0 + ($1.product.price * Double($1.product.quantity))
+        }
     }
-
-    private func fetchProduct(by id: Int) -> Product? {
-        let descriptor = FetchDescriptor<Product>(predicate: #Predicate { $0.id == id })
-        return try? context.fetch(descriptor).first
+    
+    func checkout() async {
+        isLoading = true
+        errorMessage = nil
+        
+        do {
+            try productsService.checkoutCartProducts()
+            checkoutSuccess = true
+            
+            // Limpa o carrinho localmente
+            cartProducts.removeAll()
+            
+            print("Checkout realizado com sucesso!")
+            
+        } catch {
+            errorMessage = "Erro ao finalizar compra: \(error.localizedDescription)"
+            print("Erro no checkout: \(error)")
+        }
+        
+        isLoading = false
     }
-}
-
-struct CartProductDisplay: Identifiable {
-    let product: Product
-    let dto: ProductDTO?
-
-    var id: Int { product.id }
-    var thumbnail: String? { dto?.thumbnail }
 }

@@ -36,16 +36,24 @@ struct TabBar: View {
             }
             
             // Cart Tab
-            NavigationStack {
-                CartView()
-            }
+            CartView(
+                vm: CartVM(
+                    productsService: container.userProductsService,
+                    apiService: container.productsServiceApi
+                )
+            )
             .tabItem {
                 Label("Cart", systemImage: "cart.fill")
             }
             
             // Favorites Tab
             NavigationStack {
-                FavoritesView()
+                FavoritesView(
+                    vm: FavoritesVM(
+                        apiService: container.productsServiceApi,
+                        userProductsService: container.userProductsService
+                    )
+                )
             }
             .tabItem {
                 Label("Favorites", systemImage: "heart.fill")

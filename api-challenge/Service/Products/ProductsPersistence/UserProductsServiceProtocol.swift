@@ -8,15 +8,23 @@
 import SwiftUI
 
 protocol UserProductsServiceProtocol: ObservableObject {
-//    func getUserProducts(userId: Int) -> [Product]
-    
     func getFavoriteProducts() -> [Product]
     
     func getOrderedProducts() -> [Product]
     
+    func getCartProducts() throws -> [Product]
+    
+    func addToCart(_ dto: ProductDTO) throws
+    
+    func increaseQuantity(_ product: Product) throws
+    
+    func decreaseQuantity(_ product: Product) throws
+    
     func printAllProducts() -> Void
     
-//    func updateProductAttributes(id: Int, isFavorite: Bool, isOrder: Bool) -> Void
+    func fetchProduct(by id: Int) -> Product?
     
-//    func getCardProducts() -> [Product]
+    func toggleFavorite(_ dto: ProductDTO) throws
+    
+    func checkoutCartProducts() throws
 }

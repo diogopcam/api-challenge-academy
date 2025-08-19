@@ -5,58 +5,79 @@
 //  Created by Eduardo Ferrari on 17/08/25.
 //
 
-
-import SwiftData
 import SwiftUI
 
 struct FavoritesView: View {
-    @Environment(\.modelContext) private var context
-    @State private var VM: FavoritesVM?
+    @StateObject private var vm: FavoritesVM
+    @State private var searchText = ""
+    @State private var selectedProduct: ProductDTO?
+    @State private var showProductDetails = false
+
+    init(vm: FavoritesVM) {
+        _vm = StateObject(wrappedValue: vm)
+    }
+    
+    private func productRow(for item: FavoriteProductDisplay) -> some View {
+        let productDTO = ProductDTO(
+            id: item.product.id,
+            title: item.product.name,
+            description: item.product.info,
+            category: item.product.category,
+            price: item.product.price,
+            thumbnail: item.thumbnail ?? ""
+        )
+        
+        return ProductListAsyncImage(
+            image: item.thumbnail,
+            productName: item.product.name,
+            price: item.product.price,
+            quantity: .constant(0),
+            variant: .cart {
+                selectedProduct = productDTO
+                showProductDetails = true
+                print("Botão pressionado - Sheet deve aparecer")
+            }
+        )
+    }
 
     var body: some View {
         NavigationStack {
-            if let VM = VM {
-                if VM.isLoading {
-                    ProgressView().navigationTitle("Favorites")
-                } else if VM.favoriteProducts.isEmpty {
-                    EmptyStateFav().navigationTitle("Favorites")
-                } else {
-                    ScrollView {
-                        VStack(spacing: 16) {
-                            ForEach(VM.favoriteProducts) { item in
-                                ProductListAsyncImage(
-                                    image: item.thumbnail,
-                                    productName: item.product.name,
-                                    price: item.product.price,
-                                    quantity: .constant(1),
-                                    variant: .cart {
-                                        let cartVM = CartVM(context: context)
-                                        cartVM.addToCart(
-                                            ProductDTO(
-                                                id: item.product.id,
-                                                title: item.product.name,
-                                                description: item.product.info,
-                                                category: item.product.category,
-                                                price: item.product.price,
-                                                thumbnail: item.thumbnail ?? ""
-                                            )
-                                        )
-                                    }
-                                )
-                            }
-                        }
-                        .padding()
-                    }
+            if vm.isLoading {
+                ProgressView()
                     .navigationTitle("Favorites")
-                }
+            } else if vm.filteredProducts.isEmpty {
+                EmptyStateFav()
+                    .navigationTitle("Favorites")
             } else {
-                ProgressView().navigationTitle("Favorites")
+                ScrollView {
+                    VStack(spacing: 16) {
+                        ForEach(vm.filteredProducts) { item in
+                            productRow(for: item)
+                        }
+                    }
+                    .padding()
+                }
+                .navigationTitle("Favorites")
+                .searchable(text: $searchText, prompt: "Search")
+                .onChange(of: searchText) { newValue in
+                    vm.filterFavorites(by: newValue)
+                }
+            }
+        }
+        // MOVER A SHEET PARA FORA DO NavigationStack
+        .sheet(isPresented: $showProductDetails) {
+            if let product = selectedProduct {
+                ProductDetailsSheet(product: product)
+                    .onDisappear {
+                        selectedProduct = nil
+                    }
+            } else {
+                Text("Erro: Produto não selecionado")
+                    .presentationDetents([.medium])
             }
         }
         .task {
-            let vm = FavoritesVM(context: context)
             await vm.loadFavorites()
-            VM = vm
         }
     }
 }

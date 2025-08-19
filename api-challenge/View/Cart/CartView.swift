@@ -7,85 +7,86 @@
 
 import SwiftUI
 import SwiftData
-
 struct CartView: View {
     @Environment(\.modelContext) private var context
-    @State private var VM: CartVM?
+    @StateObject private var vm: CartVM
+
+    init(vm: CartVM) {
+        _vm = StateObject(wrappedValue: vm)
+    }
 
     var body: some View {
         NavigationStack {
-            if let VM = VM {
-                if VM.isLoading {
-                    ProgressView()
-                        .navigationTitle("Cart")
-                } else if VM.cartProducts.isEmpty {
-                    EmptyStateCart()
-                        .navigationTitle("Cart")
-                } else {
+            if vm.isLoading {
+                ProgressView()
+                    .navigationTitle("Cart")
+            } else if vm.cartProducts.isEmpty {
+                EmptyStateCart()
+                    .navigationTitle("Cart")
+            } else {
+                VStack {
+                    // Lista de produtos
                     ScrollView {
                         VStack(spacing: 16) {
-                            ForEach(VM.cartProducts) { item in
+                            ForEach(vm.cartProducts) { item in
                                 ProductListAsyncImage(
-                                    image: item.thumbnail,
+                                    image: item.dto?.thumbnail, // Use o DTO para a imagem
                                     productName: item.product.name,
                                     price: item.product.price,
                                     quantity: Binding(
                                         get: { item.product.quantity },
                                         set: { newValue in
-                                            if newValue > item.product.quantity {
-                                                VM.increaseQuantity(item.product)
-                                            } else {
-                                                VM.decreaseQuantity(item.product)
-                                            }
+                                            // Esta lógica precisa ser ajustada
+                                            // Melhor usar botões separados
                                         }
                                     ),
-                                    variant: .stepper
+                                    variant: .stepper(
+                                        onIncrement: {
+                                            vm.increaseQuantity(item.product)
+                                        },
+                                        onDecrement: {
+                                            vm.decreaseQuantity(item.product)
+                                        }
+                                    )
                                 )
                             }
                         }
                         .padding()
-                        VStack {
-                            Divider()
-                            HStack {
-                                Text("Total")
-                                    .font(.headline)
-                                Spacer()
-                                Text("US$ \(VM.totalPrice(), specifier: "%.2f")")
-                                    .bold()
-                            }
-                            .padding(.top, 16)
-                        }
-                        .padding(.horizontal)
-                        .padding(.bottom)
                     }
-
+                    
+                    // Total e checkout
                     VStack {
+                        Divider()
+                        HStack {
+                            Text("Total")
+                                .font(.headline)
+                            Spacer()
+                            Text("US$ \(vm.totalPrice(), specifier: "%.2f")")
+                                .bold()
+                        }
+                        .padding(.top, 16)
+                        .padding(.horizontal)
+                        
                         Button("Checkout") {
-                            //action botar aqui
-                            //print("Ir para pagamento")
+                            // ação de checkout
                         }
                         .foregroundStyle(.labelsPrimary)
                         .frame(maxWidth: .infinity)
                         .frame(height: 54)
                         .background(.fillsTertiary)
-                        .foregroundColor(.white)
                         .cornerRadius(12)
                         .padding(.horizontal, 16)
                         .padding(.vertical, 16)
                     }
-                    .navigationTitle("Cart")
                 }
-                
-            } else {
-                ProgressView()
                 .navigationTitle("Cart")
             }
-            
         }
         .task {
-            let vm = CartVM(context: context)
             await vm.loadCart()
-            VM = vm
+        }
+        .refreshable {
+            await vm.loadCart()
         }
     }
 }
