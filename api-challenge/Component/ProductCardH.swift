@@ -11,7 +11,7 @@ struct ProductCardH: View {
     let product: ProductDTO
     let isFavorited: Bool
     let onToggleFavorite: () -> Void
-//    let onTapProduct: () -> Void
+    let onTapProduct: () -> Void
     
     var body: some View {
         ZStack(alignment: .topTrailing) {
@@ -58,8 +58,7 @@ struct ProductCardH: View {
                 .padding(.top, 22)
             
             Button {
-//                print("Coração clicado")
-                onToggleFavorite() // ← Delega a ação
+                onToggleFavorite()
             } label: {
                 Image(systemName: isFavorited ? "heart.fill" : "heart")
                     .resizable()
@@ -74,9 +73,9 @@ struct ProductCardH: View {
             .frame(width: 38, height: 38)
             .padding(8)
         }
-//        .onTapGesture {
-//            onTapProduct()
-//        }
+        .onTapGesture {
+            onTapProduct()
+        }
         .frame(width: 368, height: 176)
     }
 }
