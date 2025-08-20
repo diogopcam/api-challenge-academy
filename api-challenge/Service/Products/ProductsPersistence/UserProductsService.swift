@@ -27,6 +27,13 @@ final class UserProductsService: UserProductsServiceProtocol {
         return (try? context.fetch(descriptor)) ?? []
     }
     
+    func isProductFavorite(id: Int) -> Bool {
+        if let product = fetchProduct(by: id) {
+            return product.isFavorite
+        }
+        return false
+    }
+    
     func getOrderedProducts() -> [Product] {
         let descriptor = FetchDescriptor<Product>(
             predicate: #Predicate { $0.isOrder == true }

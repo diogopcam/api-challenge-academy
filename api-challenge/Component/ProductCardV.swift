@@ -10,9 +10,9 @@ import SwiftData
 
 struct ProductCardV: View {
     let product: ProductDTO
-    @Environment(\.modelContext) private var modelContext
-    @Query(filter: #Predicate<Product> { $0.isFavorite == true })
-    private var favorites: [Product]
+    let isFavorited: Bool
+    let onToggleFavorite: () -> Void
+//    let onTapProduct: () -> Void
     
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
@@ -25,16 +25,20 @@ struct ProductCardV: View {
                 .frame(width: 161, height: 160)
                 .clipped()
                 .cornerRadius(16)
+                
+//                .onTapGesture {
+//                    onTapProduct()
+//                }
 
                 Button {
-//                    toggleFavorite()
+                    onToggleFavorite() // ← Delega a ação
                 } label: {
-                    Image(systemName: isFavorited() ? "heart.fill" : "heart")
+                    Image(systemName: isFavorited ? "heart.fill" : "heart")
                         .resizable()
                         .frame(width: 20, height: 20)
                         .padding(8)
-                        .background(RoundedRectangle(cornerRadius: 8).foregroundColor(Color(.systemGray5)))
-                        .foregroundStyle(.labelsPrimary)
+                        .background(RoundedRectangle(cornerRadius: 8).foregroundColor(Color(.fillsTertiary)))
+                        .foregroundStyle(isFavorited ? .labelsPrimary : .labelsPrimary)
                 }
                 .padding(8)
             }
@@ -45,7 +49,7 @@ struct ProductCardV: View {
                     .foregroundColor(.primary)
                     .lineLimit(2)
 
-                Text("R$ \(product.price, specifier: "%.2f")")
+                Text("$\(product.price, specifier: "%.2f")")
                     .font(.system(size: 13))
                     .foregroundColor(.secondary)
             }
@@ -53,22 +57,7 @@ struct ProductCardV: View {
             .padding(.bottom, 8)
         }
         .frame(width: 161)
-        .background(.backgroundsPrimary)
+        .background(.backgroundsSecondary)
         .cornerRadius(16)
     }
-
-    private func isFavorited() -> Bool {
-            favorites.contains { $0.id == product.id }
-        }
-
-//    private func toggleFavorite() {
-//            if let existing = favorites.first(where: { $0.id == product.id }) {
-//                existing.isFavorite = false
-//            } else {
-//                let newProduct = Product(from: product, type: .favorites)
-//                newProduct.isFavorite = true
-//                modelContext.insert(newProduct)
-//            }
-//            try? modelContext.save()
-//    }
 }

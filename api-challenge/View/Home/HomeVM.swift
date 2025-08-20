@@ -38,4 +38,17 @@ final class HomeVM: ObservableObject {
         
         isLoading = false
     }
+    
+    func isProductFavorite(id: Int) -> Bool {
+        return productsService.isProductFavorite(id: id)
+    }
+    
+    func toggleFavorite(for product: ProductDTO) {
+            do {
+                try productsService.toggleFavorite(product)
+                objectWillChange.send()
+            } catch {
+                print("Erro ao alternar favorito: \(error)")
+            }
+        }
 }

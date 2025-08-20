@@ -6,8 +6,19 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXContainerItemProxy section */
+		AD5DB3A52E56329800467BC1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = AD3E302F2E4D1726009DFDC0 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = AD3E30362E4D1727009DFDC0;
+			remoteInfo = "api-challenge";
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		AD3E30372E4D1727009DFDC0 /* api-challenge.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "api-challenge.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		AD5DB3A12E56329800467BC1 /* api-challengeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "api-challengeTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -16,10 +27,22 @@
 			path = "api-challenge";
 			sourceTree = "<group>";
 		};
+		AD5DB3A22E56329800467BC1 /* api-challengeTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = "api-challengeTests";
+			sourceTree = "<group>";
+		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		AD3E30342E4D1727009DFDC0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AD5DB39E2E56329800467BC1 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -33,6 +56,7 @@
 			isa = PBXGroup;
 			children = (
 				AD3E30392E4D1727009DFDC0 /* api-challenge */,
+				AD5DB3A22E56329800467BC1 /* api-challengeTests */,
 				AD3E30382E4D1727009DFDC0 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -41,6 +65,7 @@
 			isa = PBXGroup;
 			children = (
 				AD3E30372E4D1727009DFDC0 /* api-challenge.app */,
+				AD5DB3A12E56329800467BC1 /* api-challengeTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -70,6 +95,29 @@
 			productReference = AD3E30372E4D1727009DFDC0 /* api-challenge.app */;
 			productType = "com.apple.product-type.application";
 		};
+		AD5DB3A02E56329800467BC1 /* api-challengeTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AD5DB3A72E56329800467BC1 /* Build configuration list for PBXNativeTarget "api-challengeTests" */;
+			buildPhases = (
+				AD5DB39D2E56329800467BC1 /* Sources */,
+				AD5DB39E2E56329800467BC1 /* Frameworks */,
+				AD5DB39F2E56329800467BC1 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				AD5DB3A62E56329800467BC1 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				AD5DB3A22E56329800467BC1 /* api-challengeTests */,
+			);
+			name = "api-challengeTests";
+			packageProductDependencies = (
+			);
+			productName = "api-challengeTests";
+			productReference = AD5DB3A12E56329800467BC1 /* api-challengeTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -82,6 +130,10 @@
 				TargetAttributes = {
 					AD3E30362E4D1727009DFDC0 = {
 						CreatedOnToolsVersion = 16.2;
+					};
+					AD5DB3A02E56329800467BC1 = {
+						CreatedOnToolsVersion = 16.2;
+						TestTargetID = AD3E30362E4D1727009DFDC0;
 					};
 				};
 			};
@@ -100,12 +152,20 @@
 			projectRoot = "";
 			targets = (
 				AD3E30362E4D1727009DFDC0 /* api-challenge */,
+				AD5DB3A02E56329800467BC1 /* api-challengeTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
 		AD3E30352E4D1727009DFDC0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AD5DB39F2E56329800467BC1 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -122,7 +182,22 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		AD5DB39D2E56329800467BC1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		AD5DB3A62E56329800467BC1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = AD3E30362E4D1727009DFDC0 /* api-challenge */;
+			targetProxy = AD5DB3A52E56329800467BC1 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		AD3E30452E4D1727009DFDC0 /* Debug */ = {
@@ -310,6 +385,42 @@
 			};
 			name = Release;
 		};
+		AD5DB3A82E56329800467BC1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 7BUDD8LAH7;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "academy.api-challengeTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/api-challenge.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/api-challenge";
+			};
+			name = Debug;
+		};
+		AD5DB3A92E56329800467BC1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 7BUDD8LAH7;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "academy.api-challengeTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/api-challenge.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/api-challenge";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -327,6 +438,15 @@
 			buildConfigurations = (
 				AD3E30482E4D1727009DFDC0 /* Debug */,
 				AD3E30492E4D1727009DFDC0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AD5DB3A72E56329800467BC1 /* Build configuration list for PBXNativeTarget "api-challengeTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AD5DB3A82E56329800467BC1 /* Debug */,
+				AD5DB3A92E56329800467BC1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

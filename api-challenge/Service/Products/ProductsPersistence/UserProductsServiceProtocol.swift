@@ -10,6 +10,8 @@ import SwiftUI
 protocol UserProductsServiceProtocol: ObservableObject {
     
     func getFavoriteProducts() -> [Product]
+   
+    func isProductFavorite(id: Int) -> Bool
     
     func getOrderedProducts() -> [Product]
     
