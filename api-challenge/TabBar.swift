@@ -18,7 +18,7 @@ struct TabBar: View {
             NavigationStack {
                 HomeView(
                     vm: HomeVM(
-                        apiService: container.productsServiceApi,
+                        apiService: container.apiService,
                         productsService: container.userProductsService
                 ))
             }
@@ -33,7 +33,12 @@ struct TabBar: View {
             
             // Categories Tab
             NavigationStack {
-                CategoriesView()
+                CategoriesView(
+                    vm: CategoriesVM(
+                        apiService: container.apiService
+//                        productsService: container.userProductsService
+                    )
+                )
             }
             .tabItem {
                 Label("Categories", systemImage: "square.grid.2x2.fill")
@@ -41,7 +46,7 @@ struct TabBar: View {
             
             CartView(
                 vm: CartVM(
-                    apiService: container.productsServiceApi,
+                    apiService: container.apiService,
                     productsService: container.userProductsService
                 )
             )
@@ -52,7 +57,7 @@ struct TabBar: View {
             NavigationStack {
                 FavoritesView(
                     vm: FavoritesVM(
-                            apiService: container.productsServiceApi,
+                            apiService: container.apiService,
                             productsService: container.userProductsService
                     )
                 )
@@ -64,7 +69,7 @@ struct TabBar: View {
             NavigationStack {
                 OrdersView(
                     vm: OrdersVM(
-                        apiService: container.productsServiceApi,
+                        apiService: container.apiService,
                         service: container.userProductsService
                     )
                 )

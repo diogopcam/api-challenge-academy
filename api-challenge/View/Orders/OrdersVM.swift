@@ -15,11 +15,11 @@ final class OrdersVM: ObservableObject {
     @Published var isLoading = false
     @Published var errorMessage: String?
     
-    private let apiService: any ProductsServiceProtocolAPI
+    private let apiService: any ApiServiceProtocol
     private let userService: any UserProductsServiceProtocol
     
     // ✅ Corrige o init - não deve ser async
-    init(apiService: any ProductsServiceProtocolAPI, service: any UserProductsServiceProtocol) {
+    init(apiService: any ApiServiceProtocol, service: any UserProductsServiceProtocol) {
         self.apiService = apiService
         self.userService = service
     }

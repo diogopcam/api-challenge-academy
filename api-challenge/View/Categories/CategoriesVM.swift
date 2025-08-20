@@ -13,10 +13,10 @@ class CategoriesVM: CategoriesVMProtocol {
     var isLoading: Bool = false
     var errorMessage: String?
     
-    private let service: CategoriesServiceAPIProtocol
+    private let service: ApiServiceProtocol
     
-    init(service: CategoriesServiceAPIProtocol = CategoriesServiceAPI()) {
-        self.service = service
+    init(apiService: any ApiServiceProtocol) {
+        self.service = apiService
     }
     
     func loadCategories() async {
@@ -25,10 +25,13 @@ class CategoriesVM: CategoriesVMProtocol {
         
         do {
             apiCategories = try await service.fetchCategories()
+            print("DEBUG: Categorias carregadas -> \(apiCategories)")
         } catch {
             errorMessage = "Error to fetch Categories: \(error.localizedDescription)"
+            print("DEBUG: Erro ao carregar categorias -> \(error)")
         }
         
         isLoading = false
     }
+
 }

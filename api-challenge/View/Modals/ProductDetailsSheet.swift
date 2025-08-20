@@ -60,10 +60,6 @@ struct ProductDetailsSheet: View {
         }
         .toolbarBackground(.backgroundsTertiary, for: .navigationBar)
               .toolbarBackground(.visible, for: .navigationBar)
-//              .onAppear {
-////                  cartVM = CartViewModel(context: context)
-////                  favoritesVM = FavoritesViewModel(context: context)
-//              }
           }
 
     private func addToCart() {

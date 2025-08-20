@@ -49,11 +49,13 @@ struct FavoritesView: View {
             }
             .navigationTitle("Favoritos")
             .searchable(text: $searchText, prompt: "Buscar favoritos")
-            .onChange(of: searchText) { vm.filterFavorites(by: $0) }
+            .onChange(of: searchText) {_, newValue in
+                vm.filterFavorites(by: newValue)
+            }
             .sheet(item: $selectedProduct) { product in
                 ProductDetailsSheet(
                     vm: ProductDetailsVM(
-                        product: product, // <- aqui usamos o `product` recebido do sheet
+                        product: product,
                         apiService: vm.apiService,
                         productsService: vm.productsService
                     )

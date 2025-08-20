@@ -8,39 +8,40 @@ import SwiftUI
 import SwiftData
 
 struct CategoriesView: View {
+    @Environment(\.diContainer) private var container
     @State private var searchText = ""
-    @State private var VM: CategoriesVM
-    @Environment(\.modelContext) private var modelContext
-    
-    init() {
-        // Contexto temporário para inicialização (será substituído)
-//        _ = try! ModelContext(ModelContainer(for: Product.self))
-        VM = CategoriesVM()
+    @StateObject private var vm: CategoriesVM
+    @State private var selectedCategory: String? = nil  // para navegação
+
+    init(vm: CategoriesVM){
+        _vm = StateObject(wrappedValue: vm)
     }
-    
+
     var body: some View {
         NavigationStack {
             ScrollView {
                 VStack(spacing: 24) {
-                        
-
                     HStack(spacing: 8) {
-                            CategoryCard(apiCategoryName: "smartphones")
-                            CategoryCard(apiCategoryName: "laptops")
-                            CategoryCard(apiCategoryName: "womens-dresses")
-                            CategoryCard(apiCategoryName: "fragrances")
-                        }
-                        .padding(.horizontal)
+                        CategoryCard(apiCategoryName: "smartphones")
+                        CategoryCard(apiCategoryName: "laptops")
+                        CategoryCard(apiCategoryName: "womens-dresses")
+                        CategoryCard(apiCategoryName: "fragrances")
+                    }
+                    .padding(.horizontal)
                     
-                    // Lista completa de categorias
-                    if VM.isLoading {
+                    if vm.isLoading {
                         ProgressView()
-                    } else if let errorMessage = VM.errorMessage {
+                    } else if let errorMessage = vm.errorMessage {
                         ErrorView(message: errorMessage) {
-                            Task { await VM.loadCategories() }
+                            Task { await vm.loadCategories() }
                         }
                     } else {
-                        CategoryListView(apiCategories: VM.apiCategories)
+                        CategoryListView(
+                            apiCategories: vm.apiCategories,
+                            onTapCategory: { category in
+                                selectedCategory = category
+                            }
+                        )
                     }
                 }
                 .padding(.vertical)
@@ -49,11 +50,23 @@ struct CategoriesView: View {
             .searchable(text: $searchText, prompt: "Buscar...")
             .background(.backgroundsPrimary)
             .refreshable {
-                await VM.loadCategories()
+                await vm.loadCategories()
+            }
+            .navigationDestination(
+                isPresented: Binding(
+                    get: { selectedCategory != nil },
+                    set: { if !$0 { selectedCategory = nil } }
+                )
+            ) {
+                if let category = selectedCategory {
+                    CategoryProductsView(
+                        vm: CategoryProductsVM(categoryName: category, apiService: container.apiService, productsService: container.userProductsService)
+                    )
+                }
             }
         }
         .task {
-            await VM.loadCategories()
+            await vm.loadCategories()
         }
     }
 }

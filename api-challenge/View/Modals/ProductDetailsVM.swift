@@ -13,10 +13,10 @@ final class ProductDetailsVM: ObservableObject {
     @Published var isLoading = false
     @Published var errorMessage: String?
 
-    private let apiService: any ProductsServiceProtocolAPI
+    private let apiService: any ApiServiceProtocol
     private let productsService: any UserProductsServiceProtocol
 
-    init(product: ProductDTO, apiService: any ProductsServiceProtocolAPI, productsService: any UserProductsServiceProtocol) {
+    init(product: ProductDTO, apiService: any ApiServiceProtocol, productsService: any UserProductsServiceProtocol) {
         self.product = product
         self.productsService = productsService
         self.apiService = apiService

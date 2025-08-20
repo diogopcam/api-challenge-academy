@@ -7,23 +7,23 @@
 
 import Foundation
 
-class CategoriesServiceAPI: CategoriesServiceAPIProtocol {
-    private let baseURL = "https://dummyjson.com/products"
-    
-    func fetchCategories() async throws -> [String] {
-        let urlString = "\(baseURL)/category-list"
-        
-        guard let url = URL(string: urlString) else {
-            throw URLError(.badURL)
-        }
-        
-        let (data, response) = try await URLSession.shared.data(from: url)
-        
-        guard let httpResponse = response as? HTTPURLResponse, 
-              httpResponse.statusCode == 200 else {
-            throw URLError(.badServerResponse)
-        }
-        
-        return try JSONDecoder().decode([String].self, from: data)
-    }
-}
+//class CategoriesServiceAPI: CategoriesServiceAPIProtocol {
+//    private let baseURL = "https://dummyjson.com/products"
+//    
+//    func fetchCategories() async throws -> [String] {
+//        let urlString = "\(baseURL)/category-list"
+//        
+//        guard let url = URL(string: urlString) else {
+//            throw URLError(.badURL)
+//        }
+//        
+//        let (data, response) = try await URLSession.shared.data(from: url)
+//        
+//        guard let httpResponse = response as? HTTPURLResponse, 
+//              httpResponse.statusCode == 200 else {
+//            throw URLError(.badServerResponse)
+//        }
+//        
+//        return try JSONDecoder().decode([String].self, from: data)
+//    }
+//}

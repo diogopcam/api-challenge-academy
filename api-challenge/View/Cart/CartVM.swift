@@ -16,10 +16,10 @@ final class CartVM: ObservableObject {
     @Published var checkoutSuccess = false
     
     private let productsService: any UserProductsServiceProtocol
-    private let apiService: ProductsServiceProtocolAPI
+    private let apiService: ApiServiceProtocol
     private var productMap: [Int: ProductDTO] = [:]
     
-    init(apiService: any ProductsServiceProtocolAPI, productsService: any UserProductsServiceProtocol) {
+    init(apiService: any ApiServiceProtocol, productsService: any UserProductsServiceProtocol) {
         self.apiService = apiService
         self.productsService = productsService
     }

@@ -14,12 +14,12 @@ final class HomeVM: ObservableObject {
     @Published var isLoading = false             // Adicione @Published
     @Published var errorMessage: String?
 
-    let apiService: any ProductsServiceProtocolAPI
+    let apiService: any ApiServiceProtocol
     let productsService: any UserProductsServiceProtocol
     
     public var modelContext: ModelContext?
     
-    init(apiService: any ProductsServiceProtocolAPI, productsService: any UserProductsServiceProtocol) {
+    init(apiService: any ApiServiceProtocol, productsService: any UserProductsServiceProtocol) {
         self.apiService = apiService
         self.productsService = productsService
     }
@@ -50,5 +50,5 @@ final class HomeVM: ObservableObject {
             } catch {
                 print("Erro ao alternar favorito: \(error)")
             }
-        }
+    }
 }

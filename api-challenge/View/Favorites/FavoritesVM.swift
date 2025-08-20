@@ -12,14 +12,14 @@ import SwiftUI
 final class FavoritesVM: ObservableObject {
     @Published var favoriteProducts: [ProductDTO] = []
     @Published var filteredProducts: [ProductDTO] = []
-    @Published var quantities: [Int: Int] = [:] // Se precisar de quantidades
+    @Published var quantities: [Int: Int] = [:]
     @Published var isLoading = false
     @Published var errorMessage: String?
     
-    let apiService: any ProductsServiceProtocolAPI
+    let apiService: any ApiServiceProtocol
     let productsService: any UserProductsServiceProtocol
     
-    init(apiService: any ProductsServiceProtocolAPI, productsService: any UserProductsServiceProtocol) {
+    init(apiService: any ApiServiceProtocol, productsService: any UserProductsServiceProtocol) {
         self.apiService = apiService
         self.productsService = productsService
     }

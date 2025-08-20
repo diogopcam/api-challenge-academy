@@ -1,0 +1,55 @@
+//
+//  CategoryProductsVM.swift
+//  api-challenge
+//
+//  Created by Eduardo Ferrari on 15/08/25.
+//
+
+import SwiftUI
+import SwiftData
+
+@Observable
+class CategoryProductsVM: ObservableObject {
+    var categoryName: String
+    var products: [ProductDTO] = []
+    var isLoading = false
+    var errorMessage: String?
+
+    let apiService: any ApiServiceProtocol
+    let productsService: any UserProductsServiceProtocol
+
+    init(categoryName: String, apiService: any ApiServiceProtocol, productsService: any UserProductsServiceProtocol) {
+        self.apiService = apiService
+        self.productsService = productsService
+        self.categoryName = categoryName
+    }
+    
+    @MainActor
+    func loadProducts() async {
+        isLoading = true
+        errorMessage = nil
+
+        do {
+            let fetchedProducts = try await apiService.loadProductsFromCategory(for: categoryName)
+            products = fetchedProducts
+        } catch {
+            errorMessage = error.localizedDescription
+            products = []
+        }
+
+        isLoading = false
+    }
+    
+    func isProductFavorite(id: Int) -> Bool {
+        return productsService.isProductFavorite(id: id)
+    }
+    
+    func toggleFavorite(for product: ProductDTO) {
+        do {
+            try productsService.toggleFavorite(product)
+            objectWillChange.send()
+        } catch {
+            print("Erro ao alternar favorito: \(error)")
+        }
+    }
+}
