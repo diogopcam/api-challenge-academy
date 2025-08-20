@@ -16,8 +16,8 @@ final class FavoritesVM: ObservableObject {
     @Published var isLoading = false
     @Published var errorMessage: String?
     
-    private let apiService: any ProductsServiceProtocolAPI
-    private let userProductsService: any UserProductsServiceProtocol
+    public let apiService: any ProductsServiceProtocolAPI
+    public let userProductsService: any UserProductsServiceProtocol
     
     init(apiService: any ProductsServiceProtocolAPI, userProductsService: any UserProductsServiceProtocol) {
         self.apiService = apiService
