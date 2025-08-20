@@ -7,7 +7,7 @@
 
 import XCTest
 
-class FavoritesViewModelTests: XCTestCase  {
+class FavoritesViewModelTest: XCTestCase  {
 
 
 //
