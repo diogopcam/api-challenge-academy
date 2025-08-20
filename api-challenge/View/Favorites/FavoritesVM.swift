@@ -16,12 +16,12 @@ final class FavoritesVM: ObservableObject {
     @Published var isLoading = false
     @Published var errorMessage: String?
     
-    private let apiService: any ProductsServiceProtocolAPI
-    private let userProductsService: any UserProductsServiceProtocol
+    let apiService: any ProductsServiceProtocolAPI
+    let productsService: any UserProductsServiceProtocol
     
-    init(apiService: any ProductsServiceProtocolAPI, userProductsService: any UserProductsServiceProtocol) {
+    init(apiService: any ProductsServiceProtocolAPI, productsService: any UserProductsServiceProtocol) {
         self.apiService = apiService
-        self.userProductsService = userProductsService
+        self.productsService = productsService
     }
     
     func loadFavorites() async {
@@ -30,7 +30,7 @@ final class FavoritesVM: ObservableObject {
         
         do {
             // 1. Pega IDs dos favoritos
-            let persistedFavorites = userProductsService.getFavoriteProducts()
+            let persistedFavorites = productsService.getFavoriteProducts()
             let favoriteIDs = persistedFavorites.map { $0.id }
             
             // 2. Busca dados atualizados
@@ -68,7 +68,7 @@ final class FavoritesVM: ObservableObject {
     
     func toggleFavorite(_ dto: ProductDTO) {
         do {
-            try userProductsService.toggleFavorite(dto)
+            try productsService.toggleFavorite(dto)
             Task {
                 await loadFavorites()
             }
@@ -79,7 +79,7 @@ final class FavoritesVM: ObservableObject {
     
     func addToCart(_ dto: ProductDTO) {
         do {
-            try userProductsService.addToCart(dto)
+            try productsService.addToCart(dto)
             print("✅ \(dto.title) adicionado ao carrinho")
         } catch {
             errorMessage = "Erro ao adicionar ao carrinho: \(error.localizedDescription)"

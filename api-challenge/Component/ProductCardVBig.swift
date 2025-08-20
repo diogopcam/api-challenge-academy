@@ -10,9 +10,8 @@ import SwiftData
 
 struct ProductCardVBig: View {
     let product: ProductDTO
-    @Environment(\.modelContext) private var modelContext
-    @Query(filter: #Predicate<Product> { $0.isFavorite == true })
-    private var favorites: [Product]
+    let isFavorited: Bool
+    let onToggleFavorite: () -> Void
 
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
@@ -26,9 +25,9 @@ struct ProductCardVBig: View {
                 .cornerRadius(16)
 
                 Button {
-//                    toggleFavorite()
+                    onToggleFavorite()
                 } label: {
-                    Image(systemName: isFavorited() ? "heart.fill" : "heart")
+                    Image(systemName: isFavorited ? "heart.fill" : "heart")
                         .resizable()
                         .frame(width: 35, height: 34)
                         .padding(8)
@@ -51,19 +50,4 @@ struct ProductCardVBig: View {
         .padding(.horizontal, 16)
         .frame(width: 361, height: 459)
     }
-
-    private func isFavorited() -> Bool {
-            favorites.contains { $0.id == product.id }
-        }
-
-//    private func toggleFavorite() {
-//            if let existing = favorites.first(where: { $0.id == product.id }) {
-//                existing.isFavorite = false
-//            } else {
-//                let newProduct = Product(from: product, type: .favorites)
-//                newProduct.isFavorite = true
-//                modelContext.insert(newProduct)
-//            }
-//            try? modelContext.save()
-//    }
 }

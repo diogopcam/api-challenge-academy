@@ -92,7 +92,13 @@ struct HomeView: View {
             await vm.loadProducts()
         }
         .sheet(item: $selectedProduct) { product in
-            ProductDetailsSheet(product: product)
+            ProductDetailsSheet(
+                vm: ProductDetailsVM(
+                    product: product, // <- aqui usamos o `product` recebido do sheet
+                    apiService: vm.apiService,
+                    productsService: vm.productsService
+                )
+            )
         }
     }
     

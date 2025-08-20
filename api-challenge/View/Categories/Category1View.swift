@@ -157,9 +157,9 @@ struct Category1View: View {
         .navigationBarTitleDisplayMode(.inline)
         .searchable(text: $searchText, prompt: "Search...")
         .sheet(item: $selectedProduct) { product in
-            if let cartVM = cartVM {
-                ProductDetailsSheet(product: product)
-            }
+//            if let cartVM = cartVM {
+//                ProductDetailsSheet()
+//            }
         }
         .task {
             await VM.loadProducts(for: categoryName)

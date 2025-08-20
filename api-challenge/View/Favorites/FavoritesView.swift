@@ -50,10 +50,14 @@ struct FavoritesView: View {
             .navigationTitle("Favoritos")
             .searchable(text: $searchText, prompt: "Buscar favoritos")
             .onChange(of: searchText) { vm.filterFavorites(by: $0) }
-            .sheet(isPresented: $showProductDetails) {
-                if let product = selectedProduct {
-                    ProductDetailsSheet(product: product)
-                }
+            .sheet(item: $selectedProduct) { product in
+                ProductDetailsSheet(
+                    vm: ProductDetailsVM(
+                        product: product, // <- aqui usamos o `product` recebido do sheet
+                        apiService: vm.apiService,
+                        productsService: vm.productsService
+                    )
+                )
             }
         }
         .task { await vm.loadFavorites() }

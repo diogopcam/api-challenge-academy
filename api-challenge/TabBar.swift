@@ -53,7 +53,7 @@ struct TabBar: View {
                 FavoritesView(
                     vm: FavoritesVM(
                             apiService: container.productsServiceApi,
-                            userProductsService: container.userProductsService
+                            productsService: container.userProductsService
                     )
                 )
             }

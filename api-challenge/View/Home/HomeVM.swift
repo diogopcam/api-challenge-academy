@@ -14,9 +14,8 @@ final class HomeVM: ObservableObject {
     @Published var isLoading = false             // Adicione @Published
     @Published var errorMessage: String?
 
-   
-    private let apiService: any ProductsServiceProtocolAPI
-    private let productsService: any UserProductsServiceProtocol
+    let apiService: any ProductsServiceProtocolAPI
+    let productsService: any UserProductsServiceProtocol
     
     public var modelContext: ModelContext?
     
