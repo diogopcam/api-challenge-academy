@@ -13,6 +13,8 @@ struct CategoryProductsView: View {
     @State private var searchText = ""
     @State private var selectedProduct: ProductDTO? = nil
     @StateObject private var vm: CategoryProductsVM
+    @State private var sheetDismissed = false
+    @State private var refreshFlag = false // Flag para forçar atualização
     
     let categoryName: String
     
@@ -82,7 +84,13 @@ struct CategoryProductsView: View {
         .task {
             await vm.loadProducts() // carrega produtos da categoria
         }
-        
+        .task(id: sheetDismissed) {
+            // Atualiza quando a sheet é fechada
+            if sheetDismissed {
+                await vm.loadProducts() // ou vm.refreshFavorites() se tiver esse método
+                sheetDismissed = false
+            }
+        }
         .sheet(item: $selectedProduct) { product in
             ProductDetailsSheet(
                 vm: ProductDetailsVM(
@@ -91,6 +99,10 @@ struct CategoryProductsView: View {
                     productsService: vm.productsService
                 )
             )
+            .onDisappear {
+                // Apenas atualiza o estado dos favoritos sem recarregar tudo
+                vm.objectWillChange.send()
+            }
         }
     }
     

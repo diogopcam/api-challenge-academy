@@ -25,7 +25,7 @@ class FavoritesViewModelTest: XCTestCase  {
             let apiService = MockProductService()
             let userService = MockUserProductService()
             
-            let viewModel = FavoritesVM(apiService: apiService, userProductsService: userService)
+        let viewModel = FavoritesVM(apiService: apiService, productsService: userService)
             
            //When
             await viewModel.loadFavorites()
@@ -41,7 +41,7 @@ class FavoritesViewModelTest: XCTestCase  {
             let apiService = MockProductService()
             let userService = MockUserProductService()
              
-            let viewModel = FavoritesVM(apiService: apiService, userProductsService: userService)
+            let viewModel = FavoritesVM(apiService: apiService, productsService: userService)
             let productDTO: ProductDTO = .init(id: 5, title: "Test", description: "Test", category: "Test", price: 10.0, thumbnail: "Test")
         
             
@@ -49,19 +49,12 @@ class FavoritesViewModelTest: XCTestCase  {
             viewModel.toggleFavorite(productDTO)
         
             //Then
-            XCTAssertTrue(viewModel.userProductsService.isProductFavorite(id: 5))
-        
+            XCTAssertTrue(viewModel.productsService.isProductFavorite(id: 5))
         }
-    
-    
-
 //        func testPerformanceExample() throws {
 //            // This is an example of a performance test case.
 //            measure {
 //                // Put the code you want to measure the time of here.
 //            }
 //        }
-
-    
-    
 }

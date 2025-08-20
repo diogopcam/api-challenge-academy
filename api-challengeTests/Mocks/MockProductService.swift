@@ -8,11 +8,9 @@
 import Foundation
 @testable import api_challenge
 
-class MockProductService: ProductsServiceProtocolAPI {
-    
+class MockProductService: ApiServiceProtocol {
     var shouldFail: Bool = false
     private var product: ProductDTO
-    
     
     init(shouldFail: Bool = false) {
         self.shouldFail = shouldFail
@@ -36,5 +34,11 @@ class MockProductService: ProductsServiceProtocolAPI {
         }
     }
     
+    func fetchCategories() async throws -> [String] {
+        <#code#>
+    }
     
+    func loadProductsFromCategory(for category: String) async throws -> [api_challenge.ProductDTO] {
+        <#code#>
+    }
 }

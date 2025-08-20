@@ -9,7 +9,6 @@ import SwiftUI
 import SwiftData
 
 struct ProductDetailsSheet: View {
-//    let product: ProductDTO
     @Environment(\.dismiss) private var dismiss
     @StateObject private var vm: ProductDetailsVM
     
