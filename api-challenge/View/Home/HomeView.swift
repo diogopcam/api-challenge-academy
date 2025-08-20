@@ -13,7 +13,8 @@ struct HomeView: View {
 
     @StateObject private var vm: HomeVM
     @State private var searchText = ""
-
+    @State private var selectedProduct: ProductDTO? = nil
+    @State private var showProductDetails = false
     
     init(vm: HomeVM) {  // Recebe a VM já configurada
         _vm = StateObject(wrappedValue: vm)
@@ -41,13 +42,15 @@ struct HomeView: View {
                     } else {
                         // Primeiro produto em destaque
                         if let firstProduct = vm.products.first {
-//                            ProductCardH(
-//                                product: firstProduct,
-//                                isFavorited: vm.isProductFavorite(id: firstProduct.id),
-//                                onToggleFavorite: {
-//                                    vm.toggleFavorite(for: firstProduct)
-//                                }
-//                            ).padding(.horizontal)
+                            ProductCardH(
+                                product: firstProduct,
+                                isFavorited: vm.isProductFavorite(id: firstProduct.id),
+                                onToggleFavorite: {
+                                    vm.toggleFavorite(for: firstProduct)
+                                },
+                                onTapProduct: { openSheet(product: firstProduct) }
+                            )
+                            .padding(.horizontal)
                         }
                         
                         // Produtos restantes
@@ -69,7 +72,7 @@ struct HomeView: View {
                                     ProductCardV(
                                         product: product,
                                         isFavorited: vm.isProductFavorite(id: product.id),
-                                        onToggleFavorite: { vm.toggleFavorite(for: product) }
+                                        onToggleFavorite: { vm.toggleFavorite(for: product) }, onTapProduct: { openSheet(product: product) }
                                     )
                                 }
                             }
@@ -88,6 +91,19 @@ struct HomeView: View {
         .task {
             await vm.loadProducts()
         }
+        .sheet(item: $selectedProduct) { product in
+            ProductDetailsSheet(
+                vm: ProductDetailsVM(
+                    product: product, // <- aqui usamos o `product` recebido do sheet
+                    apiService: vm.apiService,
+                    productsService: vm.productsService
+                )
+            )
+        }
+    }
+    
+    private func openSheet(product: ProductDTO) {
+        selectedProduct = product
     }
 }
 

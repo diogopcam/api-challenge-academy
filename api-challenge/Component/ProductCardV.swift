@@ -12,7 +12,7 @@ struct ProductCardV: View {
     let product: ProductDTO
     let isFavorited: Bool
     let onToggleFavorite: () -> Void
-//    let onTapProduct: () -> Void
+    let onTapProduct: () -> Void
     
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
@@ -25,10 +25,6 @@ struct ProductCardV: View {
                 .frame(width: 161, height: 160)
                 .clipped()
                 .cornerRadius(16)
-                
-//                .onTapGesture {
-//                    onTapProduct()
-//                }
 
                 Button {
                     onToggleFavorite() // ← Delega a ação
@@ -59,5 +55,8 @@ struct ProductCardV: View {
         .frame(width: 161)
         .background(.backgroundsSecondary)
         .cornerRadius(16)
+        .onTapGesture {
+            onTapProduct()
+        }
     }
 }

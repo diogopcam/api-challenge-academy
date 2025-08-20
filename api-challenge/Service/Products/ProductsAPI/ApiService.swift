@@ -7,7 +7,7 @@
 
 import Foundation
 
-class ProductsServiceAPI: ProductsServiceProtocolAPI {
+class ApiService: ApiServiceProtocol {
     private let baseURL = "https://dummyjson.com/products"
     
     func fetchProducts() async throws -> [ProductDTO] {
@@ -58,5 +58,40 @@ class ProductsServiceAPI: ProductsServiceProtocolAPI {
             // Outro erro do servidor
             throw URLError(.badURL)
         }
+    }
+    
+    func fetchCategories() async throws -> [String] {
+        let urlString = "\(baseURL)/category-list"
+        
+        guard let url = URL(string: urlString) else {
+            throw URLError(.badURL)
+        }
+        
+        let (data, response) = try await URLSession.shared.data(from: url)
+        
+        guard let httpResponse = response as? HTTPURLResponse,
+              httpResponse.statusCode == 200 else {
+            throw URLError(.badServerResponse)
+        }
+        
+        return try JSONDecoder().decode([String].self, from: data)
+    }
+    
+    func loadProductsFromCategory(for category: String) async throws -> [ProductDTO] {
+        let urlString = "\(baseURL)/category/\(category)"
+       
+        guard let url = URL(string: urlString) else {
+            throw URLError(.badURL)
+        }
+        
+        let (data, response) = try await URLSession.shared.data(from: url)
+        
+        guard let httpResponse = response as? HTTPURLResponse,
+              httpResponse.statusCode == 200 else {
+            throw URLError(.badServerResponse)
+        }
+        
+        let decodedResponse = try JSONDecoder().decode(ProductsResponseDTO.self, from: data)
+        return decodedResponse.products
     }
 }

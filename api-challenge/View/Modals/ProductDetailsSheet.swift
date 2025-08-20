@@ -9,13 +9,12 @@ import SwiftUI
 import SwiftData
 
 struct ProductDetailsSheet: View {
-    let product: ProductDTO
+//    let product: ProductDTO
     @Environment(\.dismiss) private var dismiss
-    @Environment(\.modelContext) private var context
+    @StateObject private var vm: ProductDetailsVM
     
-    // Serviços necessários
-    private var userProductsService: UserProductsService {
-        UserProductsService(context: context)
+    init(vm: ProductDetailsVM) {
+        _vm = StateObject(wrappedValue: vm)
     }
     
     var body: some View {
@@ -34,9 +33,13 @@ struct ProductDetailsSheet: View {
                 .background(.fillsTertiary)
                 ScrollView{
                     VStack {
-                        ProductCardVBig(product: product)
+                        ProductCardVBig(
+                            product: vm.product,
+                            isFavorited: vm.isProductFavorite(id: vm.product.id),
+                            onToggleFavorite: {vm.toggleFavorite(for: vm.product) }
+                        )
                     }
-                    Text(product.description)
+                    Text(vm.product.description)
                         .foregroundColor(.secondary)
                     }
                 .padding(.horizontal)
@@ -57,15 +60,11 @@ struct ProductDetailsSheet: View {
         }
         .toolbarBackground(.backgroundsTertiary, for: .navigationBar)
               .toolbarBackground(.visible, for: .navigationBar)
-              .onAppear {
-//                  cartVM = CartViewModel(context: context)
-//                  favoritesVM = FavoritesViewModel(context: context)
-              }
           }
 
     private func addToCart() {
         do {
-            try userProductsService.addToCart(product)
+            try vm.addToCart()
         } catch {
             print("Erro ao adicionar ao carrinho: \(error)")
         }
