@@ -41,8 +41,13 @@ struct HomeView: View {
                     } else {
                         // Primeiro produto em destaque
                         if let firstProduct = vm.products.first {
-                            ProductCardH(product: firstProduct)
-                                .padding(.horizontal)
+//                            ProductCardH(
+//                                product: firstProduct,
+//                                isFavorited: vm.isProductFavorite(id: firstProduct.id),
+//                                onToggleFavorite: {
+//                                    vm.toggleFavorite(for: firstProduct)
+//                                }
+//                            ).padding(.horizontal)
                         }
                         
                         // Produtos restantes
@@ -61,7 +66,11 @@ struct HomeView: View {
                             
                             LazyVGrid(columns: columns, spacing: 8) {
                                 ForEach(remainingProducts, id: \.id) { product in
-                                    ProductCardV(product: product)
+                                    ProductCardV(
+                                        product: product,
+                                        isFavorited: vm.isProductFavorite(id: product.id),
+                                        onToggleFavorite: { vm.toggleFavorite(for: product) }
+                                    )
                                 }
                             }
                             .padding(.horizontal, 12)
@@ -77,7 +86,6 @@ struct HomeView: View {
             }
         }
         .task {
-//            vm.modelContext = modelContext
             await vm.loadProducts()
         }
     }

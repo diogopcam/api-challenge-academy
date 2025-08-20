@@ -9,6 +9,9 @@ import SwiftUI
 
 struct ProductCardH: View {
     let product: ProductDTO
+    let isFavorited: Bool
+    let onToggleFavorite: () -> Void
+//    let onTapProduct: () -> Void
     
     var body: some View {
         ZStack(alignment: .topTrailing) {
@@ -55,9 +58,10 @@ struct ProductCardH: View {
                 .padding(.top, 22)
             
             Button {
-                print("Coração clicado")
+//                print("Coração clicado")
+                onToggleFavorite() // ← Delega a ação
             } label: {
-                Image(systemName: "heart")
+                Image(systemName: isFavorited ? "heart.fill" : "heart")
                     .resizable()
                     .frame(width: 20, height: 20)
                     .padding(8)
@@ -65,11 +69,14 @@ struct ProductCardH: View {
                         RoundedRectangle(cornerRadius: 8)
                             .foregroundColor(.fillsTertiary)
                     )
-                    .foregroundColor(.labelsPrimary)
+                    .foregroundStyle(isFavorited ? .labelsPrimary : .labelsPrimary)
             }
             .frame(width: 38, height: 38)
             .padding(8)
         }
+//        .onTapGesture {
+//            onTapProduct()
+//        }
         .frame(width: 368, height: 176)
     }
 }

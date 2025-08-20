@@ -7,6 +7,7 @@
 
 import SwiftUI
 import SwiftData
+
 struct CartView: View {
     @StateObject private var vm: CartVM
     @State private var showingCheckoutAlert = false
@@ -15,9 +16,72 @@ struct CartView: View {
     init(vm: CartVM) {
         _vm = StateObject(wrappedValue: vm)
     }
-
-    var body: some View {
-        NavigationStack {
+    
+    // Função para criar cada linha do produto
+    private func cartProductRow(for item: CartProductDisplay) -> some View {
+        let productName = item.dto?.title ?? "Nulo"
+        let price = item.dto?.price ?? 0.00
+        let thumbnail = item.dto?.thumbnail
+        
+        return ProductListAsyncImage(
+            image: thumbnail,
+            productName: productName,
+            price: price,
+            quantity: Binding(
+                get: { item.product.quantity },
+                set: { _ in } // Binding vazio já que usamos stepper
+            ),
+            variant: .stepper(
+                onIncrement: {
+                    vm.increaseQuantity(item.product)
+                },
+                onDecrement: {
+                    vm.decreaseQuantity(item.product)
+                }
+            )
+        )
+    }
+    
+    // Seção de checkout extraída
+    private var checkoutSection: some View {
+        VStack {
+            Divider()
+            HStack {
+                Text("Total")
+                    .font(.headline)
+                Spacer()
+                Text(totalPriceText)
+                    .bold()
+            }
+            .padding(.top, 16)
+            .padding(.horizontal)
+            
+            Button("Checkout") {
+                showingCheckoutAlert = true
+            }
+            .foregroundStyle(.labelsPrimary)
+            .frame(maxWidth: .infinity)
+            .frame(height: 54)
+            .background(.fillsTertiary)
+            .cornerRadius(12)
+            .padding(.horizontal, 16)
+            .padding(.vertical, 16)
+        }
+    }
+    
+    private var totalPriceText: String {
+        let total = vm.totalPrice()
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .currency
+        formatter.locale = Locale.current
+        formatter.maximumFractionDigits = 2
+        formatter.minimumFractionDigits = 2
+        return formatter.string(from: NSNumber(value: total)) ?? "US$ \(total)"
+    }
+    
+    // Conteúdo principal da view
+    private var contentView: some View {
+        Group {
             if vm.isLoading {
                 ProgressView()
                     .navigationTitle("Cart")
@@ -30,58 +94,22 @@ struct CartView: View {
                     ScrollView {
                         VStack(spacing: 16) {
                             ForEach(vm.cartProducts) { item in
-                                ProductListAsyncImage(
-                                    image: item.dto?.thumbnail, // Use o DTO para a imagem
-                                    productName: item.product.name,
-                                    price: item.product.price,
-                                    quantity: Binding(
-                                        get: { item.product.quantity },
-                                        set: { newValue in
-                                            // Esta lógica precisa ser ajustada
-                                            // Melhor usar botões separados
-                                        }
-                                    ),
-                                    variant: .stepper(
-                                        onIncrement: {
-                                            vm.increaseQuantity(item.product)
-                                        },
-                                        onDecrement: {
-                                            vm.decreaseQuantity(item.product)
-                                        }
-                                    )
-                                )
+                                cartProductRow(for: item) // ← Agora simplificado!
                             }
                         }
                         .padding()
                     }
                     
-                    // Total e checkout
-                    VStack {
-                        Divider()
-                        HStack {
-                            Text("Total")
-                                .font(.headline)
-                            Spacer()
-                            Text("US$ \(vm.totalPrice(), specifier: "%.2f")")
-                                .bold()
-                        }
-                        .padding(.top, 16)
-                        .padding(.horizontal)
-                        
-                        Button("Checkout") {
-                            showingCheckoutAlert = true
-                        }
-                        .foregroundStyle(.labelsPrimary)
-                        .frame(maxWidth: .infinity)
-                        .frame(height: 54)
-                        .background(.fillsTertiary)
-                        .cornerRadius(12)
-                        .padding(.horizontal, 16)
-                        .padding(.vertical, 16)
-                    }
+                    checkoutSection
                 }
                 .navigationTitle("Cart")
             }
+        }
+    }
+    
+    var body: some View {
+        NavigationStack {
+            contentView
         }
         .alert("Confirmar Checkout", isPresented: $showingCheckoutAlert) {
             Button("Cancelar", role: .cancel) { }
@@ -91,12 +119,10 @@ struct CartView: View {
                 }
             }
         } message: {
-            Text("Finalizar compra de \(vm.cartProducts.count) itens por US$ \(vm.totalPrice(), specifier: "%.2f")?")
+            Text("Finalizar compra de \(vm.cartProducts.count) itens por \(totalPriceText)?")
         }
         .alert("Compra Finalizada", isPresented: $vm.checkoutSuccess) {
-            Button("OK") {
-                dismiss()
-            }
+            Button("OK") { dismiss() }
         } message: {
             Text("Seu pedido foi realizado com sucesso!")
         }
@@ -106,5 +132,18 @@ struct CartView: View {
         .refreshable {
             await vm.loadCart()
         }
+    }
+}
+
+extension Double {
+    var formattedPriceDouble: String {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .currency
+        formatter.locale = Locale.current
+        return formatter.string(from: NSNumber(value: self)) ?? String(format: "%.2f", self)
+    }
+    
+    var formattedDecimal: String {
+        String(format: "%.2f", self) // → "99.99"
     }
 }

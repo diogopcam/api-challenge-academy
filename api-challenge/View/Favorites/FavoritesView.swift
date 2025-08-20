@@ -12,72 +12,50 @@ struct FavoritesView: View {
     @State private var searchText = ""
     @State private var selectedProduct: ProductDTO?
     @State private var showProductDetails = false
-
+    
     init(vm: FavoritesVM) {
         _vm = StateObject(wrappedValue: vm)
     }
     
-    private func productRow(for item: FavoriteProductDisplay) -> some View {
-        let productDTO = ProductDTO(
-            id: item.product.id,
-            title: item.product.name,
-            description: item.product.info,
-            category: item.product.category,
-            price: item.product.price,
-            thumbnail: item.thumbnail ?? ""
-        )
-        
-        return ProductListAsyncImage(
-            image: item.thumbnail,
-            productName: item.product.name,
-            price: item.product.price,
-            quantity: .constant(0),
-            variant: .cart {
-                selectedProduct = productDTO
-                showProductDetails = true
-                print("Botão pressionado - Sheet deve aparecer")
-            }
-        )
-    }
-
     var body: some View {
         NavigationStack {
-            if vm.isLoading {
-                ProgressView()
-                    .navigationTitle("Favorites")
-            } else if vm.filteredProducts.isEmpty {
-                EmptyStateFav()
-                    .navigationTitle("Favorites")
-            } else {
-                ScrollView {
-                    VStack(spacing: 16) {
-                        ForEach(vm.filteredProducts) { item in
-                            productRow(for: item)
+            VStack (spacing: 32) {
+                if vm.isLoading {
+                    ProgressView()
+                } else if let error = vm.errorMessage {
+                    ErrorView(message: error) {
+                        Task { await vm.loadFavorites() }
+                    }
+                } else if vm.filteredProducts.isEmpty {
+                    EmptyStateFav()
+                } else {
+                    ScrollView {
+                        VStack(spacing: 16) {
+                            ForEach(vm.filteredProducts) { product in
+                                ProductListAsyncImage(
+                                    image: product.thumbnail,
+                                    productName: product.title,
+                                    price: product.price,
+                                    variant: .cart(action: {
+                                        selectedProduct = product
+                                        showProductDetails = true
+                                    })
+                                )
+                            }
                         }
+                        .padding() // ← Espaçamento externo
                     }
-                    .padding()
                 }
-                .navigationTitle("Favorites")
-                .searchable(text: $searchText, prompt: "Search")
-                .onChange(of: searchText) { newValue in
-                    vm.filterFavorites(by: newValue)
+            }
+            .navigationTitle("Favoritos")
+            .searchable(text: $searchText, prompt: "Buscar favoritos")
+            .onChange(of: searchText) { vm.filterFavorites(by: $0) }
+            .sheet(isPresented: $showProductDetails) {
+                if let product = selectedProduct {
+                    ProductDetailsSheet(product: product)
                 }
             }
         }
-        // MOVER A SHEET PARA FORA DO NavigationStack
-        .sheet(isPresented: $showProductDetails) {
-            if let product = selectedProduct {
-                ProductDetailsSheet(product: product)
-                    .onDisappear {
-                        selectedProduct = nil
-                    }
-            } else {
-                Text("Erro: Produto não selecionado")
-                    .presentationDetents([.medium])
-            }
-        }
-        .task {
-            await vm.loadFavorites()
-        }
+        .task { await vm.loadFavorites() }
     }
 }

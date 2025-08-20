@@ -140,13 +140,13 @@ struct Category1View: View {
                         GridItem(.flexible(), spacing: 8),
                         GridItem(.flexible(), spacing: 8)
                     ], spacing: 8) {
-                        ForEach(VM.products) { product in
-                            ProductCardV(product: product)
-                                .onTapGesture {
-                                    selectedProduct = product
-                                }
-                                .listRowInsets(EdgeInsets())
-                        }
+//                        ForEach(VM.products) { product in
+//                            ProductCardV(product: product)
+//                                .onTapGesture {
+//                                    selectedProduct = product
+//                                }
+//                                .listRowInsets(EdgeInsets())
+//                        }
                     }
                     .padding(.vertical, 8)
                 }

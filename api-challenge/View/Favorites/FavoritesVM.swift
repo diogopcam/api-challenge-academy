@@ -8,83 +8,81 @@
 import SwiftData
 import SwiftUI
 
-@Observable
+@MainActor
 final class FavoritesVM: ObservableObject {
-    var favoriteProducts: [FavoriteProductDisplay] = []
-    var filteredProducts: [FavoriteProductDisplay] = [] // array filtrado para search
-    var isLoading = false
-    var errorMessage: String?
-
-    private var productMap: [Int: ProductDTO] = [:]
-    private let apiService: ProductsServiceProtocolAPI
+    @Published var favoriteProducts: [ProductDTO] = []
+    @Published var filteredProducts: [ProductDTO] = []
+    @Published var quantities: [Int: Int] = [:] // Se precisar de quantidades
+    @Published var isLoading = false
+    @Published var errorMessage: String?
+    
+    private let apiService: any ProductsServiceProtocolAPI
     private let userProductsService: any UserProductsServiceProtocol
-
-    init(
-        apiService: any ProductsServiceProtocolAPI,
-        userProductsService: any UserProductsServiceProtocol
-    ) {
+    
+    init(apiService: any ProductsServiceProtocolAPI, userProductsService: any UserProductsServiceProtocol) {
         self.apiService = apiService
         self.userProductsService = userProductsService
     }
-
-    @MainActor
+    
     func loadFavorites() async {
         isLoading = true
         errorMessage = nil
-
+        
         do {
-            // busca produtos da API
-            let dtoList = try await apiService.fetchProducts()
-            productMap = Dictionary(uniqueKeysWithValues: dtoList.map { ($0.id, $0) })
-
-            // busca produtos favoritos persistidos
-            let favorites = userProductsService.getFavoriteProducts()
-
-            favoriteProducts = favorites.map { product in
-                let dto = productMap[product.id]
-                return FavoriteProductDisplay(product: product, dto: dto)
+            // 1. Pega IDs dos favoritos
+            let persistedFavorites = userProductsService.getFavoriteProducts()
+            let favoriteIDs = persistedFavorites.map { $0.id }
+            
+            // 2. Busca dados atualizados
+            var productsMap: [Int: ProductDTO] = [:]
+            
+            for persistedProduct in persistedFavorites {
+                do {
+                    let productDTO = try await apiService.fetchProduct(id: persistedProduct.id)
+                    productsMap[productDTO.id] = productDTO
+                } catch {
+                    print("Erro ao buscar produto \(persistedProduct.id): \(error)")
+                }
             }
-
-            // inicializa filteredProducts
+            
+            // 3. Converte para array
+            favoriteProducts = Array(productsMap.values)
             filteredProducts = favoriteProducts
-
+            
         } catch {
-            errorMessage = error.localizedDescription
+            errorMessage = "Erro ao carregar favoritos: \(error.localizedDescription)"
         }
-
+        
         isLoading = false
     }
-
+    
     func filterFavorites(by searchText: String) {
         if searchText.isEmpty {
             filteredProducts = favoriteProducts
         } else {
             filteredProducts = favoriteProducts.filter {
-                $0.product.name.lowercased().contains(searchText.lowercased())
+                $0.title.lowercased().contains(searchText.lowercased())
             }
         }
-    }
-
-    func addToCart(_ dto: ProductDTO) {
-        print("Produto adicionado no cart!")
-        try? userProductsService.addToCart(dto)
     }
     
     func toggleFavorite(_ dto: ProductDTO) {
         do {
             try userProductsService.toggleFavorite(dto)
-            // atualiza lista local
-            favoriteProducts = userProductsService.getFavoriteProducts().map { product in
-                let dto = productMap[product.id]
-                return FavoriteProductDisplay(product: product, dto: dto)
+            Task {
+                await loadFavorites()
             }
-            filteredProducts = favoriteProducts
         } catch {
-            errorMessage = error.localizedDescription
+            errorMessage = "Erro ao alternar favorito: \(error.localizedDescription)"
         }
     }
     
-    private func fetchProduct(by id: Int) -> Product? {
-        return userProductsService.fetchProduct(by: id)
+    func addToCart(_ dto: ProductDTO) {
+        do {
+            try userProductsService.addToCart(dto)
+            print("✅ \(dto.title) adicionado ao carrinho")
+        } catch {
+            errorMessage = "Erro ao adicionar ao carrinho: \(error.localizedDescription)"
+        }
     }
 }

@@ -15,10 +15,13 @@ final class HomeVM: ObservableObject {
     @Published var errorMessage: String?
    
     private let apiService: any ProductsServiceProtocolAPI
+    private let productsService: any UserProductsServiceProtocol
+    
     public var modelContext: ModelContext?
     
-    init(apiService: any ProductsServiceProtocolAPI) {
+    init(apiService: any ProductsServiceProtocolAPI, productsService: any UserProductsServiceProtocol) {
         self.apiService = apiService
+        self.productsService = productsService
     }
     
     @MainActor
@@ -28,7 +31,6 @@ final class HomeVM: ObservableObject {
         
         do {
             products = try await apiService.fetchProducts()
-            try persistProducts(products) // persistindo no banco
         } catch {
             errorMessage = error.localizedDescription
             print("Error loading products: \(error)")
@@ -37,39 +39,16 @@ final class HomeVM: ObservableObject {
         isLoading = false
     }
     
-    func persistProducts(_ products: [ProductDTO]) {
-           guard let context = modelContext else { return }
-   
-        for dto in products {
-            let dtoID = dto.id // <- capture fora
-
-            let descriptor = FetchDescriptor<Product>(
-                predicate: #Predicate { $0.id == dtoID } // use a constante capturada
-            )
-
-            let existing = try? context.fetch(descriptor)
-
-            if existing?.isEmpty == false {
-                continue // já existe, não insere de novo
+    func isProductFavorite(id: Int) -> Bool {
+        return productsService.isProductFavorite(id: id)
+    }
+    
+    func toggleFavorite(for product: ProductDTO) {
+            do {
+                try productsService.toggleFavorite(product)
+                objectWillChange.send()
+            } catch {
+                print("Erro ao alternar favorito: \(error)")
             }
-
-            let newProduct = Product(
-                id: dto.id,
-                name: dto.title,
-                info: dto.description,
-                category: dto.category,
-                price: dto.price,
-                type: .none,
-                thumbnail: dto.thumbnail
-            )
-            context.insert(newProduct)
         }
-   
-           do {
-               try context.save()
-               print("Todos os produtos foram salvos com sucesso!")
-           } catch {
-               print("Erro ao salvar produtos: \(error)")
-           }
-       }
 }

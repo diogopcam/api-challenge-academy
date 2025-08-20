@@ -27,6 +27,13 @@ final class UserProductsService: UserProductsServiceProtocol {
         return (try? context.fetch(descriptor)) ?? []
     }
     
+    func isProductFavorite(id: Int) -> Bool {
+        if let product = fetchProduct(by: id) {
+            return product.isFavorite
+        }
+        return false
+    }
+    
     func getOrderedProducts() -> [Product] {
         let descriptor = FetchDescriptor<Product>(
             predicate: #Predicate { $0.isOrder == true }
@@ -38,8 +45,13 @@ final class UserProductsService: UserProductsServiceProtocol {
         do {
             let allProducts = try context.fetch(FetchDescriptor<Product>())
             print("=== Produtos Persistidos ===")
+//            init(id: Int, category: String, quantity: Int = 1) {
+//                self.id = id
+//                self.category = category
+//                self.quantity = quantity
+//            }
             for product in allProducts {
-                print("ID: \(product.id), Nome: \(product.name), Categoria: \(product.category), Preço: \(product.price), isFavorite: \(product.isFavorite), isOrder: \(product.isOrder)")
+                print("ID: \(product.id), Categoria: \(product.category), Quantidade: \(product.quantity)")
             }
             if allProducts.isEmpty {
                 print("Nenhum produto encontrado.")
@@ -65,18 +77,12 @@ final class UserProductsService: UserProductsServiceProtocol {
                 // Se não está no carrinho, adiciona com quantidade 1
                 existing.isCart = true
                 existing.quantity = 1
-                existing.type = .cart
             }
         } else {
             // Produto novo no carrinho
             let product = Product(
                 id: dto.id,
-                name: dto.title,
-                info: dto.description,
-                category: dto.category,
-                price: dto.price,
-                type: .cart,
-                thumbnail: dto.thumbnail
+                category: dto.category
             )
             product.isCart = true
             product.quantity = 1
@@ -96,7 +102,6 @@ final class UserProductsService: UserProductsServiceProtocol {
             product.quantity -= 1
         } else {
             product.isCart = false
-            product.type = .none
             product.quantity = 1
         }
         try context.save()
@@ -104,17 +109,14 @@ final class UserProductsService: UserProductsServiceProtocol {
     
     func toggleFavorite(_ dto: ProductDTO) throws {
         if let existing = fetchProduct(by: dto.id) {
-            existing.type = existing.type == .favorites ? .none : .favorites
+            existing.isFavorite.toggle()
         } else {
+            // ✅ Cria novo produto marcado como favorito
             let product = Product(
                 id: dto.id,
-                name: dto.title,
-                info: dto.description,
-                category: dto.category,
-                price: dto.price,
-                type: .favorites,
-                thumbnail: dto.thumbnail
+                category: dto.category
             )
+            product.isFavorite = true // ← Define como favorito
             context.insert(product)
         }
 
@@ -131,8 +133,6 @@ final class UserProductsService: UserProductsServiceProtocol {
             for product in cartProducts {
                 product.isCart = false
                 product.isOrder = true
-//                product.type = .purchased
-                // Mantém a quantidade para histórico de pedidos
             }
             
             try context.save()
@@ -140,7 +140,7 @@ final class UserProductsService: UserProductsServiceProtocol {
             print("=== CHECKOUT CONCLUÍDO ===")
             print("Produtos movidos para pedidos: \(cartProducts.count)")
             for product in cartProducts {
-                print("ID: \(product.id), Nome: \(product.name), Quantidade: \(product.quantity)")
+                print("ID: \(product.id), Categoria: \(product.category), Quantidade: \(product.quantity)")
             }
         }
 
