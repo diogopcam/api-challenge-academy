@@ -10,7 +10,7 @@ import Foundation
 
 class MockUserProductService: UserProductsServiceProtocol {
     
-        private var products: [Product] = []
+        public var products: [Product] = []
 
 
         init() {
@@ -117,7 +117,12 @@ class MockUserProductService: UserProductsServiceProtocol {
                     existing.isFavorite = true
                 }
             } else {
-                 return
+                let product = Product(
+                    id: dto.id,
+                    category: dto.category
+                )
+                product.isFavorite = true
+                products.append(product)
             }
         }
         

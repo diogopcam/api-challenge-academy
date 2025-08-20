@@ -6,6 +6,7 @@
 //
 
 import XCTest
+@testable import api_challenge
 
 class FavoritesViewModelTest: XCTestCase  {
 
@@ -19,9 +20,40 @@ class FavoritesViewModelTest: XCTestCase  {
 //            // Put teardown code here. This method is called after the invocation of each test method in the class.
 //        }
     
-        func testExample() throws {
+    @MainActor func testFetchFavorites() async throws {
+           //Given
+            let apiService = MockProductService()
+            let userService = MockUserProductService()
+            
+            let viewModel = FavoritesVM(apiService: apiService, userProductsService: userService)
+            
+           //When
+            await viewModel.loadFavorites()
+        
+            
+           //Then
+            XCTAssertTrue(!viewModel.favoriteProducts.isEmpty)
            
         }
+    
+    @MainActor func testTogleFavorites() async throws {
+            //Given
+            let apiService = MockProductService()
+            let userService = MockUserProductService()
+             
+            let viewModel = FavoritesVM(apiService: apiService, userProductsService: userService)
+            let productDTO: ProductDTO = .init(id: 5, title: "Test", description: "Test", category: "Test", price: 10.0, thumbnail: "Test")
+        
+            
+            //When
+            viewModel.toggleFavorite(productDTO)
+        
+            //Then
+            XCTAssertTrue(viewModel.userProductsService.isProductFavorite(id: 5))
+        
+        }
+    
+    
 
 //        func testPerformanceExample() throws {
 //            // This is an example of a performance test case.
