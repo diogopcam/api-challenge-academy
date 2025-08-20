@@ -16,16 +16,36 @@ struct CategoriesView: View {
     init(vm: CategoriesVM){
         _vm = StateObject(wrappedValue: vm)
     }
+    
+    var filteredCategories: [String] {
+        if searchText.isEmpty {
+            return vm.apiCategories
+        } else {
+            return vm.apiCategories.filter { category in
+                let formatter = CategoryFormatter(apiValue: category)
+                return formatter.formattedName.localizedCaseInsensitiveContains(searchText) ||
+                       category.localizedCaseInsensitiveContains(searchText)
+            }
+        }
+    }
 
     var body: some View {
         NavigationStack {
             ScrollView {
                 VStack(spacing: 24) {
                     HStack(spacing: 8) {
-                        CategoryCard(apiCategoryName: "smartphones")
-                        CategoryCard(apiCategoryName: "laptops")
-                        CategoryCard(apiCategoryName: "womens-dresses")
-                        CategoryCard(apiCategoryName: "fragrances")
+                        CategoryCard(apiCategoryName: "smartphones", onTap: {
+                            selectedCategory = "smartphones"
+                        })
+                        CategoryCard(apiCategoryName: "laptops", onTap: {
+                            selectedCategory = "laptops"
+                        })
+                        CategoryCard(apiCategoryName: "womens-dresses", onTap: {
+                            selectedCategory = "womens-dresses"
+                        })
+                        CategoryCard(apiCategoryName: "fragrances", onTap: {
+                            selectedCategory = "fragrances"
+                        })
                     }
                     .padding(.horizontal)
                     
@@ -35,13 +55,21 @@ struct CategoriesView: View {
                         ErrorView(message: errorMessage) {
                             Task { await vm.loadCategories() }
                         }
-                    } else {
+                    } else if !filteredCategories.isEmpty { // ← Use filteredCategories aqui
                         CategoryListView(
-                            apiCategories: vm.apiCategories,
+                            apiCategories: filteredCategories, // ← Filtradas
                             onTapCategory: { category in
                                 selectedCategory = category
                             }
                         )
+                    } else {
+                        // Estado vazio quando não há resultados
+                        VStack {
+                            Text(searchText.isEmpty ? "No categories found" : "No results for \"\(searchText)\"")
+                                .font(.headline)
+                                .foregroundColor(.secondary)
+                        }
+                        .frame(maxWidth: .infinity, minHeight: 200)
                     }
                 }
                 .padding(.vertical)

@@ -9,6 +9,7 @@ import SwiftUI
 
 struct CategoryCard: View {
     let apiCategoryName: String
+    var onTap: (() -> Void)? = nil
     
     public var category: CategoryFormatter {
         CategoryFormatter(apiValue: apiCategoryName)
@@ -21,30 +22,34 @@ struct CategoryCard: View {
     private let paddingTop: CGFloat = 8
     
     var body: some View {
-        VStack(spacing: 0) {
-            ZStack {
-                RoundedRectangle(cornerRadius: cornerRadius)
-                    .fill(.fillsQuaternary)
-                    .frame(width: cardSize, height: cardSize)
-                    .overlay(
-                        RoundedRectangle(cornerRadius: cornerRadius)
-                            .stroke(.fillsQuaternary)
-                    )
+        Button(action: {
+            onTap?()
+        }) {
+            VStack(spacing: 0) {
+                ZStack {
+                    RoundedRectangle(cornerRadius: cornerRadius)
+                        .fill(.fillsQuaternary)
+                        .frame(width: cardSize, height: cardSize)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: cornerRadius)
+                                .stroke(.fillsQuaternary)
+                        )
+                    
+                    Image(systemName: category.iconName)
+                        .font(.system(size: iconSize, weight: .regular))
+                        .foregroundColor(.fillsSecondary)
+                    
+                }
                 
-                Image(systemName: category.iconName)
-                    .font(.system(size: iconSize, weight: .regular))
-                    .foregroundColor(.fillsSecondary)
-                    
-                    
+                // Label da categoria
+                Text(category.formattedName)
+                    .font(labelFont)              // mantém sempre a mesma fonte
+                    .padding(.top, paddingTop)
+                    .lineLimit(1)                  // no máximo 1 linha
+                    .truncationMode(.tail)
             }
-            
-            // Label da categoria
-            Text(category.formattedName)
-                .font(labelFont)              // mantém sempre a mesma fonte
-                .padding(.top, paddingTop)
-                .lineLimit(1)                  // no máximo 1 linha
-                .truncationMode(.tail)
         }
         .frame(width: cardSize)
+        .buttonStyle(PlainButtonStyle())
     }
 }
