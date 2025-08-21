@@ -27,31 +27,23 @@ final class FavoritesVM: ObservableObject {
     func loadFavorites() async {
         isLoading = true
         errorMessage = nil
+    
+        let persistedFavorites = productsService.getFavoriteProducts()
+        _ = persistedFavorites.map { $0.id }
         
-        do {
-            // 1. Pega IDs dos favoritos
-            let persistedFavorites = productsService.getFavoriteProducts()
-            let favoriteIDs = persistedFavorites.map { $0.id }
-            
-            // 2. Busca dados atualizados
-            var productsMap: [Int: ProductDTO] = [:]
-            
-            for persistedProduct in persistedFavorites {
-                do {
-                    let productDTO = try await apiService.fetchProduct(id: persistedProduct.id)
-                    productsMap[productDTO.id] = productDTO
-                } catch {
-                    print("Erro ao buscar produto \(persistedProduct.id): \(error)")
-                }
+        var productsMap: [Int: ProductDTO] = [:]
+        
+        for persistedProduct in persistedFavorites {
+            do {
+                let productDTO = try await apiService.fetchProduct(id: persistedProduct.id)
+                productsMap[productDTO.id] = productDTO
+            } catch {
+                print("Erro ao buscar produto \(persistedProduct.id): \(error)")
             }
-            
-            // 3. Converte para array
-            favoriteProducts = Array(productsMap.values)
-            filteredProducts = favoriteProducts
-            
-        } catch {
-            errorMessage = "Erro ao carregar favoritos: \(error.localizedDescription)"
         }
+        
+        favoriteProducts = Array(productsMap.values)
+        filteredProducts = favoriteProducts
         
         isLoading = false
     }

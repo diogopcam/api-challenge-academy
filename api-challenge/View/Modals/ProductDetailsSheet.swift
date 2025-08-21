@@ -62,10 +62,6 @@ struct ProductDetailsSheet: View {
           }
 
     private func addToCart() {
-        do {
-            try vm.addToCart()
-        } catch {
-            print("Erro ao adicionar ao carrinho: \(error)")
-        }
+        vm.addToCart()
     }
 }
