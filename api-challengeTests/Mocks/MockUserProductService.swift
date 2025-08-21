@@ -64,27 +64,32 @@ class MockUserProductService: UserProductsServiceProtocol {
             return products2
         }
 
-        func addToCart(_ dto: ProductDTO) throws {
-            if let existing = fetchProduct(by: dto.id) {
-                if existing.isCart {
-                    // Se já está no carrinho, apenas incrementa
-                    existing.quantity += 1
-                } else {
-                    // Se não está no carrinho, adiciona com quantidade 1
-                    existing.isCart = true
-                    existing.quantity = 1
-                }
-            } else {
-                // Produto novo no carrinho
-                let product = Product(
-                    id: dto.id,
-                    category: dto.category
-                )
-                product.isCart = true
-                product.quantity = 1
-                products.append(product)
-            }
+    func addToCart(_ dto: ProductDTO) throws {
+        if dto.id == -1 {
+            throw NSError(domain: #function, code: 2)
         }
+        
+        if let existing = fetchProduct(by: dto.id) {
+            if existing.isCart {
+                // Se já está no carrinho, apenas incrementa
+                existing.quantity += 1
+            } else {
+                // Se não está no carrinho, adiciona com quantidade 1
+                existing.isCart = true
+                existing.quantity = 1
+            }
+        } else {
+            // Produto novo no carrinho
+            let product = Product(
+                id: dto.id,
+                category: dto.category
+            )
+            product.isCart = true
+            product.quantity = 1
+            products.append(product)
+        }
+    }
+
 
         func increaseQuantity(_ product: Product) throws {
             product.quantity += 1
@@ -108,23 +113,27 @@ class MockUserProductService: UserProductsServiceProtocol {
         func fetchProduct(by id: Int) -> Product? {
             return products.first(where: { $0.id == id })
         }
-
-        func toggleFavorite(_ dto: ProductDTO) throws {
-            if let existing = fetchProduct(by: dto.id) {
-                if existing.isFavorite {
-                    existing.isFavorite = false
-                } else {
-                    existing.isFavorite = true
-                }
-            } else {
-                let product = Product(
-                    id: dto.id,
-                    category: dto.category
-                )
-                product.isFavorite = true
-                products.append(product)
-            }
+    
+    func toggleFavorite(_ dto: ProductDTO) throws {
+        if dto.id == -1 {
+            throw NSError(domain: #function, code: 1)
         }
+        
+        if let existing = fetchProduct(by: dto.id) {
+            if existing.isFavorite {
+                existing.isFavorite = false
+            } else {
+                existing.isFavorite = true
+            }
+        } else {
+            let product = Product(
+                id: dto.id,
+                category: dto.category
+            )
+            product.isFavorite = true
+            products.append(product)
+        }
+    }
         
         func checkoutCartProducts() throws {
             for product in products {
@@ -135,8 +144,4 @@ class MockUserProductService: UserProductsServiceProtocol {
                 }
             }
         }
-    
-    
-    
-    
 }
