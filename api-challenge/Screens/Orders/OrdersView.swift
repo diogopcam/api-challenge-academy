@@ -20,7 +20,7 @@ struct OrdersView: View {
     @StateObject private var vm: OrdersVM
     @State private var searchText = ""
 
-    init(vm: OrdersVM) {  // Recebe a VM já configurada
+    init(vm: OrdersVM) {
         _vm = StateObject(wrappedValue: vm)
     }
 
@@ -59,7 +59,7 @@ struct OrdersView: View {
                 }
                 .padding(.vertical)
             }
-            .navigationTitle("Orders")
+            .navigationTitle("OrdersView")
             .searchable(text: $searchText, prompt: "Search")
             .refreshable {
                 await vm.fetchOrderedProducts()

@@ -16,7 +16,7 @@ struct EmptyStateOrders: View {
                     .resizable()
                     .frame(width: 65, height: 69)
                 VStack(spacing: 16) {
-                    Text("No orders yet!")
+                    Text("No OrdersView yet!")
                         .font(.system(.body, weight: .semibold))
                         .foregroundStyle(.labelsPrimary)
                     
