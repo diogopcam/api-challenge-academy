@@ -23,7 +23,7 @@ struct CartView: View {
         let price = item.dto?.price ?? 0.00
         let thumbnail = item.dto?.thumbnail
         
-        return ProductListAsyncImage(
+        return ProductCell(
             image: thumbnail,
             productName: productName,
             price: price,
