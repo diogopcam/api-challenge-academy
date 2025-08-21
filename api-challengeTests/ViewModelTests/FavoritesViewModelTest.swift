@@ -22,7 +22,7 @@ class FavoritesViewModelTest: XCTestCase  {
     
     @MainActor func testFetchFavorites() async throws {
            //Given
-            let apiService = MockProductService()
+            let apiService = MockApiService()
             let userService = MockUserProductService()
             
         let viewModel = FavoritesVM(apiService: apiService, productsService: userService)
@@ -38,7 +38,7 @@ class FavoritesViewModelTest: XCTestCase  {
     
     @MainActor func testTogleFavorites() async throws {
             //Given
-            let apiService = MockProductService()
+            let apiService = MockApiService()
             let userService = MockUserProductService()
              
             let viewModel = FavoritesVM(apiService: apiService, productsService: userService)
