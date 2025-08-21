@@ -8,7 +8,7 @@
 import Foundation
 
 @MainActor
-final class ProductDetailsVM: ObservableObject {
+final class ProductDetailsVM: ProductDetailsVMProtocol {
     @Published var product: ProductDTO
     @Published var isLoading = false
     @Published var errorMessage: String?
@@ -44,3 +44,4 @@ final class ProductDetailsVM: ObservableObject {
         }
     }
 }
+

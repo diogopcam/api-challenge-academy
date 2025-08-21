@@ -63,7 +63,6 @@ struct CategoriesView: View {
                             }
                         )
                     } else {
-                        // Estado vazio quando não há resultados
                         VStack {
                             Text(searchText.isEmpty ? "No categories found" : "No results for \"\(searchText)\"")
                                 .font(.headline)

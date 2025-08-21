@@ -27,7 +27,7 @@ struct OrdersView: View {
     var productsListView: some View {
         VStack(spacing: 12) {
             ForEach(filteredProducts) { product in
-                ProductListAsyncImage(image: product.thumbnail, productName: product.title, price: product.price, variant: .delivery(month: "DECEMBER", day: "15"))
+                ProductCell(image: product.thumbnail, productName: product.title, price: product.price, variant: .delivery(month: "DECEMBER", day: "15"))
             }
         }
         .padding(.horizontal)
