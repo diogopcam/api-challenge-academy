@@ -100,7 +100,6 @@ struct CategoryProductsView: View {
                 )
             )
             .onDisappear {
-                // Apenas atualiza o estado dos favoritos sem recarregar tudo
                 vm.objectWillChange.send()
             }
         }
