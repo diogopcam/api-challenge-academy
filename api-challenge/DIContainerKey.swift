@@ -10,13 +10,14 @@ import SwiftUI
 import SwiftData
 
 private struct DIContainerKey: EnvironmentKey {
-    @MainActor // Adicione este atributo
     static let defaultValue: DIContainer = {
-        let container = try! ModelContainer(
-            for: Product.self,
-            configurations: ModelConfiguration(isStoredInMemoryOnly: true)
-        )
-        return DIContainer(modelContainer: container)
+        MainActor.assumeIsolated {
+            let modelContainer = try! ModelContainer(
+                for: Product.self,
+                configurations: ModelConfiguration(isStoredInMemoryOnly: true)
+            )
+            return DIContainer(modelContainer: modelContainer)
+        }
     }()
 }
 

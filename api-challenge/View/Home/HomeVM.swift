@@ -10,21 +10,18 @@ import SwiftData
 
 @MainActor
 final class HomeVM: ObservableObject {
-    @Published var products: [ProductDTO] = []    // Adicione @Published
-    @Published var isLoading = false             // Adicione @Published
+    @Published var products: [ProductDTO] = []
+    @Published var isLoading = false
     @Published var errorMessage: String?
 
     let apiService: any ApiServiceProtocol
     let productsService: any UserProductsServiceProtocol
-    
-    public var modelContext: ModelContext?
     
     init(apiService: any ApiServiceProtocol, productsService: any UserProductsServiceProtocol) {
         self.apiService = apiService
         self.productsService = productsService
     }
     
-    @MainActor
     func loadProducts() async {
         isLoading = true
         errorMessage = nil

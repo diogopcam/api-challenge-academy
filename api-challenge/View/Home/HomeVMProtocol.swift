@@ -12,7 +12,6 @@ protocol HomeVMProtocol: ObservableObject {
     var products: [ProductDTO] { get }
     var isLoading: Bool { get }
     var errorMessage: String? { get }
-    
-    @MainActor
+
     func loadProducts() async
 }

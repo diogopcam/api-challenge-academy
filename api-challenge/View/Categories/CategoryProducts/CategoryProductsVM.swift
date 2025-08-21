@@ -8,7 +8,7 @@
 import SwiftUI
 import SwiftData
 
-@Observable
+@MainActor
 class CategoryProductsVM: ObservableObject {
     var categoryName: String
     var products: [ProductDTO] = []
@@ -24,7 +24,6 @@ class CategoryProductsVM: ObservableObject {
         self.categoryName = categoryName
     }
     
-    @MainActor
     func loadProducts() async {
         isLoading = true
         errorMessage = nil
