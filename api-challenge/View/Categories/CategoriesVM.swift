@@ -7,8 +7,8 @@
 
 import Foundation
 
-@Observable
-class CategoriesVM: CategoriesVMProtocol {
+@MainActor
+final class CategoriesVM: CategoriesVMProtocol {
     var apiCategories: [String] = []
     var isLoading: Bool = false
     var errorMessage: String?
@@ -25,13 +25,10 @@ class CategoriesVM: CategoriesVMProtocol {
         
         do {
             apiCategories = try await service.fetchCategories()
-            print("DEBUG: Categorias carregadas -> \(apiCategories)")
         } catch {
             errorMessage = "Error to fetch Categories: \(error.localizedDescription)"
-            print("DEBUG: Erro ao carregar categorias -> \(error)")
         }
         
         isLoading = false
     }
-
 }

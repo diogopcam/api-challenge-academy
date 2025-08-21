@@ -7,6 +7,7 @@
 
 import Foundation
 
+@MainActor
 protocol CategoriesVMProtocol: ObservableObject {
     var apiCategories: [String] { get }
     var isLoading: Bool { get }
