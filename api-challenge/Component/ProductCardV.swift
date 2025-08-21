@@ -15,58 +15,69 @@ struct ProductCardV: View {
     let onTapProduct: () -> Void
     
     var body: some View {
-        VStack(spacing: 8) {
+        VStack(alignment: .leading, spacing: 0) {
             ZStack(alignment: .topTrailing) {
                 AsyncImage(url: URL(string: product.thumbnail)) { image in
                     image
                         .resizable()
                         .scaledToFill()
-                        .frame(width: 177, height: 160)
-                        .clipped()
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        .clipShape(RoundedRectangle(cornerRadius: 16))
+                        .padding(.horizontal, 8)
+                        .padding(.top, 8)
                 } placeholder: {
                     Image(.placeholder)
                         .resizable()
                         .scaledToFill()
-                        .frame(width: 177, height: 160)
-                        .clipped()
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        .clipShape(RoundedRectangle(cornerRadius: 16))
+                        .padding(.horizontal, 8)
+                        .padding(.top, 8)
                 }
                 .cornerRadius(16)
-                
                 Button {
                     onToggleFavorite()
                 } label: {
                     Image(systemName: isFavorited ? "heart.fill" : "heart")
                         .resizable()
+                        .scaledToFit()
                         .frame(width: 20, height: 20)
-                        .padding(8)
                         .background(RoundedRectangle(cornerRadius: 8).foregroundColor(Color(.fillsTertiary)))
                         .foregroundStyle(isFavorited ? .labelsPrimary : .labelsPrimary)
+                        .padding(8)
+                        .background(
+                            RoundedRectangle(cornerRadius: 8)
+                                .foregroundColor(Color(.fillsTertiary))
+                        )
                 }
+                .padding(8)
             }
             
+            // Texto
             VStack(alignment: .leading, spacing: 4) {
                 Text(product.title)
                     .font(.system(size: 14, weight: .semibold))
                     .foregroundColor(.primary)
-                    .lineLimit(2)
-                    .frame(height: 36, alignment: .top) // força altura para 2 linhas
-                
+                    .lineLimit(2) // no máximo 2 linhas
+                    .multilineTextAlignment(.leading)
+                    .frame(height: 36, alignment: .topLeading) // reserva espaço fixo p/ 2 linhas
+                                
                 Text("$\(product.price, specifier: "%.2f")")
                     .font(.system(size: 13))
                     .foregroundColor(.secondary)
+                    .multilineTextAlignment(.leading)
             }
-            .padding(.horizontal, 8)
-            .padding(.vertical, 8)
-            
-//            Spacer() // garante que o card tenha altura consistente
+            .padding(.horizontal, 16)
+            .padding(.top, 8)
+            .padding(.bottom, 8)
         }
-        .frame(width: 177, height: 250) // força dimensões do card
+        .frame(width: 177, height: 250) // tamanho do card
         .background(.backgroundsSecondary)
         .cornerRadius(16)
-        .padding(8)
         .onTapGesture {
             onTapProduct()
         }
+        .padding(.horizontal, 8)
     }
 }
 
