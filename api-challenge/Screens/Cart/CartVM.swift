@@ -9,7 +9,7 @@ import SwiftUI
 import SwiftData
 
 @MainActor
-final class CartVM: ObservableObject {
+final class CartVM: CartVMProtocol {
     @Published var cartProducts: [CartProductDisplay] = []
     @Published var isLoading = false
     @Published var errorMessage: String?

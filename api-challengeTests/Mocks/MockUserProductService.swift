@@ -9,6 +9,7 @@ import Foundation
 @testable import api_challenge
 
 class MockUserProductService: UserProductsServiceProtocol {
+    var shouldFailCheckout = false
     
         public var products: [Product] = []
 
@@ -135,13 +136,17 @@ class MockUserProductService: UserProductsServiceProtocol {
         }
     }
         
-        func checkoutCartProducts() throws {
-            for product in products {
-                if product.isCart == true {
-                    product.isCart = false
-                    product.isOrder = true
-                    print(product)
-                }
+    func checkoutCartProducts() throws {
+        if shouldFailCheckout { // ← E ESTA VERIFICAÇÃO
+            throw NSError(domain: "TestError", code: 1, userInfo: nil)
+        }
+        
+        for product in products {
+            if product.isCart == true {
+                product.isCart = false
+                product.isOrder = true
+                print(product)
             }
         }
+    }
 }
