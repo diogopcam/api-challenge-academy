@@ -11,9 +11,9 @@ import SwiftData
 @MainActor
 class CategoryProductsVM: ObservableObject {
     var categoryName: String
-    var products: [ProductDTO] = []
-    var isLoading = false
-    var errorMessage: String?
+    @Published var products: [ProductDTO] = []
+    @Published var isLoading = false
+    @Published var errorMessage: String?
 
     let apiService: any ApiServiceProtocol
     let productsService: any UserProductsServiceProtocol

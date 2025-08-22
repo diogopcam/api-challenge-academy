@@ -43,7 +43,7 @@ struct ProductCardVBig: View {
                 .foregroundColor(.primary)
                 .lineLimit(2)
 
-            Text("R$ \(product.price, specifier: "%.2f")")
+            Text("US$ \(product.price, specifier: "%.2f")")
                 .font(.headline)
                 .foregroundColor(.secondary)
         }
