@@ -35,15 +35,16 @@ final class CartVMTests: XCTestCase {
     
     // MARK: - Test Cases
     
-    func testLoadCart_Success() async {
+    /// Testa o carregamento bem-sucedido do carrinho com produtos
+    func testLoadCartSuccess() async {
         // Given
         // Adiciona produtos ao carrinho do mock
         let testDTO = ProductDTO(
-            id: 1, 
-            title: "Test Product", 
-            description: "Test Description", 
-            category: "Test", 
-            price: 100.0, 
+            id: 1,
+            title: "Test Product",
+            description: "Test Description",
+            category: "Test",
+            price: 100.0,
             thumbnail: ""
         )
         
@@ -64,7 +65,8 @@ final class CartVMTests: XCTestCase {
         XCTAssertEqual(viewModel.cartProducts[0].product.quantity, 1)
     }
     
-    func testLoadCart_EmptyCart() async {
+    /// Testa o carregamento do carrinho quando está vazio
+    func testLoadCartEmptyCart() async {
         // Given - Carrinho vazio por padrão no mock
         
         // When
@@ -76,17 +78,18 @@ final class CartVMTests: XCTestCase {
         XCTAssertTrue(viewModel.cartProducts.isEmpty)
     }
     
-    func testLoadCart_ApiError() async {
+    /// Testa o tratamento de erro quando a API falha durante o carregamento do carrinho
+    func testLoadCartApiError() async {
         // Given
         mockApiService.shouldFail = true
         
         // Adiciona um produto ao carrinho para tentar carregar
         let testDTO = ProductDTO(
-            id: 1, 
-            title: "Test Product", 
-            description: "Test Description", 
-            category: "Test", 
-            price: 100.0, 
+            id: 1,
+            title: "Test Product",
+            description: "Test Description",
+            category: "Test",
+            price: 100.0,
             thumbnail: ""
         )
         
@@ -105,7 +108,8 @@ final class CartVMTests: XCTestCase {
         XCTAssertTrue(viewModel.cartProducts.isEmpty)
     }
     
-    func testIncreaseQuantity_Success() {
+    /// Testa o aumento bem-sucedido da quantidade de um produto no carrinho
+    func testIncreaseQuantitySuccess() {
         // Given
         let testProduct = Product(id: 1, category: "Test")
         testProduct.isCart = true
@@ -120,7 +124,8 @@ final class CartVMTests: XCTestCase {
         XCTAssertEqual(testProduct.quantity, 2)
     }
     
-    func testDecreaseQuantity_Success() {
+    /// Testa a diminuição bem-sucedida da quantidade de um produto no carrinho
+    func testDecreaseQuantitySuccess() {
         // Given
         let testProduct = Product(id: 1, category: "Test")
         testProduct.isCart = true
@@ -135,7 +140,8 @@ final class CartVMTests: XCTestCase {
         XCTAssertEqual(testProduct.quantity, 1)
     }
     
-    func testDecreaseQuantity_RemoveFromCart() {
+    /// Testa a remoção do produto do carrinho quando a quantidade chega a zero
+    func testDecreaseQuantityRemoveFromCart() {
         // Given
         let testProduct = Product(id: 1, category: "Test")
         testProduct.isCart = true
@@ -151,24 +157,25 @@ final class CartVMTests: XCTestCase {
         XCTAssertEqual(testProduct.quantity, 1) // Quantidade padrão após remoção
     }
     
-    func testTotalPrice_WithProducts() async {
+    /// Testa o cálculo do preço total com múltiplos produtos no carrinho
+    func testTotalPriceWithProducts() async {
         // Given
         // Adiciona produtos ao carrinho
         let testDTO1 = ProductDTO(
-            id: 1, 
-            title: "Product 1", 
-            description: "Desc 1", 
-            category: "Test", 
-            price: 100.0, 
+            id: 1,
+            title: "Product 1",
+            description: "Desc 1",
+            category: "Test",
+            price: 100.0,
             thumbnail: ""
         )
         
         let testDTO2 = ProductDTO(
-            id: 2, 
-            title: "Product 2", 
-            description: "Desc 2", 
-            category: "Test", 
-            price: 200.0, 
+            id: 2,
+            title: "Product 2",
+            description: "Desc 2",
+            category: "Test",
+            price: 200.0,
             thumbnail: ""
         )
         
@@ -190,11 +197,12 @@ final class CartVMTests: XCTestCase {
         // Then
         // Product 1: 100.0 * 2 = 200.0
         // Product 2: 200.0 * 1 = 200.0
-        // Total: 400.0
+        // Total: 400.0 (+ produtos inseridos no init)
         XCTAssertEqual(total, 559.97)
     }
     
-    func testTotalPrice_EmptyCart() {
+    /// Testa o cálculo do preço total quando o carrinho está vazio
+    func testTotalPriceEmptyCart() {
         // Given - Carrinho vazio
         
         // When
@@ -204,7 +212,8 @@ final class CartVMTests: XCTestCase {
         XCTAssertEqual(total, 0.0)
     }
     
-    func testTotalPrice_ProductWithoutDTO() async {
+    /// Testa o cálculo do preço total quando produtos não possuem DTO correspondente
+    func testTotalPriceProductWithoutDTO() async {
         // Given
         // Adiciona produto diretamente sem DTO correspondente
         let testProduct = Product(id: 999, category: "Test") // ID que não existe no mock API
@@ -220,15 +229,16 @@ final class CartVMTests: XCTestCase {
         XCTAssertEqual(total, 0.0)
     }
     
-    func testCheckout_Success() async {
+    /// Testa o processo de checkout bem-sucedido com produtos no carrinho
+    func testCheckoutSuccess() async {
         // Given
         // Adiciona produtos ao carrinho
         let testDTO = ProductDTO(
-            id: 1, 
-            title: "Test Product", 
-            description: "Test Description", 
-            category: "Test", 
-            price: 100.0, 
+            id: 1,
+            title: "Test Product",
+            description: "Test Description",
+            category: "Test",
+            price: 100.0,
             thumbnail: ""
         )
         
@@ -255,7 +265,8 @@ final class CartVMTests: XCTestCase {
         XCTAssertFalse(orderedProducts[0].isCart)
     }
     
-    func testCheckout_EmptyCart() async {
+    /// Testa o processo de checkout quando o carrinho está vazio
+    func testCheckoutEmptyCart() async {
         // Given - Carrinho vazio
         
         // When
@@ -268,7 +279,8 @@ final class CartVMTests: XCTestCase {
         XCTAssertNil(viewModel.errorMessage)
     }
     
-    func testCheckout_Error() async {
+    /// Testa o tratamento de erro durante o processo de checkout
+    func testCheckoutError() async {
         // Given
         mockProductsService.shouldFailCheckout = true
         
@@ -303,7 +315,8 @@ final class CartVMTests: XCTestCase {
         XCTAssertTrue(orderedProducts.isEmpty)
     }
     
-    func testErrorReset_OnSuccessfulOperation() async {
+    /// Testa se mensagens de erro são resetadas após operações bem-sucedidas
+    func testErrorResetOnSuccessfulOperation() async {
         // Given - Configura um erro inicial
         viewModel.errorMessage = "Erro anterior"
         

@@ -9,19 +9,10 @@
 import XCTest
 @testable import api_challenge
 
-class FavoritesViewModelTest: XCTestCase  {
+@MainActor
+class FavoritesVMTests: XCTestCase  {
 
-
-//
-//        override func setUpWithError() throws {
-//            // Put setup code here. This method is called before the invocation of each test method in the class.
-//        }
-//
-//        override func tearDownWithError() throws {
-//            // Put teardown code here. This method is called after the invocation of each test method in the class.
-//        }
-    
-    @MainActor func testFetchFavorites() async throws {
+    func testFetchFavorites() async throws {
            //Given
             let apiService = MockApiService()
             let userService = MockUserProductService()
@@ -38,7 +29,7 @@ class FavoritesViewModelTest: XCTestCase  {
 
         }
     
-    @MainActor func testTogleFavorites() async throws {
+    func testTogleFavorites() async throws {
             //Given
             let apiService = MockApiService()
             let userService = MockUserProductService()
@@ -53,7 +44,6 @@ class FavoritesViewModelTest: XCTestCase  {
             XCTAssertTrue(viewModel.productsService.isProductFavorite(id: 5))
         
         }
-    
     
     func testAddToCartFavorites() async throws {
         //Given
@@ -71,11 +61,10 @@ class FavoritesViewModelTest: XCTestCase  {
         
         let product = userService.fetchProduct(by: 5)
         XCTAssertTrue(((product?.isCart) != nil && (product?.isCart == true)))
-        
     }
     
     //Fails
-    @MainActor func testFetchFavoritesFails() async throws {
+    func testFetchFavoritesFails() async throws {
            //Given
             let apiService = MockApiService(shouldFail: true)
             let userService = MockUserProductService()
@@ -90,10 +79,9 @@ class FavoritesViewModelTest: XCTestCase  {
            //Then
             XCTAssertTrue(viewModel.favoriteProducts.isEmpty)
             XCTAssertTrue(viewModel.filteredProducts.isEmpty && viewModel.favoriteProducts.isEmpty)
-           
         }
     
-    @MainActor func testTogleFavoritesFails() async throws {
+    func testTogleFavoritesFails() async throws {
             //Given
             let apiService = MockApiService(shouldFail: true)
             let userService = MockUserProductService()
@@ -107,11 +95,9 @@ class FavoritesViewModelTest: XCTestCase  {
         
             //Then
             XCTAssertTrue(viewModel.errorMessage != nil)
-        
         }
-    
-    
-    @MainActor func testAddToCartFavoritesFails() async throws {
+
+    func testAddToCartFavoritesFails() async throws {
         //Given
         let apiService = MockApiService()
         let userService = MockUserProductService()
