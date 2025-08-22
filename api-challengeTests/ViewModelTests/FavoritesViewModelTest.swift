@@ -26,7 +26,7 @@ class FavoritesViewModelTest: XCTestCase  {
             let apiService = MockApiService()
             let userService = MockUserProductService()
             
-        let viewModel = FavoritesVM(apiService: apiService, productsService: userService)
+            let viewModel = FavoritesVM(apiService: apiService, productsService: userService)
             
            //When
             await viewModel.loadFavorites()
