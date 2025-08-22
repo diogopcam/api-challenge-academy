@@ -2,6 +2,14 @@
 //  OrdersView.swift
 //  api-challenge
 //
+//  Created by Diogo Camargo on 21/08/25.
+//
+
+
+//
+//  OrdersView.swift
+//  api-challenge
+//
 //  Created by Diogo Camargo on 13/08/25.
 //
 
@@ -12,7 +20,7 @@ struct OrdersView: View {
     @StateObject private var vm: OrdersVM
     @State private var searchText = ""
 
-    init(vm: OrdersVM) {  // Recebe a VM já configurada
+    init(vm: OrdersVM) {
         _vm = StateObject(wrappedValue: vm)
     }
 
@@ -27,7 +35,7 @@ struct OrdersView: View {
     var productsListView: some View {
         VStack(spacing: 12) {
             ForEach(filteredProducts) { product in
-                ProductListAsyncImage(image: product.thumbnail, productName: product.title, price: product.price, variant: .delivery(month: "DECEMBER", day: "15"))
+                ProductCell(image: product.thumbnail, productName: product.title, price: product.price, variant: .delivery(month: "DECEMBER", day: "15"))
             }
         }
         .padding(.horizontal)
@@ -51,7 +59,7 @@ struct OrdersView: View {
                 }
                 .padding(.vertical)
             }
-            .navigationTitle("Orders")
+            .navigationTitle("OrdersView")
             .searchable(text: $searchText, prompt: "Search")
             .refreshable {
                 await vm.fetchOrderedProducts()

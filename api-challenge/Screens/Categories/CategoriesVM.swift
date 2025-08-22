@@ -9,9 +9,9 @@ import Foundation
 
 @MainActor
 final class CategoriesVM: CategoriesVMProtocol {
-    var apiCategories: [String] = []
-    var isLoading: Bool = false
-    var errorMessage: String?
+    @Published var apiCategories: [String] = []
+    @Published var isLoading: Bool = false
+    @Published var errorMessage: String?
     
     private let service: ApiServiceProtocol
     

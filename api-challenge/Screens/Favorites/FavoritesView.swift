@@ -32,7 +32,7 @@ struct FavoritesView: View {
                     ScrollView {
                         VStack(spacing: 16) {
                             ForEach(vm.filteredProducts) { product in
-                                ProductListAsyncImage(
+                                ProductCell(
                                     image: product.thumbnail,
                                     productName: product.title,
                                     price: product.price,

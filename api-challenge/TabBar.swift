@@ -7,26 +7,19 @@
 
 import SwiftUI
 
-import SwiftUI
-
 struct TabBar: View {
     @Environment(\.diContainer) private var container
     
     var body: some View {
         TabView {
-            // Home Tab
             NavigationStack {
                 HomeView(
                     vm: HomeVM(
                         apiService: container.apiService,
                         productsService: container.userProductsService
-                ))
+                    )
+                )
             }
-//            NavigationStack {
-//                OrdersView(
-//                    vm: OrdersVM(service: container.userProductsService)
-//                )
-//            }
             .tabItem {
                 Label("Home", systemImage: "house.fill")
             }
@@ -36,7 +29,6 @@ struct TabBar: View {
                 CategoriesView(
                     vm: CategoriesVM(
                         apiService: container.apiService
-//                        productsService: container.userProductsService
                     )
                 )
             }
@@ -75,7 +67,7 @@ struct TabBar: View {
                 )
             }
             .tabItem {
-                Label("Orders", systemImage: "bag.fill")
+                Label("OrdersView", systemImage: "bag.fill")
             }
         }
         .tint(.colorsBlue)

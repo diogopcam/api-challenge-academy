@@ -9,7 +9,7 @@ import SwiftUI
 import SwiftData
 
 @MainActor
-final class HomeVM: ObservableObject {
+final class HomeVM: HomeVMProtocol {
     @Published var products: [ProductDTO] = []
     @Published var isLoading = false
     @Published var errorMessage: String?
@@ -30,7 +30,6 @@ final class HomeVM: ObservableObject {
             products = try await apiService.fetchProducts()
         } catch {
             errorMessage = error.localizedDescription
-            print("Error loading products: \(error)")
         }
         
         isLoading = false
@@ -41,11 +40,11 @@ final class HomeVM: ObservableObject {
     }
     
     func toggleFavorite(for product: ProductDTO) {
-            do {
-                try productsService.toggleFavorite(product)
-                objectWillChange.send()
-            } catch {
-                print("Erro ao alternar favorito: \(error)")
-            }
+        do {
+            try productsService.toggleFavorite(product)
+            objectWillChange.send()
+        } catch {
+            print("Erro ao alternar favorito: \(error)")
+        }
     }
 }

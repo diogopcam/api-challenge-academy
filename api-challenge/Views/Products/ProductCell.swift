@@ -1,5 +1,5 @@
 //
-//  ProductListAsyncImage.swift
+//  ProductCell.swift
 //  api-challenge
 //
 //  Created by Eduardo Ferrari on 17/08/25.
@@ -8,7 +8,7 @@
 import SwiftUI
 import SwiftData
 
-struct ProductListAsyncImage: View {
+struct ProductCell: View {
     @Binding var quantity: Int
     let thumbnailURL: String?
     let productName: String

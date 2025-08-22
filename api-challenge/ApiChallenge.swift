@@ -7,11 +7,9 @@ struct ApiChallenge: App {
 
     init() {
         do {
-            // Container persistente padrão
             let container = try ModelContainer(for: Product.self)
             self.diContainer = DIContainer(modelContainer: container)
         } catch {
-            // fallback em memória
             print("⚠️ Erro ao criar container persistente: \(error)")
             let fallback = try! ModelContainer(
                 for: Product.self,

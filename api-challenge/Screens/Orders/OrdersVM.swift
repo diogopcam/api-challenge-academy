@@ -9,7 +9,7 @@ import SwiftUI
 import SwiftData
 
 @MainActor
-final class OrdersVM: ObservableObject {
+final class OrdersVM: OrdersVMProtocol {
     @Published var orderedProducts: [ProductDTO] = []
     @Published var quantities: [Int: Int] = [:]
     @Published var isLoading = false
@@ -28,7 +28,6 @@ final class OrdersVM: ObservableObject {
         errorMessage = nil
         defer { isLoading = false }
         
-        // Remove o do-catch desnecessário
         let persistedOrders = userService.getOrderedProducts()
         orderedProducts.removeAll()
         quantities.removeAll()
