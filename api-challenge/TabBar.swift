@@ -67,7 +67,7 @@ struct TabBar: View {
                 )
             }
             .tabItem {
-                Label("OrdersView", systemImage: "bag.fill")
+                Label("Orders", systemImage: "bag.fill")
             }
         }
         .tint(.colorsBlue)

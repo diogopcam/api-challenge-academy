@@ -52,7 +52,7 @@ struct ProductCell: View {
                     .font(.system(size: 13))
                     .foregroundColor(.labelsPrimary)
 
-                Text(formattedPrice)
+                Text(formattedPriceString)
                     .font(.system(size: 17, weight: .semibold))
                     .foregroundColor(.labelsPrimary)
             }
@@ -60,12 +60,12 @@ struct ProductCell: View {
             Spacer()
 
             switch variant {
-            case .stepper(let onIncrement, let onDecrement):
-                stepperSection(onIncrement: onIncrement, onDecrement: onDecrement)
-            case .cart(let action):
-                cartButtonSection(action: action)
-            case .delivery:
-                EmptyView()
+                case .stepper(let onIncrement, let onDecrement):
+                    stepperSection(onIncrement: onIncrement, onDecrement: onDecrement)
+                case .cart(let action):
+                    cartButtonSection(action: action)
+                case .delivery:
+                    EmptyView()
             }
         }
         .padding(.leading, 8)
@@ -73,6 +73,8 @@ struct ProductCell: View {
         .frame(width: cardWidth, height: cardHeight)
         .background(.backgroundsSecondary)
         .clipShape(RoundedRectangle(cornerRadius: cornerRadius))
+        .accessibilityElement(children: .contain)
+        .accessibilityLabel(String(format: NSLocalizedString("%@, price %@", comment: ""), productName, formattedPriceString, "The product was delivered on"))
     }
 
     private var imageSection: some View {
@@ -89,6 +91,7 @@ struct ProductCell: View {
                             .aspectRatio(contentMode: .fill)
                             .frame(width: imageFrameSize.width, height: imageFrameSize.height)
                             .clipShape(RoundedRectangle(cornerRadius: 8))
+                            .accessibilityHint(NSLocalizedString("This is the image representing the product", comment: ""))
                     case .failure(_):
                         Image("Placeholder")
                             .resizable()
@@ -105,6 +108,7 @@ struct ProductCell: View {
                     .frame(width: imageFrameSize.width, height: imageFrameSize.height)
                     .clipShape(RoundedRectangle(cornerRadius: 8))
                     .background(.backgroundsSecondary)
+                    .accessibilityHint(NSLocalizedString("This product does not have an available image", comment: ""))
             }
         }
     }
@@ -120,11 +124,13 @@ struct ProductCell: View {
                     .background(.fillsQuaternary)
                     .clipShape(RoundedRectangle(cornerRadius: 8))
                     .foregroundColor(.labelsPrimary)
+                    .accessibilityHint(NSLocalizedString("Press to remove one unit of this product from your cart", comment: ""))
             }
 
             Text("\(quantity)")
                 .font(.system(size: 17))
                 .frame(width: 21)
+                .accessibilityHint(String(format: NSLocalizedString("There are %lld units of this product in your cart", comment: ""), quantity))
 
             Button {
                 onIncrement()
@@ -135,6 +141,7 @@ struct ProductCell: View {
                     .background(.fillsQuaternary)
                     .clipShape(RoundedRectangle(cornerRadius: 8))
                     .foregroundColor(.labelsPrimary)
+                    .accessibilityHint(NSLocalizedString("Press to add one more unit of this product to your cart", comment: ""))
             }
         }
     }
@@ -147,28 +154,11 @@ struct ProductCell: View {
                 .frame(width: 38, height: 38)
                 .background(.fillsTertiary)
                 .clipShape(RoundedRectangle(cornerRadius: 8))
+                .accessibilityHint(String(format: NSLocalizedString("Press to check the information of product %@", comment: ""), productName))
         }
     }
     
-//    private func cartButtonSection(action: @escaping () -> Void) -> some View {
-//        Button(action: {
-//            print("Botão cart interno pressionado")
-//            action()
-//        }) {
-//            Image(systemName: "cart.fill")
-//                .font(.system(size: 16))
-//                .foregroundColor(.labelsPrimary)
-//                .frame(width: 38, height: 38)
-//                .background(.fillsTertiary)
-//                .clipShape(RoundedRectangle(cornerRadius: 8))
-//        }
-//        .buttonStyle(PlainButtonStyle()) // ← IMPORTANTE: Adicione isso
-//    }
-
-    private var formattedPrice: String {
-        let formatter = NumberFormatter()
-        formatter.numberStyle = .currency
-        formatter.locale = Locale.current
-        return formatter.string(from: NSNumber(value: price)) ?? "\(price)"
+    private var formattedPriceString: String {
+        return String(format: "US$ %.2f", price)
     }
 }

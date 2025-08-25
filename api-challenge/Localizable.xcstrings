@@ -1,638 +1,940 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
-    "%lld" : {
-      "localizations" : {
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%lld"
+      "%@, price %@" : {
+          "localizations" : {
+              "en" : {
+                  "stringUnit" : {
+                      "state" : "new",
+                      "value" : "%1$@, price %2$@"
+                  }
+              }
+          }
+      },
+      "%@, price %@ dollars" : {
+          "extractionState" : "stale",
+          "localizations" : {
+              "pt-BR" : {
+                  "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "%@, preço %@ dólares"
+                  }
+              }
+          }
+      },
+      "%lld" : {
+          "localizations" : {
+              "pt-BR" : {
+                  "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "%lld"
+                  }
+              }
+          }
+      },
+      "$%.2f" : {
+          
+      },
+      "Add an item to your cart." : {
+          "localizations" : {
+              "pt-BR" : {
+                  "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "Adicionar item ao carrinho"
+                  }
+              }
+          }
+      },
+      "Add to cart" : {
+          "localizations" : {
+              "pt-BR" : {
+                  "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "Adicionar ao carrinho"
+                  }
+              }
+          }
+      },
+      "Beauty" : {
+          "extractionState" : "stale",
+          "localizations" : {
+              "pt-BR" : {
+                  "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "Beleza"
+                  }
+              }
+          }
+      },
+      "Buscar favoritos" : {
+          "localizations" : {
+              "pt-BR" : {
+                  "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "Buscar favoritos"
+                  }
+              }
+          }
+      },
+      "Buscar..." : {
+          "localizations" : {
+              "pt-BR" : {
+                  "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "Buscar…"
+                  }
+              }
+          }
+      },
+      "Buy an item and it will show up here." : {
+          "localizations" : {
+              "pt-BR" : {
+                  "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "Compre um item e será mostrado aqui."
+                  }
+              }
+          }
+      },
+      "Cancelar" : {
+          "localizations" : {
+              "pt-BR" : {
+                  "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "Cancelar"
+                  }
+              }
+          }
+      },
+      "Cart" : {
+          "localizations" : {
+              "pt-BR" : {
+                  "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "Carrinho"
+                  }
+              }
+          }
+      },
+      "Categorias" : {
+          "localizations" : {
+              "pt-BR" : {
+                  "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "Categorias"
+                  }
+              }
+          }
+      },
+      "Categories" : {
+          "localizations" : {
+              "pt-BR" : {
+                  "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "Categorias"
+                  }
+              }
+          }
+      },
+      "categories_list" : {
+          
+      },
+      "categories_list_hint %lld" : {
+          
+      },
+      "category_card_hint" : {
+          "localizations" : {
+              "en" : {
+                  "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "Double tap to select this category"
+                  }
+              },
+              "pt-BR" : {
+                  "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "Toque duas vezes para selecionar esta categoria"
+                  }
+              }
+          }
+      },
+      "category_card_label %@" : {
+          "localizations" : {
+              "en" : {
+                  "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "%@ category"
+                  }
+              },
+              "pt-BR" : {
+                  "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "Categoria %@"
+                  }
+              }
+          }
+      },
+      "category_list_hint" : {
+          "localizations" : {
+              "en" : {
+                  "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "Double tap to view products in this category"
+                  }
+              },
+              "pt-BR" : {
+                  "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "Toque duas vezes para ver produtos nesta categoria"
+                  }
+              }
+          }
+      },
+      "category_list_label %@" : {
+          "localizations" : {
+              "en" : {
+                  "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "Category %@"
+                  }
+              },
+              "pt-BR" : {
+                  "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "Categoria %@"
+                  }
+              }
+          }
+      },
+      "Checkout" : {
+          "localizations" : {
+              "pt-BR" : {
+                  "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "Finalizar"
+                  }
+              }
+          }
+      },
+      "Compra Finalizada" : {
+          "localizations" : {
+              "pt-BR" : {
+                  "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "Compra finalizada"
+                  }
+              }
+          }
+      },
+      "Confirmar" : {
+          "localizations" : {
+              "pt-BR" : {
+                  "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "Confirmar"
+                  }
+              }
+          }
+      },
+      "Confirmar Checkout" : {
+          "localizations" : {
+              "pt-BR" : {
+                  "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "Confirmar Pedido"
+                  }
+              }
+          }
+      },
+      "Deals of the Day" : {
+          "localizations" : {
+              "pt-BR" : {
+                  "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "Ofertas do dia"
+                  }
+              }
+          }
+      },
+      "DELIVERY BY %@, %@" : {
+          "localizations" : {
+              "en" : {
+                  "stringUnit" : {
+                      "state" : "new",
+                      "value" : "DELIVERY BY %1$@, %2$@"
+                  }
+              },
+              "pt-BR" : {
+                  "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "PEDIDO POR %1$@,%2$@"
+                  }
+              }
+          }
+      },
+      "Details" : {
+          "localizations" : {
+              "pt-BR" : {
+                  "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "Detalhes"
+                  }
+              }
+          }
+      },
+      "Favorite an item and it show up here." : {
+          "localizations" : {
+              "pt-BR" : {
+                  "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "Favorite um item e aparecerá aqui."
+                  }
+              }
+          }
+      },
+      "Favorites" : {
+          "localizations" : {
+              "pt-BR" : {
+                  "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "Favoritos"
+                  }
+              }
+          }
+      },
+      "Favoritos" : {
+          "localizations" : {
+              "pt-BR" : {
+                  "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "Favoritos"
+                  }
+              }
+          }
+      },
+      "Finalizar compra de %lld itens por %@?" : {
+          "localizations" : {
+              "en" : {
+                  "stringUnit" : {
+                      "state" : "new",
+                      "value" : "Finalizar compra de %1$lld itens por %2$@?"
+                  }
+              },
+              "pt-BR" : {
+                  "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "Finalizar compra de %1$lld itens por %2$@?"
+                  }
+              }
+          }
+      },
+      "Fragrances" : {
+          "extractionState" : "stale",
+          "localizations" : {
+              "pt-BR" : {
+                  "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "Fragrâncias"
+                  }
+              }
+          }
+      },
+      "Furniture" : {
+          "extractionState" : "stale",
+          "localizations" : {
+              "pt-BR" : {
+                  "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "Mobília"
+                  }
+              }
+          }
+      },
+      "Groceries" : {
+          "extractionState" : "stale",
+          "localizations" : {
+              "pt-BR" : {
+                  "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "Mantimentos"
+                  }
+              }
+          }
+      },
+      "Home" : {
+          "localizations" : {
+              "pt-BR" : {
+                  "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "Início"
+                  }
+              }
+          }
+      },
+      "Home Decoration" : {
+          "extractionState" : "stale",
+          "localizations" : {
+              "pt-BR" : {
+                  "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "Decoração de casa"
+                  }
+              }
+          }
+      },
+      "Kitchen Accessories" : {
+          "extractionState" : "stale",
+          "localizations" : {
+              "pt-BR" : {
+                  "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "Acessórios de cozinha"
+                  }
+              }
+          }
+      },
+      "Laptops" : {
+          "extractionState" : "stale",
+          "localizations" : {
+              "pt-BR" : {
+                  "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "Laptops"
+                  }
+              }
+          }
+      },
+      "Men's Shirts" : {
+          "extractionState" : "stale",
+          "localizations" : {
+              "pt-BR" : {
+                  "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "Calças Masculinas"
+                  }
+              }
+          }
+      },
+      "Men's Shoes" : {
+          "extractionState" : "stale",
+          "localizations" : {
+              "pt-BR" : {
+                  "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "Tênis Masculino"
+                  }
+              }
+          }
+      },
+      "Men's Watches" : {
+          "extractionState" : "stale",
+          "localizations" : {
+              "pt-BR" : {
+                  "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "Relógio Masculino"
+                  }
+              }
+          }
+      },
+      "Mobile Accessories" : {
+          "extractionState" : "stale",
+          "localizations" : {
+              "pt-BR" : {
+                  "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "Acessório de Celular"
+                  }
+              }
+          }
+      },
+      "Motorcycle" : {
+          "extractionState" : "stale",
+          "localizations" : {
+              "pt-BR" : {
+                  "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "Moto"
+                  }
+              }
+          }
+      },
+      "No categories found" : {
+          "localizations" : {
+              "pt-BR" : {
+                  "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "Categorias não encontradas"
+                  }
+              }
+          }
+      },
+      "No favorites yet!" : {
+          "localizations" : {
+              "pt-BR" : {
+                  "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "Sem favoritos ainda!"
+                  }
+              }
+          }
+      },
+      "No OrdersView yet!" : {
+          "localizations" : {
+              "pt-BR" : {
+                  "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "Sem pedidos ainda!"
+                  }
+              }
+          }
+      },
+      "No products found" : {
+          "localizations" : {
+              "pt-BR" : {
+                  "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "Produtos não encontrado"
+                  }
+              }
+          }
+      },
+      "No results for \"%@\"" : {
+          "localizations" : {
+              "pt-BR" : {
+                  "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "Sem resultados para “%@”"
+                  }
+              }
+          }
+      },
+      "OK" : {
+          "localizations" : {
+              "pt-BR" : {
+                  "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "Ok"
+                  }
+              }
+          }
+      },
+      "Orders" : {
+          
+      },
+      "OrdersView" : {
+          "localizations" : {
+              "pt-BR" : {
+                  "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "Pedidos"
+                  }
+              }
+          }
+      },
+      "Press to add one more unit of this product to your cart" : {
+          "localizations" : {
+              "pt-BR" : {
+                  "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "Pressione para adicionar uma unidade a mais desse produto ao seu carrinho"
+                  }
+              }
+          }
+      },
+      "Press to check the information of product %@" : {
+          "localizations" : {
+              "pt-BR" : {
+                  "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "Pressione verificar as informações do produto %@"
+                  }
+              }
+          }
+      },
+      "Press to remove one unit of this product from your cart" : {
+          "localizations" : {
+              "pt-BR" : {
+                  "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "Pressione para retirar uma unidade desse produto ao seu carrinho"
+                  }
+              }
+          }
+      },
+      "Product with estimated delivery date" : {
+          "extractionState" : "stale",
+          "localizations" : {
+              "pt-BR" : {
+                  "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "Produto com data de entrega estimada"
+                  }
+              }
+          }
+      },
+      "R$ %.2f" : {
+          
+      },
+      "Search" : {
+          "localizations" : {
+              "pt-BR" : {
+                  "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "Buscar"
+                  }
+              }
+          }
+      },
+      "Search..." : {
+          "localizations" : {
+              "pt-BR" : {
+                  "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "Buscar…"
+                  }
+              }
+          }
+      },
+      "See all" : {
+          
+      },
+      "Seu pedido foi realizado com sucesso!" : {
+          "localizations" : {
+              "pt-BR" : {
+                  "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "Seu pedido foi realizado com sucesso!"
+                  }
+              }
+          }
+      },
+      "Skin Care" : {
+          "extractionState" : "stale",
+          "localizations" : {
+              "pt-BR" : {
+                  "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "Cuidados com a pele"
+                  }
+              }
+          }
+      },
+      "Smartphones" : {
+          "extractionState" : "stale",
+          "localizations" : {
+              "pt-BR" : {
+                  "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "Celulares"
+                  }
+              }
+          }
+      },
+      "Sports Accessories" : {
+          "extractionState" : "stale",
+          "localizations" : {
+              "pt-BR" : {
+                  "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "Acessórios de Esporte"
+                  }
+              }
+          }
+      },
+      "Sunglasses" : {
+          "extractionState" : "stale",
+          "localizations" : {
+              "pt-BR" : {
+                  "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "Óculos"
+                  }
+              }
+          }
+      },
+      "Tablets" : {
+          "extractionState" : "stale",
+          "localizations" : {
+              "pt-BR" : {
+                  "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "Tablets"
+                  }
+              }
+          }
+      },
+      "Tap to add to cart" : {
+          "extractionState" : "stale",
+          "localizations" : {
+              "pt-BR" : {
+                  "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "Toque para adicionar ao carrinho"
+                  }
+              }
+          }
+      },
+      "There are %lld units of this product in your cart" : {
+          "localizations" : {
+              "pt-BR" : {
+                  "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "Existem %lld unidades deste produto no seu carrinho"
+                  }
+              }
+          }
+      },
+      "This is the image representing the product" : {
+          "localizations" : {
+              "pt-BR" : {
+                  "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "Essa é a imagem que representa o produto"
+                  }
+              }
+          }
+      },
+      "This product does not have an available image" : {
+          "localizations" : {
+              "pt-BR" : {
+                  "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "Esse produto não possui uma imagem disponível"
+                  }
+              }
+          }
+      },
+      "Top Picks" : {
+          "localizations" : {
+              "pt-BR" : {
+                  "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "Top Escolhas"
+                  }
+              }
+          }
+      },
+      "Tops" : {
+          "extractionState" : "stale",
+          "localizations" : {
+              "pt-BR" : {
+                  "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "Tops"
+                  }
+              }
+          }
+      },
+      "Total" : {
+          "localizations" : {
+              "pt-BR" : {
+                  "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "Total"
+                  }
+              }
+          }
+      },
+      "Try Again" : {
+          "localizations" : {
+              "pt-BR" : {
+                  "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "Tente novamente"
+                  }
+              }
+          }
+      },
+      "US$ %.2f" : {
+          "extractionState" : "stale",
+          "localizations" : {
+              "pt-BR" : {
+                  "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "R$%.2f"
+                  }
+              }
+          }
+      },
+      "US$%.2f" : {
+          "extractionState" : "stale",
+          "localizations" : {
+              "pt-BR" : {
+                  "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "R$%.2f"
+                  }
+              }
+          }
+      },
+      "Use the plus and minus buttons to adjust the quantity" : {
+          "extractionState" : "stale",
+          "localizations" : {
+              "pt-BR" : {
+                  "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "Use os botões de mais ou menos para ajustar a quantidade"
+                  }
+              }
+          }
+      },
+      "Vehicle" : {
+          "extractionState" : "stale",
+          "localizations" : {
+              "pt-BR" : {
+                  "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "Veículo"
+                  }
+              }
+          }
+      },
+      "Women's Bags" : {
+          "extractionState" : "stale",
+          "localizations" : {
+              "pt-BR" : {
+                  "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "Bolsas Femininas"
+                  }
+              }
+          }
+      },
+      "Women's Dresses" : {
+          "extractionState" : "stale",
+          "localizations" : {
+              "pt-BR" : {
+                  "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "Vestidos Femininos"
+                  }
+              }
+          }
+      },
+      "Women's Jewellery" : {
+          "extractionState" : "stale",
+          "localizations" : {
+              "pt-BR" : {
+                  "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "Jóias Femininas"
+                  }
+              }
+          }
+      },
+      "Women's Shoes" : {
+          "extractionState" : "stale",
+          "localizations" : {
+              "pt-BR" : {
+                  "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "Tênis Femininos"
+                  }
+              }
+          }
+      },
+      "Women's Watches" : {
+          "extractionState" : "stale",
+          "localizations" : {
+              "pt-BR" : {
+                  "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "Relógios Femininos"
+                  }
+              }
+          }
+      },
+      "Your cart is empty!" : {
+          "localizations" : {
+              "pt-BR" : {
+                  "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "Seu carrinho está vazio!"
+                  }
+              }
+          }
+      },
+      "categories_list": {
+          "localizations": {
+              "pt-BR": {
+                  "stringUnit": {
+                      "state": "translated",
+                      "value": "Lista de categorias"
+                  }
+              }
+          }
+      },
+      "categories_list_hint %lld": {
+          "localizations": {
+              "pt-BR": {
+                  "stringUnit": {
+                      "state": "translated",
+                      "value": "Deslize para cima ou para baixo para navegar por %lld categorias"
+                  }
+              }
+          }
+      },
+      "empty_cart_state": {
+          "localizations": {
+              "pt-BR": {
+                  "stringUnit": {
+                      "state": "translated",
+                      "value": "Seu carrinho está vazio! Adicione um item ao carrinho."
+                  }
+              }
+          }
+      },
+      "empty_cart_hint": {
+          "localizations": {
+              "pt-BR": {
+                  "stringUnit": {
+                      "state": "translated",
+                      "value": "Navegue até os produtos para adicionar itens"
+                  }
+              }
+          }
+      },
+      "empty_favorites_state": {
+          "localizations": {
+              "pt-BR": {
+                  "stringUnit": {
+                      "state": "translated",
+                      "value": "Sem favoritos ainda! Favorite um item e aparecerá aqui."
+                  }
+              }
+          }
+      },
+      "empty_favorites_hint": {
+          "localizations": {
+              "pt-BR": {
+                  "stringUnit": {
+                      "state": "translated",
+                      "value": "Navegue até os produtos para favoritar itens"
+                  }
+              }
+          }
+      },
+      "empty_orders_state": {
+        "localizations": {
+          "pt-BR": {
+            "stringUnit": {
+              "state": "translated",
+              "value": "Sem pedidos ainda! Compre um item e será mostrado aqui."
+            }
+          }
+        }
+      },
+      "empty_orders_hint": {
+        "localizations": {
+          "pt-BR": {
+            "stringUnit": {
+              "state": "translated",
+              "value": "Navegue até os produtos para fazer uma compra"
+            }
           }
         }
       }
-    },
-    "Add an item to your cart." : {
-      "localizations" : {
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Adicionar item ao carrinho"
-          }
-        }
-      }
-    },
-    "Add to cart" : {
-      "localizations" : {
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Adicionar ao carrinho"
-          }
-        }
-      }
-    },
-    "Beauty" : {
-      "localizations" : {
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Beleza"
-          }
-        }
-      }
-    },
-    "Buscar favoritos" : {
-      "localizations" : {
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Buscar favoritos"
-          }
-        }
-      }
-    },
-    "Buscar..." : {
-      "localizations" : {
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Buscar…"
-          }
-        }
-      }
-    },
-    "Buy an item and it will show up here." : {
-      "localizations" : {
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Compre um item e será mostrado aqui."
-          }
-        }
-      }
-    },
-    "Cancelar" : {
-      "localizations" : {
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Cancelar"
-          }
-        }
-      }
-    },
-    "Cart" : {
-      "localizations" : {
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Carrinho"
-          }
-        }
-      }
-    },
-    "Categorias" : {
-      "localizations" : {
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Categorias"
-          }
-        }
-      }
-    },
-    "Categories" : {
-      "localizations" : {
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Categorias"
-          }
-        }
-      }
-    },
-    "Checkout" : {
-      "localizations" : {
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Finalizar"
-          }
-        }
-      }
-    },
-    "Compra Finalizada" : {
-      "localizations" : {
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Compra finalizada"
-          }
-        }
-      }
-    },
-    "Confirmar" : {
-      "localizations" : {
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Confirmar"
-          }
-        }
-      }
-    },
-    "Confirmar Checkout" : {
-      "localizations" : {
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Confirmar Pedido"
-          }
-        }
-      }
-    },
-    "Deals of the Day" : {
-      "localizations" : {
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Ofertas do dia"
-          }
-        }
-      }
-    },
-    "DELIVERY BY %@, %@" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "DELIVERY BY %1$@, %2$@"
-          }
-        },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "PEDIDO POR %1$@,%2$@"
-          }
-        }
-      }
-    },
-    "Details" : {
-      "localizations" : {
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Detalhes"
-          }
-        }
-      }
-    },
-    "Favorite an item and it show up here." : {
-      "localizations" : {
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Favorite um item e aparecerá aqui."
-          }
-        }
-      }
-    },
-    "Favorites" : {
-      "localizations" : {
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Favoritos"
-          }
-        }
-      }
-    },
-    "Favoritos" : {
-      "localizations" : {
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Favoritos"
-          }
-        }
-      }
-    },
-    "Finalizar compra de %lld itens por %@?" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Finalizar compra de %1$lld itens por %2$@?"
-          }
-        },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Finalizar compra de %1$lld itens por %2$@?"
-          }
-        }
-      }
-    },
-    "Fragrances" : {
-      "localizations" : {
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Fragrâncias"
-          }
-        }
-      }
-    },
-    "Furniture" : {
-      "localizations" : {
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Mobília"
-          }
-        }
-      }
-    },
-    "Groceries" : {
-      "localizations" : {
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Mantimentos"
-          }
-        }
-      }
-    },
-    "Home" : {
-      "localizations" : {
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Início"
-          }
-        }
-      }
-    },
-    "Home Decoration" : {
-      "localizations" : {
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Decoração de casa"
-          }
-        }
-      }
-    },
-    "Kitchen Accessories" : {
-      "localizations" : {
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Acessórios de cozinha"
-          }
-        }
-      }
-    },
-    "Laptops" : {
-      "localizations" : {
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Laptops"
-          }
-        }
-      }
-    },
-    "Men's Shirts" : {
-      "localizations" : {
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Calças Masculinas"
-          }
-        }
-      }
-    },
-    "Men's Shoes" : {
-      "localizations" : {
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Tênis Masculino"
-          }
-        }
-      }
-    },
-    "Men's Watches" : {
-      "localizations" : {
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Relógio Masculino"
-          }
-        }
-      }
-    },
-    "Mobile Accessories" : {
-      "localizations" : {
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Acessório de Celular"
-          }
-        }
-      }
-    },
-    "Motorcycle" : {
-      "localizations" : {
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Moto"
-          }
-        }
-      }
-    },
-    "No categories found" : {
-      "localizations" : {
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Categorias não encontradas"
-          }
-        }
-      }
-    },
-    "No favorites yet!" : {
-      "localizations" : {
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Sem favoritos ainda!"
-          }
-        }
-      }
-    },
-    "No OrdersView yet!" : {
-      "localizations" : {
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Sem pedidos ainda!"
-          }
-        }
-      }
-    },
-    "No products found" : {
-      "localizations" : {
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Produtos não encontrado"
-          }
-        }
-      }
-    },
-    "No results for \"%@\"" : {
-      "localizations" : {
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Sem resultados para “%@”"
-          }
-        }
-      }
-    },
-    "OK" : {
-      "localizations" : {
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Ok"
-          }
-        }
-      }
-    },
-    "OrdersView" : {
-      "localizations" : {
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Pedidos"
-          }
-        }
-      }
-    },
-    "Search" : {
-      "localizations" : {
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Buscar"
-          }
-        }
-      }
-    },
-    "Search..." : {
-      "localizations" : {
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Buscar…"
-          }
-        }
-      }
-    },
-    "Seu pedido foi realizado com sucesso!" : {
-      "localizations" : {
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Seu pedido foi realizado com sucesso!"
-          }
-        }
-      }
-    },
-    "Skin Care" : {
-      "localizations" : {
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Cuidados com a pele"
-          }
-        }
-      }
-    },
-    "Smartphones" : {
-      "localizations" : {
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Celulares"
-          }
-        }
-      }
-    },
-    "Sports Accessories" : {
-      "localizations" : {
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Acessórios de Esporte"
-          }
-        }
-      }
-    },
-    "Sunglasses" : {
-      "localizations" : {
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Óculos"
-          }
-        }
-      }
-    },
-    "Tablets" : {
-      "localizations" : {
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Tablets"
-          }
-        }
-      }
-    },
-    "Top Picks" : {
-      "localizations" : {
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Top Escolhas"
-          }
-        }
-      }
-    },
-    "Tops" : {
-      "localizations" : {
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Tops"
-          }
-        }
-      }
-    },
-    "Total" : {
-      "localizations" : {
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Total"
-          }
-        }
-      }
-    },
-    "Try Again" : {
-      "localizations" : {
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Tente novamente"
-          }
-        }
-      }
-    },
-    "US$ %.2f" : {
-      "localizations" : {
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "R$%.2f"
-          }
-        }
-      }
-    },
-    "US$%.2f" : {
-      "localizations" : {
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "R$%.2f"
-          }
-        }
-      }
-    },
-    "Vehicle" : {
-      "localizations" : {
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Veículo"
-          }
-        }
-      }
-    },
-    "Women's Bags" : {
-      "localizations" : {
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Bolsas Femininas"
-          }
-        }
-      }
-    },
-    "Women's Dresses" : {
-      "localizations" : {
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Vestidos Femininos"
-          }
-        }
-      }
-    },
-    "Women's Jewellery" : {
-      "localizations" : {
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Jóias Femininas"
-          }
-        }
-      }
-    },
-    "Women's Shoes" : {
-      "localizations" : {
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Tênis Femininos"
-          }
-        }
-      }
-    },
-    "Women's Watches" : {
-      "localizations" : {
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Relógios Femininos"
-          }
-        }
-      }
-    },
-    "Your cart is empty!" : {
-      "localizations" : {
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Seu carrinho está vazio!"
-          }
-        }
-      }
-    }
   },
   "version" : "1.0"
 }

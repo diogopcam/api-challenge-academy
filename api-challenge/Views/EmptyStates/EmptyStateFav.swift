@@ -15,6 +15,7 @@ struct EmptyStateFav: View {
                 Image(.emptyStateFav)
                     .resizable()
                     .frame(width: 65, height: 69)
+                    .accessibilityHidden(true)
                 VStack(spacing: 16) {
                     Text("No favorites yet!")
                         .font(.system(.body, weight: .semibold))
@@ -25,6 +26,9 @@ struct EmptyStateFav: View {
                 }
             }
         }
+        .accessibilityElement(children: .combine)
+        .accessibilityLabel(Text("empty_favorites_state"))
+        .accessibilityHint(Text("empty_favorites_hint"))
     }
 }
 

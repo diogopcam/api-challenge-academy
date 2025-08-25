@@ -17,7 +17,7 @@ protocol CartVMProtocol: ObservableObject {
     
     func loadCart() async
     func increaseQuantity(_ product: Product)
-    func decreaseQuantity(_ product: Product)
+    func decreaseQuantity(_ product: Product) async
     func totalPrice() -> Double
     func checkout() async
 }

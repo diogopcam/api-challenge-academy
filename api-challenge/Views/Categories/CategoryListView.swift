@@ -25,5 +25,8 @@ struct CategoryListView: View {
                 }
             }
         }
+        .accessibilityElement(children: .contain)
+        .accessibilityLabel(Text("categories_list"))
+        .accessibilityHint(Text("categories_list_hint \(apiCategories.count)"))
     }
 }

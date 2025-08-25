@@ -15,6 +15,7 @@ struct EmptyStateCart: View {
                 Image(.emptyStateCart)
                     .resizable()
                     .frame(width: 75, height: 69)
+                    .accessibilityHidden(true)
                 VStack(spacing: 16) {
                     Text("Your cart is empty!")
                         .font(.system(.body, weight: .semibold))
@@ -25,6 +26,9 @@ struct EmptyStateCart: View {
                 }
             }
         }
+        .accessibilityElement(children: .combine)
+        .accessibilityLabel(Text("empty_cart_state"))
+        .accessibilityHint(Text("empty_cart_hint"))
     }
 }
 
