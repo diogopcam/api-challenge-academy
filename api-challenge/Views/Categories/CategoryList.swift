@@ -30,10 +30,14 @@ struct CategoryList: View {
                     .foregroundColor(.labelsTertiary)
             }
             .padding(.vertical, 19)
-            .contentShape(Rectangle())   // garante que o HStack inteiro seja clicável
+            .contentShape(Rectangle())
             .onTapGesture {
-                onTap?()  // chamada segura da closure
+                onTap?()
             }
+            .accessibilityElement(children: .combine)
+            .accessibilityLabel(Text(String(format: NSLocalizedString("category_list_label %@", comment: ""), formattedName)))
+            .accessibilityHint(Text("category_list_hint"))
+            .accessibilityAddTraits(.isButton)
 
             Divider()
                 .frame(height: 0.33)

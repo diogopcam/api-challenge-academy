@@ -69,12 +69,19 @@ final class CartVM: CartVMProtocol {
     func decreaseQuantity(_ product: Product) {
         do {
             try productsService.decreaseQuantity(product)
+            
+            // ✅ Remove o produto do array se a quantidade for 0
+            if product.quantity == 0 {
+                cartProducts.removeAll { $0.product.id == product.id }
+            }
+            
+            
         } catch {
             errorMessage = "Erro ao diminuir quantidade"
             print("Erro: \(error)")
         }
     }
-    
+
     
     func totalPrice() -> Double {
         var total: Double = 0.0
