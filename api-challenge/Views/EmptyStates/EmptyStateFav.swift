@@ -19,9 +19,11 @@ struct EmptyStateFav: View {
                     Text("No favorites yet!")
                         .font(.system(.body, weight: .semibold))
                         .foregroundStyle(.labelsPrimary)
+                        .accessibilityLabel("No products in favorites")
                     
                     Text("Favorite an item and it show up here.")
                         .foregroundStyle(.labelsSecondary)
+                        .accessibilityLabel("Add a product to favorites and it show up here.")
                 }
             }
         }
