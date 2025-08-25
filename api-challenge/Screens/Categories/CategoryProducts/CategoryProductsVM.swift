@@ -9,8 +9,9 @@ import SwiftUI
 import SwiftData
 
 @MainActor
-class CategoryProductsVM: ObservableObject {
+class CategoryProductsVM: CategoryProductsVMProtocol {
     var categoryName: String
+  
     @Published var products: [ProductDTO] = []
     @Published var isLoading = false
     @Published var errorMessage: String?
@@ -29,6 +30,7 @@ class CategoryProductsVM: ObservableObject {
         errorMessage = nil
 
         do {
+            print("Loading category:", categoryName)
             let fetchedProducts = try await apiService.loadProductsFromCategory(for: categoryName)
             products = fetchedProducts
         } catch {
