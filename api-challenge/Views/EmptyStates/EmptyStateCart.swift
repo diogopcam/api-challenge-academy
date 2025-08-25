@@ -20,9 +20,11 @@ struct EmptyStateCart: View {
                     Text("Your cart is empty!")
                         .font(.system(.body, weight: .semibold))
                         .foregroundStyle(.labelsPrimary)
+                        .accessibilityLabel(Text("Your cart is empty!"))
                     
                     Text("Add an item to your cart.")
                         .foregroundStyle(.labelsSecondary)
+                        .accessibilityLabel(Text("Add an item to your cart."))
                 }
             }
         }

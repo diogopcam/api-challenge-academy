@@ -59,7 +59,7 @@ struct OrdersView: View {
                 }
                 .padding(.vertical)
             }
-            .navigationTitle("OrdersView")
+            .navigationTitle("Orders")
             .searchable(text: $searchText, prompt: "Search")
             .refreshable {
                 await vm.fetchOrderedProducts()

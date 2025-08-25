@@ -20,9 +20,11 @@ struct EmptyStateOrders: View {
                     Text("No Orders yet!")
                         .font(.system(.body, weight: .semibold))
                         .foregroundStyle(.labelsPrimary)
+                        .accessibilityLabel(Text("No Orders yet!"))
                     
                     Text("Buy an item and it will show up here.")
                         .foregroundStyle(.labelsSecondary)
+                        .accessibilityLabel(Text("Buy an item and it will show up here."))
                 }
             }
         }

@@ -49,6 +49,8 @@ struct CartView: View {
             HStack {
                 Text("Total")
                     .font(.headline)
+                    .accessibilityLabel(Text("Total"))
+                    .accessibilityHint("Total of all items in the cart")
                 Spacer()
                 Text(totalPriceText)
                     .bold()
@@ -66,6 +68,7 @@ struct CartView: View {
             .cornerRadius(12)
             .padding(.horizontal, 16)
             .padding(.vertical, 16)
+            .accessibilityHint("Tap in Checkout for proceed to payment")
         }
     }
     
@@ -111,20 +114,20 @@ struct CartView: View {
         NavigationStack {
             contentView
         }
-        .alert("Confirmar Checkout", isPresented: $showingCheckoutAlert) {
-            Button("Cancelar", role: .cancel) { }
-            Button("Confirmar") {
+        .alert("Confirm Checkout", isPresented: $showingCheckoutAlert) {
+            Button("Cancel", role: .cancel) { }
+            Button("Confirm") {
                 Task {
                     await vm.checkout()
                 }
             }
         } message: {
-            Text("Finalizar compra de \(vm.cartProducts.count) itens por \(totalPriceText)?")
+            Text("Finalize purchase of \(vm.cartProducts.count) itens for \(totalPriceText)?")
         }
-        .alert("Compra Finalizada", isPresented: $vm.checkoutSuccess) {
+        .alert("Purchase completed", isPresented: $vm.checkoutSuccess) {
             Button("OK") { dismiss() }
         } message: {
-            Text("Seu pedido foi realizado com sucesso!")
+            Text("Your order was placed successfully!")
         }
         .task {
             await vm.loadCart()
