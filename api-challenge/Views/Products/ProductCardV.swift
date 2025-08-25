@@ -49,7 +49,10 @@ struct ProductCardV: View {
                             RoundedRectangle(cornerRadius: 8)
                                 .foregroundColor(Color(.fillsTertiary))
                         )
+                        .accessibilityLabel(isFavorited ? "Item not favorited" : "Item favorited")
+                        .accessibilityHint("Tap to toggle favorite")
                 }
+                .accessibilityElement(children: .combine)
                 .padding(8)
             }
             
@@ -61,15 +64,18 @@ struct ProductCardV: View {
                     .lineLimit(2) // no máximo 2 linhas
                     .multilineTextAlignment(.leading)
                     .frame(height: 36, alignment: .topLeading) // reserva espaço fixo p/ 2 linhas
-                                
+                    .accessibilityLabel("Name of the product:" + product.title)
+                
                 Text("$\(product.price, specifier: "%.2f")")
                     .font(.system(size: 13))
                     .foregroundColor(.secondary)
                     .multilineTextAlignment(.leading)
+                    .accessibilityLabel("Price: \(product.price)")
             }
             .padding(.horizontal, 16)
             .padding(.top, 8)
             .padding(.bottom, 8)
+            .accessibilityElement(children: .combine)
         }
         .frame(width: 177, height: 250) // tamanho do card
         .background(.backgroundsSecondary)
@@ -78,6 +84,7 @@ struct ProductCardV: View {
             onTapProduct()
         }
         .padding(.horizontal, 8)
+        .accessibilityElement(children: .combine)
     }
 }
 
