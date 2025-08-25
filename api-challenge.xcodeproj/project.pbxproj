@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		ADB41D362E5CDEBB0009C37A /* Formatters.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADB41D352E5CDEB60009C37A /* Formatters.swift */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		AD5DB3A52E56329800467BC1 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -19,6 +23,7 @@
 /* Begin PBXFileReference section */
 		AD3E30372E4D1727009DFDC0 /* api-challenge.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "api-challenge.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AD5DB3A12E56329800467BC1 /* api-challengeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "api-challengeTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		ADB41D352E5CDEB60009C37A /* Formatters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Formatters.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -58,6 +63,7 @@
 				AD3E30392E4D1727009DFDC0 /* api-challenge */,
 				AD5DB3A22E56329800467BC1 /* api-challengeTests */,
 				AD3E30382E4D1727009DFDC0 /* Products */,
+				ADB41D352E5CDEB60009C37A /* Formatters.swift */,
 			);
 			sourceTree = "<group>";
 		};
@@ -179,6 +185,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ADB41D362E5CDEBB0009C37A /* Formatters.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

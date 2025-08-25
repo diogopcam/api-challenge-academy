@@ -38,18 +38,20 @@ struct CategoryCard: View {
                     Image(systemName: category.iconName)
                         .font(.system(size: iconSize, weight: .regular))
                         .foregroundColor(.fillsSecondary)
-                    
                 }
                 
-                // Label da categoria
                 Text(category.formattedName)
-                    .font(labelFont)              // mantém sempre a mesma fonte
+                    .font(labelFont)
                     .padding(.top, paddingTop)
-                    .lineLimit(1)                  // no máximo 1 linha
+                    .lineLimit(1)
                     .truncationMode(.tail)
             }
         }
         .frame(width: cardSize)
         .buttonStyle(PlainButtonStyle())
+        .accessibilityElement(children: .combine)
+        .accessibilityLabel(Text("category_card_label \(category.formattedName)"))
+        .accessibilityHint(Text("category_card_hint"))
+        .accessibilityAddTraits(.isButton)
     }
 }

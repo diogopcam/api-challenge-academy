@@ -15,8 +15,9 @@ struct EmptyStateOrders: View {
                 Image(.emptyStateOrders)
                     .resizable()
                     .frame(width: 65, height: 69)
+                    .accessibilityHidden(true)
                 VStack(spacing: 16) {
-                    Text("No OrdersView yet!")
+                    Text("No Orders yet!")
                         .font(.system(.body, weight: .semibold))
                         .foregroundStyle(.labelsPrimary)
                     
@@ -25,9 +26,9 @@ struct EmptyStateOrders: View {
                 }
             }
         }
-        
-        
-        
+        .accessibilityElement(children: .combine)
+        .accessibilityLabel(Text("empty_orders_state"))
+        .accessibilityHint(Text("empty_orders_hint"))
     }
 }
 
