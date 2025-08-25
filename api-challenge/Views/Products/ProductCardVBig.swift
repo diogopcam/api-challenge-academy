@@ -47,7 +47,7 @@ struct ProductCardVBig: View {
                 .lineLimit(2)
                 .accessibilityLabel("Name of the product:" + product.title)
 
-            Text("R$ \(product.price, specifier: "%.2f")")
+            Text("US$ \(product.price, specifier: "%.2f")")
                 .font(.headline)
                 .foregroundColor(.secondary)
                 .accessibilityLabel("Price: \(product.price)")

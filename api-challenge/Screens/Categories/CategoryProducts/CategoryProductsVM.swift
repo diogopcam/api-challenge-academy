@@ -11,7 +11,7 @@ import SwiftData
 @MainActor
 class CategoryProductsVM: CategoryProductsVMProtocol {
     var categoryName: String
-    
+  
     @Published var products: [ProductDTO] = []
     @Published var isLoading = false
     @Published var errorMessage: String?
