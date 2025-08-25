@@ -62,7 +62,7 @@ struct ProductCardV: View {
                     .multilineTextAlignment(.leading)
                     .frame(height: 36, alignment: .topLeading) // reserva espaço fixo p/ 2 linhas
                                 
-                Text("$\(product.price, specifier: "%.2f")")
+                Text("US$\(product.price, specifier: "%.2f")")
                     .font(.system(size: 13))
                     .foregroundColor(.secondary)
                     .multilineTextAlignment(.leading)
