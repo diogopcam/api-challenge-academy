@@ -33,7 +33,10 @@ struct ProductCardVBig: View {
                         .padding(8)
                         .background(RoundedRectangle(cornerRadius: 8).foregroundColor(Color(.systemGray5)))
                         .foregroundStyle(.labelsPrimary)
+                        .accessibilityLabel(isFavorited ? "Item not favorited" : "Item favorited")
+                        .accessibilityHint("Tap to toggle favorite")
                 }
+                .accessibilityElement(children: .combine)
                 .padding(12)
             }
 
@@ -42,12 +45,15 @@ struct ProductCardVBig: View {
                 .fontWeight(.semibold)
                 .foregroundColor(.primary)
                 .lineLimit(2)
+                .accessibilityLabel("Name of the product:" + product.title)
 
             Text("US$ \(product.price, specifier: "%.2f")")
                 .font(.headline)
                 .foregroundColor(.secondary)
+                .accessibilityLabel("Price: \(product.price)")
         }
         .padding(.horizontal, 16)
         .frame(width: 361, height: 459)
+        .accessibilityElement(children: .combine)
     }
 }
