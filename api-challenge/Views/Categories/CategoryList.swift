@@ -21,6 +21,7 @@ struct CategoryList: View {
                 Text(formattedName)
                     .font(.system(size: 17, weight: .regular))
                     .foregroundColor(.labelsPrimary)
+                    .accessibilityLabel(Text("Tap to see \(formattedName) products!"))
 
                 Spacer()
 

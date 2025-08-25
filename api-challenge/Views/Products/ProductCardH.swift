@@ -43,7 +43,7 @@ struct ProductCardH: View {
                     Text(String(format: "US$ %.2f", product.price))
                         .font(.system(.body, weight: .semibold))
                         .foregroundStyle(.labelsPrimary)
-                        .accessibilityLabel("Price: \(product.price)")
+                        .accessibilityLabel("Price: \(String(format: "%.2f", product.price))")
                 }
                 .padding(.top, 8)
                 .accessibilityElement(children: .combine)

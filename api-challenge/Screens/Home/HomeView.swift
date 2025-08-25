@@ -28,6 +28,7 @@ struct HomeView: View {
                         .bold()
                         .padding(.horizontal)
                         .padding(.top, 16)
+                        .accessibilityLabel("Show the products with the best deals")
                     
                     if vm.isLoading {
                         ProgressView()
@@ -59,6 +60,8 @@ struct HomeView: View {
                                 .bold()
                                 .padding(.horizontal)
                                 .padding(.top, 16)
+                                .accessibilityLabel("Shows the most chosen products")
+                            
                             
                             let columns = [
                                 GridItem(.flexible(), spacing: 0),

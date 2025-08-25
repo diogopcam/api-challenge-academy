@@ -71,7 +71,7 @@
         }
       }
     },
-    "Cancelar" : {
+    "Cancel" : {
       "localizations" : {
         "pt-BR" : {
           "stringUnit" : {
@@ -111,6 +111,16 @@
         }
       }
     },
+    "Category: %@" : {
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Categoria: %@"
+          }
+        }
+      }
+    },
     "Checkout" : {
       "localizations" : {
         "pt-BR" : {
@@ -121,17 +131,7 @@
         }
       }
     },
-    "Compra Finalizada" : {
-      "localizations" : {
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Compra finalizada"
-          }
-        }
-      }
-    },
-    "Confirmar" : {
+    "Confirm" : {
       "localizations" : {
         "pt-BR" : {
           "stringUnit" : {
@@ -141,12 +141,12 @@
         }
       }
     },
-    "Confirmar Checkout" : {
+    "Confirm Checkout" : {
       "localizations" : {
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Confirmar Pedido"
+            "value" : "Confirme o Checkout"
           }
         }
       }
@@ -217,18 +217,18 @@
         }
       }
     },
-    "Finalizar compra de %lld itens por %@?" : {
+    "Finalize purchase of %lld itens for %@?" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Finalizar compra de %1$lld itens por %2$@?"
+            "value" : "Finalize purchase of %1$lld itens for %2$@?"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Finalizar compra de %1$lld itens por %2$@?"
+            "value" : "Finalize a compra de %1$lld itens por %2$@?"
           }
         }
       }
@@ -283,6 +283,26 @@
         }
       }
     },
+    "Item favorited" : {
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Item favoritado"
+          }
+        }
+      }
+    },
+    "Item not favorited" : {
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Item não favoritado"
+          }
+        }
+      }
+    },
     "Kitchen Accessories" : {
       "localizations" : {
         "pt-BR" : {
@@ -308,7 +328,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Calças Masculinas"
+            "value" : "Camisas Masculinas"
           }
         }
       }
@@ -413,12 +433,42 @@
         }
       }
     },
+    "Orders" : {
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pedidos"
+          }
+        }
+      }
+    },
     "OrdersView" : {
       "localizations" : {
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Pedidos"
+          }
+        }
+      }
+    },
+    "Price: %@" : {
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Preço: %@"
+          }
+        }
+      }
+    },
+    "Purchase completed" : {
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Compra concluida"
           }
         }
       }
@@ -443,12 +493,32 @@
         }
       }
     },
-    "Seu pedido foi realizado com sucesso!" : {
+    "See all" : {
       "localizations" : {
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Seu pedido foi realizado com sucesso!"
+            "value" : "Veja tudo"
+          }
+        }
+      }
+    },
+    "Show the products with the best deals" : {
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mostra os produtos com as melhores ofertas!"
+          }
+        }
+      }
+    },
+    "Shows the most chosen products" : {
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mostra os produtos mais escolhidos!"
           }
         }
       }
@@ -503,6 +573,36 @@
         }
       }
     },
+    "Tap in Checkout for proceed to payment" : {
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Toque em Checkout para processar o pagamento"
+          }
+        }
+      }
+    },
+    "Tap to see %@ products!" : {
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Toque para ver os produtos!"
+          }
+        }
+      }
+    },
+    "Tap to toggle favorite" : {
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Toque para favoritar"
+          }
+        }
+      }
+    },
     "Top Picks" : {
       "localizations" : {
         "pt-BR" : {
@@ -529,6 +629,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Total"
+          }
+        }
+      }
+    },
+    "Total of all items in the cart" : {
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Total de todos os itens do carrinho"
           }
         }
       }
@@ -629,6 +739,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Seu carrinho está vazio!"
+          }
+        }
+      }
+    },
+    "Your order was placed successfully!" : {
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Seu pedido foi feito com sucesso!"
           }
         }
       }

@@ -66,11 +66,11 @@ struct ProductCardV: View {
                     .frame(height: 36, alignment: .topLeading) // reserva espaço fixo p/ 2 linhas
                     .accessibilityLabel("Name of the product:" + product.title)
                 
-                Text("$\(product.price, specifier: "%.2f")")
+                Text("US$\(product.price, specifier: "%.2f")")
                     .font(.system(size: 13))
                     .foregroundColor(.secondary)
                     .multilineTextAlignment(.leading)
-                    .accessibilityLabel("Price: \(product.price)")
+                    .accessibilityLabel("Price: \(String(format: "%.2f", product.price))")
             }
             .padding(.horizontal, 16)
             .padding(.top, 8)

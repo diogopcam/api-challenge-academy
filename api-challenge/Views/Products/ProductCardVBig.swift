@@ -50,7 +50,7 @@ struct ProductCardVBig: View {
             Text("US$ \(product.price, specifier: "%.2f")")
                 .font(.headline)
                 .foregroundColor(.secondary)
-                .accessibilityLabel("Price: \(product.price)")
+                .accessibilityLabel("Price: \(String(format: "%.2f", product.price))")
         }
         .padding(.horizontal, 16)
         .frame(width: 361, height: 459)
