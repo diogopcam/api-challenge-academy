@@ -19,34 +19,39 @@ struct ProductDetailsSheet: View {
     var body: some View {
         NavigationStack {
             VStack {
-                VStack(spacing: 8) {
+                VStack (spacing: 8){
                     Capsule()
                         .frame(width: 40, height: 5)
                         .foregroundColor(.gray.opacity(0.5))
                         .padding(.top, 8)
-                    
                     Text("Details")
+                        Divider()
                         .font(.system(size: 17, weight: .semibold))
-                    
-                    Divider()
                 }
                 .frame(width: 393, height: 54)
                 .background(.fillsTertiary)
-                
-                ScrollView {
-                    VStack {
-                        ProductCardVBig(
-                            product: vm.product,
-                            isFavorited: vm.isProductFavorite(id: vm.product.id),
-                            onToggleFavorite: { vm.toggleFavorite(for: vm.product) }
-                        )
-                        
-                        Text(vm.product.description)
-                            .foregroundColor(.secondary)
+                ScrollView{
+                    VStack (spacing: 16){
+                        VStack {
+                            ProductCardVBig(
+                                product: vm.product,
+                                isFavorited: vm.isProductFavorite(id: vm.product.id),
+                                onToggleFavorite: {vm.toggleFavorite(for: vm.product) }
+                            )
+                        }
+                        .frame(width: 361)
+                        VStack {
+                            Text(vm.product.description)
+                                .foregroundColor(.secondary)
+                                .frame(width: 361, alignment: .leading)
+                            }
+                        }
+                    .frame(width: 361)
                     }
-                }
-                .padding(.horizontal)
-                
+        
+                //.padding(.horizontal)
+                .frame(width: 361)
+
                 Button(action: {
                     addToCart()
                     dismiss()
@@ -66,9 +71,9 @@ struct ProductDetailsSheet: View {
             .background(.backgroundsPrimary)
         }
         .toolbarBackground(.backgroundsTertiary, for: .navigationBar)
-        .toolbarBackground(.visible, for: .navigationBar)
-    }
-    
+              .toolbarBackground(.visible, for: .navigationBar)
+          }
+
     private func addToCart() {
         vm.addToCart()
     }
