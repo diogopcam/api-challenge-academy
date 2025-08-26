@@ -10,7 +10,7 @@ import SwiftData
 
 @MainActor
 final class OrdersVM: OrdersVMProtocol {
-    @Published var orderedProducts: [ProductDTO] = []
+    @Published var orderedProducts: [OrderProductDisplay] = []
     @Published var quantities: [Int: Int] = [:]
     @Published var isLoading = false
     @Published var errorMessage: String?
@@ -24,51 +24,42 @@ final class OrdersVM: OrdersVMProtocol {
     }
     
     func fetchOrderedProducts() async {
-        isLoading = true
-        errorMessage = nil
-        defer { isLoading = false }
-        
-        let persistedOrders = userService.getOrderedProducts()
-        orderedProducts.removeAll()
-        quantities.removeAll()
-        
-        var failedProducts: Int = 0
-        
-        await withTaskGroup(of: (ProductDTO, Int)?.self) { group in
-            for persistedProduct in persistedOrders {
-                group.addTask {
-                    do {
-                        let productDTO = try await self.apiService.fetchProduct(id: persistedProduct.id)
-                        return (productDTO, persistedProduct.quantity)
-                    } catch {
-                        print("Erro ao buscar produto \(persistedProduct.id): \(error)")
-                        return nil
-                    }
-                }
-            }
-            
-            for await result in group {
-                if let (productDTO, quantity) = result {
-                    await MainActor.run {
-                        self.orderedProducts.append(productDTO)
-                        self.quantities[productDTO.id] = quantity
-                    }
-                } else {
-                    failedProducts += 1
-                }
-            }
-        }
-        
-        if failedProducts > 0 {
-            if orderedProducts.isEmpty {
-                errorMessage = "Não foi possível carregar seus pedidos. Verifique sua conexão."
-            } else {
-                errorMessage = "\(failedProducts) pedido(s) não puderam ser carregados."
-            }
-        }
-        
-        print("✅ \(orderedProducts.count) produtos carregados, \(failedProducts) falhas")
-    }
+           isLoading = true
+           errorMessage = nil
+           defer { isLoading = false }
+
+           let persistedOrders = userService.getOrderedProducts()
+           var tempOrdered: [OrderProductDisplay] = []
+
+           await withTaskGroup(of: OrderProductDisplay?.self) { group in
+               for persisted in persistedOrders {
+                   group.addTask {
+                       do {
+                           let dto = try await self.apiService.fetchProduct(id: persisted.id)
+                           return OrderProductDisplay(
+                               product: dto,
+                               quantity: persisted.quantity,
+                               dateOrdered: persisted.dateOrdered ?? Date()
+                           )
+                       } catch {
+                           print("Erro ao buscar produto \(persisted.id): \(error)")
+                           return nil
+                       }
+                   }
+               }
+
+               for await result in group {
+                   if let display = result {
+                       tempOrdered.append(display)
+                   }
+               }
+           }
+
+           // Atualiza a lista com animação
+           withAnimation(.easeInOut) {
+               self.orderedProducts = tempOrdered
+           }
+       }
     
     func quantity(for productId: Int) -> Int {
         quantities[productId] ?? 1

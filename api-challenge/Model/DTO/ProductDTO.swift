@@ -12,4 +12,5 @@ struct ProductDTO: Identifiable, Decodable {
     var category: String
     var price: Double
     var thumbnail: String
+    
 }

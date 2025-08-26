@@ -16,6 +16,7 @@ final class Product {
     var isFavorite: Bool = false
     var isCart: Bool = false
     var isOrder: Bool = false
+    var dateOrdered: Date?
     
     init(id: Int, category: String, quantity: Int = 1) {
         self.id = id

@@ -17,7 +17,6 @@ struct CartView: View {
         _vm = StateObject(wrappedValue: vm)
     }
     
-    // Função para criar cada linha do produto
     private func cartProductRow(for item: CartProductDisplay) -> some View {
         let productName = item.dto?.title ?? "Nulo"
         let price = item.dto?.price ?? 0.00
@@ -29,7 +28,7 @@ struct CartView: View {
             price: price,
             quantity: Binding(
                 get: { item.product.quantity },
-                set: { _ in } // Binding vazio já que usamos stepper
+                set: { _ in }
             ),
             variant: .stepper(
                 onIncrement: {
@@ -41,8 +40,7 @@ struct CartView: View {
             )
         )
     }
-    
-    // Seção de checkout extraída
+
     private var checkoutSection: some View {
         VStack {
             Divider()
@@ -58,8 +56,17 @@ struct CartView: View {
             .padding(.top, 16)
             .padding(.horizontal)
             
-            Button("Checkout") {
+            Button(action: {
                 showingCheckoutAlert = true
+            }) {
+                Text("Checkout")
+                    .foregroundStyle(.labelsPrimary)
+                    .frame(height: 54)
+                    .frame(maxWidth: .infinity)
+                    .background(.fillsTertiary)
+                    .cornerRadius(12)
+                    .font(.system(size: 17, weight: .semibold))
+
             }
             .foregroundStyle(.labelsPrimary)
             .frame(maxWidth: .infinity)
@@ -76,11 +83,12 @@ struct CartView: View {
         let total = vm.totalPrice()
         let formatter = NumberFormatter()
         formatter.numberStyle = .currency
-        formatter.locale = Locale.current
+        formatter.currencyCode = "USD"     // força dólar americano
         formatter.maximumFractionDigits = 2
         formatter.minimumFractionDigits = 2
         return formatter.string(from: NSNumber(value: total)) ?? "US$ \(total)"
     }
+
     
     // Conteúdo principal da view
     private var contentView: some View {
@@ -97,9 +105,11 @@ struct CartView: View {
                     ScrollView {
                         VStack(spacing: 16) {
                             ForEach(vm.cartProducts) { item in
-                                cartProductRow(for: item) // ← Agora simplificado!
+                                cartProductRow(for: item)
+                                    .transition(.move(edge: .trailing).combined(with: .opacity))
                             }
                         }
+                        .animation(.easeInOut, value: vm.cartProducts)
                         .padding()
                     }
                     
@@ -147,6 +157,6 @@ extension Double {
     }
     
     var formattedDecimal: String {
-        String(format: "%.2f", self) // → "99.99"
+        String(format: "%.2f", self)
     }
 }
