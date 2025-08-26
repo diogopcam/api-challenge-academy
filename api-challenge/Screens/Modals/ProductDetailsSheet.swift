@@ -31,17 +31,26 @@ struct ProductDetailsSheet: View {
                 .frame(width: 393, height: 54)
                 .background(.fillsTertiary)
                 ScrollView{
-                    VStack {
-                        ProductCardVBig(
-                            product: vm.product,
-                            isFavorited: vm.isProductFavorite(id: vm.product.id),
-                            onToggleFavorite: {vm.toggleFavorite(for: vm.product) }
-                        )
+                    VStack (spacing: 16){
+                        VStack {
+                            ProductCardVBig(
+                                product: vm.product,
+                                isFavorited: vm.isProductFavorite(id: vm.product.id),
+                                onToggleFavorite: {vm.toggleFavorite(for: vm.product) }
+                            )
+                        }
+                        .frame(width: 361)
+                        VStack {
+                            Text(vm.product.description)
+                                .foregroundColor(.secondary)
+                                .frame(width: 361, alignment: .leading)
+                            }
+                        }
+                    .frame(width: 361)
                     }
-                    Text(vm.product.description)
-                        .foregroundColor(.secondary)
-                    }
-                .padding(.horizontal)
+        
+                //.padding(.horizontal)
+                .frame(width: 361)
 
                 Button("Add to cart") {
                     addToCart()

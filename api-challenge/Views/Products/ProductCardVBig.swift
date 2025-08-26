@@ -21,7 +21,8 @@ struct ProductCardVBig: View {
                 } placeholder: {
                     Image(.placeholder).resizable().scaledToFit()
                 }
-                .frame(width: 329, height: 329)
+                .frame(height: 329)
+                .frame(maxWidth: .infinity)
                 .cornerRadius(16)
 
                 Button {
@@ -37,23 +38,34 @@ struct ProductCardVBig: View {
                         .accessibilityHint("Tap to toggle favorite")
                 }
                 .accessibilityElement(children: .combine)
-                .padding(12)
+                .padding(8)
             }
 
-            Text(product.title)
-                .font(.title3)
-                .fontWeight(.semibold)
-                .foregroundColor(.primary)
-                .lineLimit(2)
-                .accessibilityLabel("Name of the product:" + product.title)
+            VStack(alignment: .leading, spacing: 4){
+                Text(product.title)
+                    .font(.title3)
+                    .fontWeight(.semibold)
+                    .foregroundColor(.primary)
+                    .lineLimit(2)
+                    .multilineTextAlignment(.leading)
+                    .accessibilityLabel("Name of the product:" + product.title)
 
-            Text("US$ \(product.price, specifier: "%.2f")")
-                .font(.headline)
-                .foregroundColor(.secondary)
-                .accessibilityLabel("Price: \(String(format: "%.2f", product.price))")
+                Text("US$ \(product.price, specifier: "%.2f")")
+                    .font(.headline)
+                    .foregroundColor(.secondary)
+                    .multilineTextAlignment(.leading)
+                    .accessibilityLabel("Price: \(String(format: "%.2f", product.price))")
+            }
+           
+            
         }
-        .padding(.horizontal, 16)
-        .frame(width: 361, height: 459)
+        .frame(height: 459)
+        .frame(maxWidth: .infinity)
         .accessibilityElement(children: .combine)
     }
 }
+
+
+
+
+
