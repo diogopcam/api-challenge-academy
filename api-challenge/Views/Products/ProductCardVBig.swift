@@ -56,16 +56,9 @@ struct ProductCardVBig: View {
                     .multilineTextAlignment(.leading)
                     .accessibilityLabel("Price: \(String(format: "%.2f", product.price))")
             }
-           
-            
         }
         .frame(height: 459)
         .frame(maxWidth: .infinity)
         .accessibilityElement(children: .combine)
     }
 }
-
-
-
-
-
