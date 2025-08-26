@@ -52,15 +52,19 @@ struct ProductDetailsSheet: View {
                 //.padding(.horizontal)
                 .frame(width: 361)
 
-                Button("Add to cart") {
+                Button(action: {
                     addToCart()
                     dismiss()
+                }) {
+                    Text("Add to cart")
+                        .foregroundStyle(.labelsPrimary)
+                        .frame(height: 54)
+                        .frame(maxWidth: .infinity)
+                        .background(.fillsTertiary)
+                        .cornerRadius(12)
+                        .font(.system(size: 17, weight: .semibold))
                 }
-                .foregroundStyle(.labelsPrimary)
-                .frame(height: 54)
-                .frame(maxWidth: .infinity)
-                .background(.fillsTertiary)
-                .cornerRadius(12)
+                .contentShape(Rectangle())
                 .padding(.horizontal)
                 .padding(.bottom, 8)
             }

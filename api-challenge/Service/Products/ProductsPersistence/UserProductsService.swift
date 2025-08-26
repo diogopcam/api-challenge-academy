@@ -102,7 +102,8 @@ final class UserProductsService: UserProductsServiceProtocol {
             product.quantity -= 1
         } else {
             product.isCart = false
-            product.quantity = 1
+            product.quantity = 0
+            print("Esse produto não consta mais no carrinho")
         }
         try context.save()
     }
@@ -111,12 +112,11 @@ final class UserProductsService: UserProductsServiceProtocol {
         if let existing = fetchProduct(by: dto.id) {
             existing.isFavorite.toggle()
         } else {
-            // ✅ Cria novo produto marcado como favorito
             let product = Product(
                 id: dto.id,
                 category: dto.category
             )
-            product.isFavorite = true // ← Define como favorito
+            product.isFavorite = true
             context.insert(product)
         }
 
@@ -124,25 +124,20 @@ final class UserProductsService: UserProductsServiceProtocol {
     }
     
     func checkoutCartProducts() throws {
-            let descriptor = FetchDescriptor<Product>(
-                predicate: #Predicate { $0.isCart == true }
-            )
-            
-            let cartProducts = try context.fetch(descriptor)
-            
-            for product in cartProducts {
-                product.isCart = false
-                product.isOrder = true
-            }
-            
-            try context.save()
-            
-            print("=== CHECKOUT CONCLUÍDO ===")
-            print("Produtos movidos para pedidos: \(cartProducts.count)")
-            for product in cartProducts {
-                print("ID: \(product.id), Categoria: \(product.category), Quantidade: \(product.quantity)")
-            }
+        let descriptor = FetchDescriptor<Product>(
+            predicate: #Predicate { $0.isCart == true }
+        )
+        
+        let checkoutDate = Date()
+        let cartProducts = try context.fetch(descriptor)
+        
+        for product in cartProducts {
+            product.isCart = false
+            product.isOrder = true
+            product.dateOrdered = checkoutDate
         }
-
+        
+        try context.save()
+    }
 }
 

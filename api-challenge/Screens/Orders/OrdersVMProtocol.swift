@@ -10,7 +10,7 @@ import SwiftUI
 
 @MainActor
 protocol OrdersVMProtocol: ObservableObject {
-    var orderedProducts: [ProductDTO] { get }
+    var orderedProducts: [OrderProductDisplay] { get }
     var quantities: [Int: Int] { get }
     var isLoading: Bool { get }
     var errorMessage: String? { get }

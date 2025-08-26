@@ -36,10 +36,11 @@ struct FavoritesView: View {
                                     image: product.thumbnail,
                                     productName: product.title,
                                     price: product.price,
+                                    quantity: .constant(0),
                                     variant: .cart(action: {
                                         selectedProduct = product
                                         showProductDetails = true
-                                    })
+                                    }),
                                 )
                             }
                         }

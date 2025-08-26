@@ -14,6 +14,12 @@ struct ProductCell: View {
     let productName: String
     let price: Double
     let variant: ProductListStyle
+    let dateOrdered: Date?
+    
+    private var deliveryInfo: DeliveryInfo? {
+        guard let date = dateOrdered else { return nil }
+        return DeliveryInfo(from: date)
+    }
 
     private let cardWidth: CGFloat = 361
     private let cardHeight: CGFloat = 94
@@ -21,12 +27,13 @@ struct ProductCell: View {
     private let imageFrameSize: CGSize = CGSize(width: 78, height: 78)
     
     // Inicializador só para order/delivery
-    init(image: String?, productName: String, price: Double, variant: ProductListStyle) {
+    init(image: String?, productName: String, price: Double, variant: ProductListStyle, dateOrdered: Date) {
         self.thumbnailURL = image
         self.productName = productName
         self.price = price
-        self._quantity = .constant(0) // valor dummy, nunca será usado
+        self._quantity = .constant(0)
         self.variant = variant
+        self.dateOrdered = dateOrdered
     }
     
     init(image: String?, productName: String, price: Double, quantity: Binding<Int>, variant: ProductListStyle) {
@@ -35,6 +42,7 @@ struct ProductCell: View {
         self.price = price
         self._quantity = quantity
         self.variant = variant
+        self.dateOrdered = nil
     }
 
     var body: some View {
@@ -42,12 +50,14 @@ struct ProductCell: View {
             imageSection
 
             VStack(alignment: .leading, spacing: 4) {
-                if case let .delivery(month, day) = variant {
-                    Text("DELIVERY BY \(month), \(day)")
+                
+                if case .delivery = variant, let date = dateOrdered {
+                    let deliveryInfo = DeliveryInfo(from: date)
+                    Text(deliveryInfo.displayText)
                         .font(.system(size: 12))
                         .foregroundColor(.labelsSecondary)
                 }
-
+                
                 Text(productName)
                     .font(.system(size: 13))
                     .foregroundColor(.labelsPrimary)

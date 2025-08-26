@@ -300,6 +300,7 @@
       }
     },
     "DELIVERY BY %@, %@" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {

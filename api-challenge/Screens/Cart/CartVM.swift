@@ -4,7 +4,6 @@
 //
 //  Created by Eduardo Ferrari on 16/08/25.
 //
-
 import SwiftUI
 import SwiftData
 
@@ -29,29 +28,19 @@ final class CartVM: CartVMProtocol {
         errorMessage = nil
         
         do {
-            // Pega dados da API
             let dtoList = try await apiService.fetchProducts()
+        
             productMap = Dictionary(uniqueKeysWithValues: dtoList.map { ($0.id, $0) })
             
-            // Pega dados do carrinho do SwiftData
             let cartItems = try productsService.getCartProducts()
             
-            // Mapeia para display
             cartProducts = cartItems.map { product in
                 let dto = productMap[product.id]
                 return CartProductDisplay(product: product, dto: dto)
             }
             
-            // Print para debug
-            print("=== PRODUTOS NO CARRINHO ===")
-            for product in cartItems {
-                print("ID: \(product.id), Quantidade: \(product.quantity)")
-            }
-            print("Total de itens: \(cartItems.count)")
-            
         } catch {
             errorMessage = error.localizedDescription
-            print("Erro ao carregar carrinho: \(error)")
         }
         
         isLoading = false
@@ -61,8 +50,7 @@ final class CartVM: CartVMProtocol {
         do {
             try productsService.increaseQuantity(product)
         } catch {
-            errorMessage = "Erro ao aumentar quantidade"
-            print("Erro: \(error)")
+            print("Error: \(error)")
         }
     }
     
@@ -70,15 +58,14 @@ final class CartVM: CartVMProtocol {
         do {
             try productsService.decreaseQuantity(product)
             
-            // ✅ Remove o produto do array se a quantidade for 0
             if product.quantity == 0 {
-                cartProducts.removeAll { $0.product.id == product.id }
+                withAnimation(.easeInOut) {
+                    cartProducts.removeAll { $0.product.id == product.id }
+                }
             }
             
-            
         } catch {
-            errorMessage = "Erro ao diminuir quantidade"
-            print("Erro: \(error)")
+            print("Error: \(error)")
         }
     }
 
@@ -87,9 +74,8 @@ final class CartVM: CartVMProtocol {
         var total: Double = 0.0
         
         for item in cartProducts {
-            // Força o uso do DTO (dado atualizado)
             guard let dtoPrice = item.dto?.price else {
-                continue // Pula itens sem DTO (ou trata como 0)
+                continue
             }
             total += dtoPrice * Double(item.product.quantity)
         }
@@ -105,14 +91,10 @@ final class CartVM: CartVMProtocol {
             try productsService.checkoutCartProducts()
             checkoutSuccess = true
             
-            // Limpa o carrinho localmente
             cartProducts.removeAll()
             
-            print("Checkout realizado com sucesso!")
-            
         } catch {
-            errorMessage = "Erro ao finalizar compra: \(error.localizedDescription)"
-            print("Erro no checkout: \(error)")
+            errorMessage = "Error to do checkout: \(error.localizedDescription)"
         }
         
         isLoading = false
