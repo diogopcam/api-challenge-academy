@@ -16,7 +16,7 @@ struct ProductCardH: View {
     var body: some View {
         ZStack(alignment: .topTrailing) {
             HStack(spacing: 12) {
-                // Imagem
+        
                 AsyncImage(url: URL(string: product.thumbnail)) { image in
                     image
                         .resizable()
@@ -40,7 +40,7 @@ struct ProductCardH: View {
                         .fixedSize(horizontal: false, vertical: true)
                         .accessibilityLabel("Name of the product:" + product.title)
                     
-                    Text(String(format: "US$ %.2f", product.price))
+                    Text("US$ \(product.price, specifier: "%.2f")")
                         .font(.system(.body, weight: .semibold))
                         .foregroundStyle(.labelsPrimary)
                         .accessibilityLabel("Price: \(String(format: "%.2f", product.price))")
@@ -86,10 +86,4 @@ struct ProductCardH: View {
         .frame(width: 368, height: 176)
         .accessibilityElement(children: .combine)
     }
-}
-
-    
-
-#Preview {
-    TabBar()
 }

@@ -967,6 +967,7 @@
       }
     },
     "US$%.2f" : {
+      "extractionState" : "stale",
       "localizations" : {
         "pt-BR" : {
           "stringUnit" : {

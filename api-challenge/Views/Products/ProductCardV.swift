@@ -42,7 +42,6 @@ struct ProductCardV: View {
                         .resizable()
                         .scaledToFit()
                         .frame(width: 20, height: 20)
-                        .background(RoundedRectangle(cornerRadius: 8).foregroundColor(Color(.fillsTertiary)))
                         .foregroundStyle(isFavorited ? .labelsPrimary : .labelsPrimary)
                         .padding(8)
                         .background(
@@ -59,16 +58,16 @@ struct ProductCardV: View {
             // Texto
             VStack(alignment: .leading, spacing: 4) {
                 Text(product.title)
-                    .font(.system(size: 14, weight: .semibold))
-                    .foregroundColor(.primary)
-                    .lineLimit(2) // no máximo 2 linhas
+                    .font(.system(size: 15, weight: .regular))
+                    .foregroundColor(.labelsPrimary)
+                    .lineLimit(2)
                     .multilineTextAlignment(.leading)
-                    .frame(height: 36, alignment: .topLeading) // reserva espaço fixo p/ 2 linhas
+                    .frame(height: 36, alignment: .topLeading)
                     .accessibilityLabel("Name of the product:" + product.title)
                 
-                Text("US$\(product.price, specifier: "%.2f")")
-                    .font(.system(size: 13))
-                    .foregroundColor(.secondary)
+                Text("US$ \(product.price, specifier: "%.2f")")
+                    .font(.system(size: 17, weight: .semibold))
+                    .foregroundColor(.labelsPrimary)
                     .multilineTextAlignment(.leading)
                     .accessibilityLabel("Price: \(String(format: "%.2f", product.price))")
             }
@@ -87,41 +86,3 @@ struct ProductCardV: View {
         .accessibilityElement(children: .combine)
     }
 }
-
-// MARK: - Preview
-
-#if DEBUG
-struct ProductCardV_Previews: PreviewProvider {
-    static var previews: some View {
-        let sampleProduct = ProductDTO(
-            id: 1,
-            title: "Example Product With a Really Long Name",
-            description: "saas",
-            category: "This is a sample description for preview purposes.",
-            price: 190.00, thumbnail: "https://via.placeholder.com/150"
-        )
-        
-        Group {
-            ProductCardV(
-                product: sampleProduct,
-                isFavorited: false,
-                onToggleFavorite: { print("Favorited toggled!") },
-                onTapProduct: { print("Card tapped!") }
-            )
-            .previewLayout(.sizeThatFits)
-            .padding()
-            .previewDisplayName("Default State")
-            
-            ProductCardV(
-                product: sampleProduct,
-                isFavorited: true,
-                onToggleFavorite: { print("Favorited toggled!") },
-                onTapProduct: { print("Card tapped!") }
-            )
-            .previewLayout(.sizeThatFits)
-            .padding()
-            .previewDisplayName("Favorited State")
-        }
-    }
-}
-#endif

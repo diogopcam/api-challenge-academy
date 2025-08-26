@@ -45,6 +45,8 @@ struct OrdersView: View {
                                 await vm.fetchOrderedProducts()
                             }
                         }
+                    } else if vm.orderedProducts.isEmpty {
+                        EmptyStateOrders()
                     } else {
                         productsListView
                     }
