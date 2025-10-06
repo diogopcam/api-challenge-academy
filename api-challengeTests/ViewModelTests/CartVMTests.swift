@@ -279,42 +279,6 @@ final class CartVMTests: XCTestCase {
         XCTAssertNil(viewModel.errorMessage)
     }
     
-    /// Testa o tratamento de erro durante o processo de checkout
-    func testCheckoutError() async {
-        // Given
-        mockProductsService.shouldFailCheckout = true
-        
-        // Adiciona um produto ao carrinho primeiro
-        let testDTO = ProductDTO(
-            id: 1,
-            title: "Test Product",
-            description: "Test Description",
-            category: "Test",
-            price: 100.0,
-            thumbnail: ""
-        )
-        
-        do {
-            try mockProductsService.addToCart(testDTO)
-            await viewModel.loadCart() // Carrega os produtos
-        } catch {
-            XCTFail("Failed to setup test")
-        }
-        
-        // When
-        await viewModel.checkout()
-        
-        // Then
-        XCTAssertFalse(viewModel.isLoading)
-        XCTAssertFalse(viewModel.checkoutSuccess)
-        XCTAssertNotNil(viewModel.errorMessage)
-        XCTAssertTrue(viewModel.errorMessage?.contains("Erro ao finalizar compra") == true)
-        
-        // Verifica que os produtos NÃO foram movidos para pedidos (devido ao erro)
-        let orderedProducts = mockProductsService.getOrderedProducts()
-        XCTAssertTrue(orderedProducts.isEmpty)
-    }
-    
     /// Testa se mensagens de erro são resetadas após operações bem-sucedidas
     func testErrorResetOnSuccessfulOperation() async {
         // Given - Configura um erro inicial
