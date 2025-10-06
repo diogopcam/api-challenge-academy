@@ -8,16 +8,11 @@
             "state" : "new",
             "value" : "%1$@, price %2$@"
           }
-        }
-      }
-    },
-    "%@, price %@ dollars" : {
-      "extractionState" : "stale",
-      "localizations" : {
+        },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%@, preço %@ dólares"
+            "value" : "%1$@, preço %2$@"
           }
         }
       }
@@ -103,17 +98,6 @@
       }
     },
     "Cancel" : {
-      "localizations" : {
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Cancelar"
-          }
-        }
-      }
-    },
-    "Cancelar" : {
-      "extractionState" : "stale",
       "localizations" : {
         "pt-BR" : {
           "stringUnit" : {
@@ -243,17 +227,6 @@
         }
       }
     },
-    "Compra Finalizada" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Compra finalizada"
-          }
-        }
-      }
-    },
     "Confirm" : {
       "localizations" : {
         "pt-BR" : {
@@ -274,51 +247,12 @@
         }
       }
     },
-    "Confirmar" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Confirmar"
-          }
-        }
-      }
-    },
-    "Confirmar Checkout" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Confirmar Pedido"
-          }
-        }
-      }
-    },
     "Deals of the Day" : {
       "localizations" : {
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Ofertas do dia"
-          }
-        }
-      }
-    },
-    "DELIVERY BY %@, %@" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "DELIVERY BY %1$@, %2$@"
-          }
-        },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "PEDIDO POR %1$@,%2$@"
           }
         }
       }
@@ -419,23 +353,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Favoritos"
-          }
-        }
-      }
-    },
-    "Finalizar compra de %lld itens por %@?" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Finalizar compra de %1$lld itens por %2$@?"
-          }
-        },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Finalizar compra de %1$lld itens por %2$@?"
           }
         }
       }
@@ -626,17 +543,6 @@
         }
       }
     },
-    "No OrdersView yet!" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Sem pedidos ainda!"
-          }
-        }
-      }
-    },
     "No products found" : {
       "localizations" : {
         "pt-BR" : {
@@ -648,7 +554,14 @@
       }
     },
     "No products in favorites" : {
-
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sem produtos nos favortios"
+          }
+        }
+      }
     },
     "No results for \"%@\"" : {
       "localizations" : {
@@ -671,17 +584,6 @@
       }
     },
     "Orders" : {
-      "localizations" : {
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Pedidos"
-          }
-        }
-      }
-    },
-    "OrdersView" : {
-      "extractionState" : "stale",
       "localizations" : {
         "pt-BR" : {
           "stringUnit" : {
@@ -731,17 +633,6 @@
         }
       }
     },
-    "Product with estimated delivery date" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Produto com data de entrega estimada"
-          }
-        }
-      }
-    },
     "Purchase completed" : {
       "localizations" : {
         "pt-BR" : {
@@ -778,17 +669,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Veja todos"
-          }
-        }
-      }
-    },
-    "Seu pedido foi realizado com sucesso!" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Seu pedido foi realizado com sucesso!"
           }
         }
       }
@@ -869,17 +749,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Toque em Checkout para processar o pagamento"
-          }
-        }
-      }
-    },
-    "Tap to add to cart" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Toque para adicionar ao carrinho"
           }
         }
       }
@@ -990,28 +859,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "R$%.2f"
-          }
-        }
-      }
-    },
-    "US$%.2f" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "R$%.2f"
-          }
-        }
-      }
-    },
-    "Use the plus and minus buttons to adjust the quantity" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Use os botões de mais ou menos para ajustar a quantidade"
           }
         }
       }
