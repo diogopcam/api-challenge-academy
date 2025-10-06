@@ -33,7 +33,14 @@
       }
     },
     "Add a product to favorites and it show up here." : {
-
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Adicione um produto aos favoritos e ele aparecerá aqui."
+          }
+        }
+      }
     },
     "Add an item to your cart." : {
       "localizations" : {
@@ -610,7 +617,14 @@
       }
     },
     "No Orders yet!" : {
-
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sem pedidos ainda!"
+          }
+        }
+      }
     },
     "No OrdersView yet!" : {
       "extractionState" : "stale",
@@ -657,7 +671,14 @@
       }
     },
     "Orders" : {
-
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pedidos"
+          }
+        }
+      }
     },
     "OrdersView" : {
       "extractionState" : "stale",
@@ -752,7 +773,14 @@
       }
     },
     "See all" : {
-
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Veja todos"
+          }
+        }
+      }
     },
     "Seu pedido foi realizado com sucesso!" : {
       "extractionState" : "stale",
