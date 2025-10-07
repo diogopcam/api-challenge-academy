@@ -27,9 +27,13 @@ struct ProductDetailsSheet: View {
                     Text("Details")
                         Divider()
                         .font(.system(size: 17, weight: .semibold))
+                        .accessibilityAddTraits(.isHeader)
                 }
                 .frame(width: 393, height: 54)
                 .background(.fillsTertiary)
+                .accessibilityElement(children: .combine)
+                .accessibilityLabel(NSLocalizedString("Product details section", comment: ""))
+
                 ScrollView{
                     VStack (spacing: 16){
                         VStack {
@@ -38,12 +42,16 @@ struct ProductDetailsSheet: View {
                                 isFavorited: vm.isProductFavorite(id: vm.product.id),
                                 onToggleFavorite: {vm.toggleFavorite(for: vm.product) }
                             )
+                            .accessibilityElement(children: .combine)
+                            .accessibilityLabel(String(format: NSLocalizedString("Product: %@", comment: ""), vm.product.title))
+                            .accessibilityHint(NSLocalizedString("Double tap to favorite or unfavorite this product", comment: ""))
                         }
                         .frame(width: 361)
                         VStack {
                             Text(vm.product.description)
                                 .foregroundColor(.secondary)
                                 .frame(width: 361, alignment: .leading)
+                                .accessibilityValue(vm.product.description)
                             }
                         }
                     .frame(width: 361)
@@ -67,6 +75,9 @@ struct ProductDetailsSheet: View {
                 .contentShape(Rectangle())
                 .padding(.horizontal)
                 .padding(.bottom, 8)
+                .accessibilityLabel(NSLocalizedString("Add to cart", comment: ""))
+                .accessibilityHint(String(format: NSLocalizedString("Adds %@ to your cart", comment: ""), vm.product.title))
+                .accessibilityAddTraits(.isButton)
             }
             .background(.backgroundsPrimary)
         }

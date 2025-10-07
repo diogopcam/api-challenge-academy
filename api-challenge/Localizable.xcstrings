@@ -57,6 +57,16 @@
         }
       }
     },
+    "Adds %@ to your cart" : {
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Adicione %@ para seu carrinho"
+          }
+        }
+      }
+    },
     "Beauty" : {
       "localizations" : {
         "pt-BR" : {
@@ -280,6 +290,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Detalhes"
+          }
+        }
+      }
+    },
+    "Double tap to favorite or unfavorite this product" : {
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Clique duas vezes para favoritar ou não esse produto"
           }
         }
       }
@@ -666,6 +686,26 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Preço: %@"
+          }
+        }
+      }
+    },
+    "Product details section" : {
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Seção detalhes do produto"
+          }
+        }
+      }
+    },
+    "Product: %@" : {
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Produto: %@"
           }
         }
       }
