@@ -11,11 +11,11 @@ struct CategoriesView: View {
     @Environment(\.diContainer) private var container
     @State private var searchText = ""
     @StateObject private var vm: CategoriesVM
-    @State private var selectedCategory: String? = nil  // para navegação
+    @State private var selectedCategory: String? = nil
     
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
+    @State private var isLandscape = false
 
-    // 🔹 Categorias principais
     private let mainCategories = [
         "smartphones",
         "laptops",
@@ -24,7 +24,9 @@ struct CategoriesView: View {
         "skincare",
         "groceries",
         "home-decoration",
-        "mens-shoes"
+        "mens-shoes",
+        "womens-bags",
+        "mens-watches"
     ]
 
     init(vm: CategoriesVM){
@@ -45,50 +47,55 @@ struct CategoriesView: View {
 
     var body: some View {
         NavigationStack {
-            ScrollView {
-                VStack(spacing: 24) {
-                    
-                    // 🔹 Grade de categorias principais
-                    let columnCount = (horizontalSizeClass == .regular) ? 8 : 4
-                    let columns = Array(repeating: GridItem(.flexible(), spacing: 12), count: columnCount)
-                    
-                    let displayedCategories = (horizontalSizeClass == .regular)
-                        ? Array(mainCategories.prefix(8)) // iPad → 8 categorias
-                        : Array(mainCategories.prefix(4)) // iPhone → 4 categorias
-                    
-                    LazyVGrid(columns: columns, spacing: 16) {
-                        ForEach(displayedCategories, id: \.self) { category in
-                            CategoryCard(apiCategoryName: category) {
-                                selectedCategory = category
+            GeometryReader { geometry in
+                ScrollView {
+                    VStack(spacing: 24) {
+                        
+                        // 🔹 Detecta orientação baseada na geometria
+                        let isIPad = horizontalSizeClass == .regular
+                        let isLandscape = geometry.size.width > geometry.size.height
+                        let isIPadLandscape = isIPad && isLandscape
+
+                        let columnCount = isIPadLandscape ? 10 : (isIPad ? 8 : 4)
+                        let displayedCategoriesCount = isIPadLandscape ? 10 : (isIPad ? 8 : 4)
+
+                        let columns = Array(repeating: GridItem(.flexible(), spacing: 12), count: columnCount)
+                        let displayedCategories = Array(mainCategories.prefix(displayedCategoriesCount))
+                        
+                        LazyVGrid(columns: columns, spacing: 16) {
+                            ForEach(displayedCategories, id: \.self) { category in
+                                CategoryCard(apiCategoryName: category) {
+                                    selectedCategory = category
+                                }
                             }
                         }
-                    }
-                    .padding(.horizontal)
-                    
-                    // 🔹 Estados de carregamento/erro/lista
-                    if vm.isLoading {
-                        ProgressView()
-                    } else if let errorMessage = vm.errorMessage {
-                        ErrorView(message: errorMessage) {
-                            Task { await vm.loadCategories() }
-                        }
-                    } else if !filteredCategories.isEmpty {
-                        CategoryListView(
-                            apiCategories: filteredCategories,
-                            onTapCategory: { category in
-                                selectedCategory = category
+                        .padding(.horizontal)
+                        
+                        // 🔹 Estados de carregamento/erro/lista
+                        if vm.isLoading {
+                            ProgressView()
+                        } else if let errorMessage = vm.errorMessage {
+                            ErrorView(message: errorMessage) {
+                                Task { await vm.loadCategories() }
                             }
-                        )
-                    } else {
-                        VStack {
-                            Text(searchText.isEmpty ? "No categories found" : "No results for \"\(searchText)\"")
-                                .font(.headline)
-                                .foregroundColor(.secondary)
+                        } else if !filteredCategories.isEmpty {
+                            CategoryListView(
+                                apiCategories: filteredCategories,
+                                onTapCategory: { category in
+                                    selectedCategory = category
+                                }
+                            )
+                        } else {
+                            VStack {
+                                Text(searchText.isEmpty ? "No categories found" : "No results for \"\(searchText)\"")
+                                    .font(.headline)
+                                    .foregroundColor(.secondary)
+                            }
+                            .frame(maxWidth: .infinity, minHeight: 200)
                         }
-                        .frame(maxWidth: .infinity, minHeight: 200)
                     }
+                    .padding(.vertical)
                 }
-                .padding(.vertical)
             }
             .navigationTitle("Categorias")
             .searchable(text: $searchText, prompt: "Buscar...")
