@@ -24,6 +24,7 @@ struct DeliveryInfo {
 
     // Computed property para exibição
     var displayText: String {
-        "DELIVERY BY \(month), \(String(format: "%02d", day))"
+        String(format: NSLocalizedString("delivery_by_format", comment: "Delivery date format"), month, String(format: "%02d", day))
+
     }
 }

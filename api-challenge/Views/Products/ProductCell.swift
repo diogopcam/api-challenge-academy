@@ -169,6 +169,7 @@ struct ProductCell: View {
     }
     
     private var formattedPriceString: String {
-        return String(format: "US$ %.2f", price)
+        let format = NSLocalizedString("price_format", comment: "Format string for product price")
+        return String(format: format, price)
     }
 }

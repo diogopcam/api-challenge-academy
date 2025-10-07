@@ -257,6 +257,23 @@
         }
       }
     },
+    "delivery_by_format" : {
+      "comment" : "Delivery date format",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "DELIVERY BY %@, %@"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ENTREGA ATÉ %@, %@"
+          }
+        }
+      }
+    },
     "Details" : {
       "localizations" : {
         "pt-BR" : {
@@ -443,6 +460,9 @@
         }
       }
     },
+    "Key" : {
+      "extractionState" : "manual"
+    },
     "Kitchen Accessories" : {
       "localizations" : {
         "pt-BR" : {
@@ -619,6 +639,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Pressione para retirar uma unidade desse produto ao seu carrinho"
+          }
+        }
+      }
+    },
+    "price_format" : {
+      "comment" : "Format string for product price",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "US$ %.2f"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "R$ %.2f"
           }
         }
       }
